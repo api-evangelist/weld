@@ -1,0 +1,116 @@
+openapi: 3.0.0
+info:
+  title: Weld REST Connection Bridge Connections API
+  description: With the Weld REST API you can programmatically control your syncs
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://connect.weld.app
+security:
+- api_key: []
+tags:
+- name: Connections
+paths:
+  /connections/{id}/settings:
+    get:
+      description: Get settings based on ELT Sync. The configuration is used when we want to create or update an ELT Sync. The connection should be already created before getting the settings.
+      operationId: ConnectionsOpenApiController_getEltSettings
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the connection that is created.
+        schema:
+          example: X4ughggABSd3UY
+          type: string
+      responses:
+        '200':
+          description: A JSON Schema (draft-07) describing the available settings and their constraints for the connection. The `dependencies` keyword maps a field name to a list of other field names that must be provided before that field's dependent options (e.g. its `oneOf` list) can be resolved - resolve those dependent options by providing the already-selected values via `partial_settings` in the request body.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  $schema:
+                    type: string
+                    example: http://json-schema.org/draft-07/schema#
+                  title:
+                    type: string
+                    example: Salesforce Settings
+                  type:
+                    type: string
+                    example: object
+                  properties:
+                    type: object
+                    additionalProperties: true
+                  required:
+                    type: array
+                    items:
+                      type: string
+                  dependencies:
+                    type: object
+                    description: Maps a field name to a list of other field names that must be provided before this field's dependent options (e.g. its `oneOf` list) can be resolved.
+                    additionalProperties: true
+                required:
+                - $schema
+                - title
+                - type
+                - properties
+                additionalProperties: true
+      summary: Get ELT Settings for a connection
+      tags:
+      - Connections
+  /connections:
+    get:
+      description: List all Connections for the current account.
+      operationId: ConnectionsOpenApiController_listConnections
+      parameters:
+      - name: starting_after
+        required: false
+        in: query
+        description: The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request.
+        schema:
+          example: ewK8sDoLNI4CFR
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: The number of items to return in a single page.
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 10
+          type: integer
+      responses:
+        '200':
+          description: List of Connections has been successfully retrieved.
+      summary: List Connections
+      tags:
+      - Connections
+  /connections/{id}:
+    delete:
+      description: Deletes the specified Connection.
+      operationId: ConnectionsOpenApiController_deleteConnection
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the Connection to delete.
+        schema:
+          example: X4ughggABSd3UY
+          type: string
+      responses:
+        '200':
+          description: The Connection has been successfully deleted.
+        '204':
+          description: ''
+      summary: Delete Connection
+      tags:
+      - Connections
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+      description: The API key from Settings -> API Keys

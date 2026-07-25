@@ -1,0 +1,143 @@
+openapi: 3.0.0
+info:
+  title: Weld REST Connection Bridge Orchestration Runs API
+  description: With the Weld REST API you can programmatically control your syncs
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://connect.weld.app
+security:
+- api_key: []
+tags:
+- name: Orchestration Runs
+paths:
+  /orchestration_runs:
+    get:
+      description: List all Orchestration Runs in pages, sorted by due date in descending order (most recent first). Optionally filter by Orchestration ID.
+      operationId: OrchestrationRunsOpenApiController_getOrchestrationRuns
+      parameters:
+      - name: starting_after
+        required: false
+        in: query
+        description: The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request.
+        schema:
+          example: ewK8sDoLNI4CFR
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: The number of items to return in a single page.
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 10
+          type: integer
+      - name: orchestration_id
+        required: false
+        in: query
+        description: Filter runs by Orchestration ID.
+        schema:
+          example: 3LIw2FdxoByya9
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedOrchestrationRunDto'
+      summary: List Orchestration Runs
+      tags:
+      - Orchestration Runs
+  /orchestration_runs/{id}:
+    get:
+      description: Get a specific Orchestration Run by its ID.
+      operationId: OrchestrationRunsOpenApiController_getOrchestrationRun
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the Orchestration Run.
+        schema:
+          example: ewK8sDoLNI4CFR
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrchestrationRunDto'
+        '404':
+          description: Orchestration Run not found.
+      summary: Get Orchestration Run
+      tags:
+      - Orchestration Runs
+components:
+  schemas:
+    OrchestrationRunDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the Orchestration Run.
+          example: ewK8sDoLNI4CFR
+        orchestration_id:
+          type: string
+          description: The ID of the Orchestration this run belongs to.
+          example: 3LIw2FdxoByya9
+        status:
+          enum:
+          - CANCELED
+          - COMPLETED
+          - FAILED
+          - NOT_STARTED
+          - RUNNING
+          type: string
+          description: The status of the run.
+          example: COMPLETED
+        due_at:
+          format: date-time
+          type: string
+          description: The datetime when the run was due to start.
+          example: '2024-01-01T00:00:00.000Z'
+        started_at:
+          format: date-time
+          type: string
+          description: The datetime when the run actually started.
+          example: '2024-01-01T00:00:05.000Z'
+        finished_at:
+          format: date-time
+          type: string
+          description: The datetime when the run finished.
+          example: '2024-01-01T00:05:00.000Z'
+      required:
+      - id
+      - orchestration_id
+      - status
+      - due_at
+    PagedOrchestrationRunDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of Orchestration Runs
+          type: array
+          items:
+            $ref: '#/components/schemas/OrchestrationRunDto'
+      required:
+      - has_more
+      - data
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+      description: The API key from Settings -> API Keys

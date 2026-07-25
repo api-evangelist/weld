@@ -1,0 +1,156 @@
+openapi: 3.0.0
+info:
+  title: Weld REST Connection Bridge ELT Stream Runs API
+  description: With the Weld REST API you can programmatically control your syncs
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://connect.weld.app
+security:
+- api_key: []
+tags:
+- name: ELT Stream Runs
+paths:
+  /elt_stream_runs/{id}:
+    get:
+      description: Get details of a specific ELT Stream Run by its unique identifier.
+      operationId: EltStreamRunsOpenApiController_getEltStreamRun
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The opaque ID of the ELT Stream Run.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EltStreamRunDto'
+        '400':
+          description: Invalid run ID format.
+        '404':
+          description: The ELT Stream Run was not found.
+      summary: Get ELT Stream Run
+      tags:
+      - ELT Stream Runs
+  /elt_stream_runs:
+    get:
+      description: List runs for a specific ELT Stream in pages sorted by their start date. Only runs from the last 3 months are available.
+      operationId: EltStreamRunsOpenApiController_getEltStreamRuns
+      parameters:
+      - name: elt_stream_id
+        required: true
+        in: query
+        description: The ID of the ELT Stream to list runs for.
+        schema:
+          example: vBjnEbMi9i3P4K
+          type: string
+      - name: starting_after
+        required: false
+        in: query
+        description: The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request.
+        schema:
+          example: ewK8sDoLNI4CFR
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: The number of items to return in a single page.
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 10
+          type: integer
+      - name: sort_direction
+        required: false
+        in: query
+        description: The direction to sort the results.
+        schema:
+          default: desc
+          example: desc
+          type: string
+          enum:
+          - asc
+          - desc
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedEltStreamRunDto'
+        '404':
+          description: ''
+      summary: List ELT Stream Runs
+      tags:
+      - ELT Stream Runs
+components:
+  schemas:
+    PagedEltStreamRunDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of ELT Stream Runs. Only runs from the last 3 months are returned.
+          type: array
+          items:
+            $ref: '#/components/schemas/EltStreamRunDto'
+      required:
+      - has_more
+      - data
+    EltStreamRunDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique run identifier (opaque)
+          example: c3RyZWFtLXN5bmMtMTIzfDIwMjQtMDMtMjBUMDk6MDA6MDAuMDAwWg
+        elt_sync_id:
+          type: string
+          description: The ELT Sync ID
+          example: X4ughggABSd3UY
+        elt_stream_id:
+          type: string
+          description: The ELT stream ID
+          example: X4ughggABSd3UY
+        started_at:
+          type: string
+          description: When the run started
+          example: '2024-03-20T09:00:00.000Z'
+        finished_at:
+          type: string
+          description: When the run finished
+          example: '2024-03-20T09:05:00.000Z'
+        status:
+          enum:
+          - CHUNK_COMPLETED
+          - COMPLETED
+          - FAILED
+          - RUNNING
+          type: string
+          description: Run status
+        rows_synced:
+          type: number
+          description: Number of rows synced
+          example: 500
+      required:
+      - id
+      - elt_sync_id
+      - elt_stream_id
+      - started_at
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+      description: The API key from Settings -> API Keys

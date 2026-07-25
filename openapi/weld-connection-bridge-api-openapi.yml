@@ -1,0 +1,77 @@
+openapi: 3.0.0
+info:
+  title: Weld REST Connection Bridge API
+  description: With the Weld REST API you can programmatically control your syncs
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://connect.weld.app
+security:
+- api_key: []
+tags:
+- name: Connection Bridge
+paths:
+  /connection_bridges:
+    get:
+      description: List all active connection bridges for the current account. Connection bridges are short-lived sessions that expire after 86400 seconds.
+      operationId: ConnectionBridgeOpenApiController_listConnectionBridges
+      parameters: []
+      responses:
+        '200':
+          description: List of Connection Bridges has been successfully retrieved.
+      summary: List connection bridges
+      tags:
+      - Connection Bridge
+    post:
+      description: Create a short-lived connection bridge session that expires after 86400 seconds.
+      operationId: ConnectionBridgeOpenApiController_createConnectionBridge
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnectionBridgeCreateDto'
+      responses:
+        '201':
+          description: The connection bridge is successfully created.
+      summary: Create a connection bridge
+      tags:
+      - Connection Bridge
+components:
+  schemas:
+    ConnectionBridgeCreateDto:
+      type: object
+      properties:
+        redirect_uri:
+          type: string
+          description: The redirect URI of the connection authentication flow. Must be a valid URL with https:// protocol, except for localhost. No port is allowed except for localhost. No query parameters are allowed.
+          example: https://subdomain.mypage.com/page
+        integration_id:
+          type: string
+          description: The integration id.
+          example: google-drive
+        connection_id:
+          type: string
+          description: Id of an existing Connection if the connection is being reauthorized.
+          example: q4Rk8vp_fhTjqf
+        state:
+          type: string
+          description: State that will be passed back to the redirect URI after the user has authorized the connection.
+          maxLength: 255
+          example: giOoRgo5G7L8REPyWZrO
+        label:
+          type: string
+          description: Label for the connection. This is a user-friendly name for the connection.
+          example: google-drive-business-folder
+          minLength: 1
+      required:
+      - redirect_uri
+      - integration_id
+      - label
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+      description: The API key from Settings -> API Keys

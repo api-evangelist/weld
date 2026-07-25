@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: Weld REST Connection Bridge Custom Reports API
+  description: With the Weld REST API you can programmatically control your syncs
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://connect.weld.app
+security:
+- api_key: []
+tags:
+- name: Custom Reports
+paths:
+  /custom_reports:
+    post:
+      description: 'Create one or more custom reports (GAQL for Google Ads, ShopifyQL for Shopify) and attach them to the given ELT Syncs. Batchable: pass multiple items to create the same or different reports across many ELT Syncs in a single call. Each item is processed independently, so one failing item does not affect the others.'
+      operationId: CustomReportsOpenApiController_createCustomReports
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomReportsRequestDto'
+      responses:
+        '201':
+          description: The result of each requested custom report creation, in the same order as the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCustomReportsResponseDto'
+      summary: Create custom reports
+      tags:
+      - Custom Reports
+components:
+  schemas:
+    CreateCustomReportsResponseDto:
+      type: object
+      properties:
+        results:
+          description: One result per requested custom report.
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomReportCreateResultDto'
+      required:
+      - results
+    CustomReportCreateResultDto:
+      type: object
+      properties:
+        elt_sync_id:
+          type: string
+          description: The ID of the ELT Sync the report was requested for.
+        name:
+          type: string
+          description: The name of the custom report, as requested.
+        source_stream_name:
+          type: string
+          description: The resulting source stream name. Present when the report was created successfully.
+        error:
+          description: Present when creation failed. Absence of this field means the report was created successfully.
+          allOf:
+          - $ref: '#/components/schemas/CustomReportCreateErrorDto'
+      required:
+      - elt_sync_id
+      - name
+    CreateCustomReportsRequestDto:
+      type: object
+      properties:
+        reports:
+          description: The custom reports to create. To duplicate the same report across many ELT Syncs, repeat the same name/query with a different elt_sync_id for each entry.
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomReportCreateItemDto'
+        add_as_source_stream:
+          type: boolean
+          description: Whether to also register each created report as an active source stream on its ELT Sync so it starts syncing on the next run. Defaults to true.
+          default: true
+      required:
+      - reports
+    CustomReportCreateItemDto:
+      type: object
+      properties:
+        elt_sync_id:
+          type: string
+          description: The ID of the ELT Sync to attach the custom report to.
+          example: X4ughggABSd3UY
+        name:
+          type: string
+          description: The name of the custom report. Used to derive the resulting source stream name.
+          example: Weekly Spend by Campaign
+        query:
+          type: string
+          description: The query defining the report. GAQL for Google Ads connections, ShopifyQL for Shopify connections.
+          example: SELECT campaign.id, campaign.name, metrics.cost_micros FROM campaign
+      required:
+      - elt_sync_id
+      - name
+      - query
+    CustomReportCreateErrorDto:
+      type: object
+      properties:
+        error_code:
+          enum:
+          - connection_error
+          - connection_lost_access
+          - invalid_query
+          - not_found
+          - unknown
+          - unsupported_integration
+          type: string
+          description: A machine-readable category for the error. "connection_lost_access" means the connection needs to be reauthorized before retrying.
+        message:
+          type: string
+          description: A human-readable message describing the error.
+      required:
+      - error_code
+      - message
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+      description: The API key from Settings -> API Keys

@@ -1,0 +1,863 @@
+openapi: 3.0.0
+info:
+  title: Weld REST Connection Bridge Transforms API
+  description: With the Weld REST API you can programmatically control your syncs
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://connect.weld.app
+security:
+- api_key: []
+tags:
+- name: Transforms
+paths:
+  /transforms:
+    get:
+      description: List all transforms (models) in pages sorted by creation date.
+      operationId: TransformOpenApiController_listTransforms
+      parameters:
+      - name: starting_after
+        required: false
+        in: query
+        description: The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request.
+        schema:
+          example: ewK8sDoLNI4CFR
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: The number of items to return in a single page.
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 10
+          type: integer
+      - name: status
+        required: false
+        in: query
+        description: Filter by status.
+        schema:
+          enum:
+          - draft
+          - published
+          type: string
+      - name: name
+        required: false
+        in: query
+        description: Filter by name (case-insensitive substring match).
+        schema:
+          type: string
+      - name: folder_path
+        required: false
+        in: query
+        description: Filter by folder path (e.g. "analytics/marketing").
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedTransformDto'
+      summary: List transforms
+      tags:
+      - Transforms
+    post:
+      description: Create a new transform. Provide sql_template with {{weldTag}} references. Set publish=true to immediately materialize in the data warehouse.
+      operationId: TransformOpenApiController_createTransform
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransformCreateRequestDto'
+      responses:
+        '201':
+          description: The transform has been successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransformDto'
+      summary: Create transform
+      tags:
+      - Transforms
+  /transforms/available_references:
+    get:
+      description: List all available {{weldTag}} references that can be used in sql_template. This includes raw views from synced sources and published transforms.
+      operationId: TransformOpenApiController_getAvailableReferences
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailableReferencesResponseDto'
+      summary: List available references
+      tags:
+      - Transforms
+  /transforms/{id}:
+    get:
+      description: Get a specific transform by ID.
+      operationId: TransformOpenApiController_getTransform
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the transform.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransformDto'
+        '404':
+          description: Transform not found.
+      summary: Get transform
+      tags:
+      - Transforms
+    patch:
+      description: Update an existing transform. All fields are optional. If the transform is published and publish=true, changes to sql_template or materialization will trigger a re-publish to the DWH.
+      operationId: TransformOpenApiController_updateTransform
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the transform.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransformUpdateRequestDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransformDto'
+        '404':
+          description: Transform not found.
+      summary: Update transform
+      tags:
+      - Transforms
+    delete:
+      description: Soft-delete a transform. If the transform is published, its view/table will be removed from the data warehouse.
+      operationId: TransformOpenApiController_deleteTransform
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the transform.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      responses:
+        '204':
+          description: The transform has been successfully deleted.
+      summary: Delete transform
+      tags:
+      - Transforms
+  /transforms/{id}/schema:
+    get:
+      description: List the columns of a transform. These can be used as the source (left-hand side) of a Reverse ETL mapping.
+      operationId: TransformOpenApiController_getTransformSchema
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the transform.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransformSchemaDto'
+        '404':
+          description: Transform not found.
+      summary: Get transform schema
+      tags:
+      - Transforms
+  /transforms/{id}/orchestration:
+    post:
+      description: Attaches this transform to an Orchestration Workflow, so it materializes as part of that workflow's runs instead of on its own schedule.
+      operationId: TransformOpenApiController_attachOrchestration
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the transform.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransformAttachOrchestrationRequestDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransformDto'
+        '400':
+          description: Transform must be published to attach to an orchestration.
+        '404':
+          description: Transform or Orchestration Workflow not found.
+      summary: Attach transform to an orchestration
+      tags:
+      - Transforms
+    delete:
+      description: Detaches this transform from its Orchestration Workflow, reverting it to its own schedule.
+      operationId: TransformOpenApiController_detachOrchestration
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the transform.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransformDto'
+        '404':
+          description: Transform not found.
+      summary: Detach transform from its orchestration
+      tags:
+      - Transforms
+  /transforms/bulk:
+    post:
+      description: Create multiple transforms in a single request. Each transform is processed independently; failures on individual items do not affect others. Maximum 50 transforms per request.
+      operationId: TransformOpenApiController_bulkCreateTransforms
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransformBulkCreateRequestDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransformBulkCreateResponseDto'
+      summary: Bulk create transforms
+      tags:
+      - Transforms
+  /transforms/{id}/versions:
+    get:
+      description: List the SQL revision history for a transform, ordered by most recent first.
+      operationId: TransformOpenApiController_listVersions
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the transform.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      - name: starting_after
+        required: false
+        in: query
+        description: The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request.
+        schema:
+          example: ewK8sDoLNI4CFR
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: The number of items to return in a single page.
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 10
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedTransformVersionDto'
+        '404':
+          description: Transform not found.
+      summary: List transform versions
+      tags:
+      - Transforms
+  /transforms/{id}/publish:
+    post:
+      description: Publish or re-publish a transform to the data warehouse. This materializes the latest SQL as a view or table. You can optionally override name, folder_path, and materialization for this publish.
+      operationId: TransformOpenApiController_publishTransform
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the transform.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransformPublishRequestDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransformDto'
+        '404':
+          description: Transform not found.
+      summary: Publish transform
+      tags:
+      - Transforms
+  /transforms/query_previews:
+    post:
+      description: Execute a SQL template asynchronously against the data warehouse. The {{weldTag}} references in the template are automatically resolved. Returns a query_execution_id that can be used to poll for status and retrieve results.
+      operationId: TransformOpenApiController_createQueryPreview
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryPreviewCreateRequestDto'
+      responses:
+        '201':
+          description: The query has been submitted for execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryPreviewCreateResponseDto'
+      summary: Create async query preview
+      tags:
+      - Transforms
+  /transforms/query_previews/{queryExecutionId}/status:
+    get:
+      description: Check the execution status of an async query preview. Poll this endpoint until the status is "DONE", then retrieve results.
+      operationId: TransformOpenApiController_getQueryPreviewStatus
+      parameters:
+      - name: queryExecutionId
+        required: true
+        in: path
+        description: The query execution ID returned from the create query preview endpoint.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryPreviewStatusResponseDto'
+      summary: Get query preview status
+      tags:
+      - Transforms
+  /transforms/query_previews/{queryExecutionId}/result:
+    get:
+      description: Retrieve the results of a completed async query preview. Only call this endpoint after the status endpoint returns "DONE".
+      operationId: TransformOpenApiController_getQueryPreviewResult
+      parameters:
+      - name: queryExecutionId
+        required: true
+        in: path
+        description: The query execution ID returned from the create query preview endpoint.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryPreviewResultResponseDto'
+      summary: Get query preview result
+      tags:
+      - Transforms
+components:
+  schemas:
+    TransformPublishRequestDto:
+      type: object
+      properties:
+        version_id:
+          type: string
+          description: The ID of a specific SQL version to publish. If omitted, the latest version is used. Use the list versions endpoint to find available version IDs.
+          example: abc123def456
+        materialization:
+          type: string
+          description: Override the materialization type for this publish.
+          enum:
+          - view
+          - table
+          example: view
+        folder_path:
+          type: string
+          description: Override the folder path for this publish. Intermediate folders will be auto-created.
+          example: analytics/marketing
+        name:
+          type: string
+          description: Override the name for this publish.
+          example: marketing_attribution
+        wait_for_completion:
+          type: boolean
+          description: If true, the API will wait for table materialization to complete before returning, up to a configured timeout (default ~45 seconds; may differ per environment). Only relevant when materialization is set to "table". If the materialization does not complete within the timeout, the response will still succeed with materialization_status "running".
+          example: false
+          default: false
+    QueryPreviewCreateResponseDto:
+      type: object
+      properties:
+        query_execution_id:
+          type: string
+          description: The unique identifier for the query execution. Use this to poll for status and results.
+          example: qe_abc123def456
+        dw_sql:
+          type: string
+          description: The translated data warehouse SQL that was executed.
+          example: SELECT * FROM stripe_schema.payments WHERE created_at > CURRENT_DATE - 30
+      required:
+      - query_execution_id
+      - dw_sql
+    TransformSchemaFieldDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the column.
+          example: email
+        type:
+          type: string
+          description: The data type of the column.
+          example: STRING
+        nullable:
+          type: boolean
+          description: Whether the column is nullable.
+          example: true
+      required:
+      - name
+      - type
+      - nullable
+    QueryPreviewCreateRequestDto:
+      type: object
+      properties:
+        sql_template:
+          type: string
+          description: The SQL template with {{weldTag}} parameter references to preview.
+          example: SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30
+      required:
+      - sql_template
+    TransformBulkCreateResponseDto:
+      type: object
+      properties:
+        results:
+          description: Results for each transform in the request.
+          type: array
+          items:
+            $ref: '#/components/schemas/TransformBulkResultItemDto'
+      required:
+      - results
+    TransformUpdateRequestDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The new name for the transform.
+          example: marketing_attribution_v2
+        folder_path:
+          type: string
+          description: The new folder path. Intermediate folders will be auto-created if they do not exist.
+          example: analytics/marketing
+        sql_template:
+          type: string
+          description: The updated SQL template with {{weldTag}} parameter references.
+          example: SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 7
+        materialization:
+          type: string
+          description: The materialization type.
+          enum:
+          - view
+          - table
+          example: view
+        documentation:
+          type: string
+          description: Documentation for the transform.
+          example: Calculates marketing attribution.
+        publish:
+          type: boolean
+          description: If true and the transform is currently published, changes to sql_template or materialization will trigger an automatic re-publish to the DWH. If false (default), the changes are saved but the DWH is not updated until an explicit publish call.
+          example: false
+          default: false
+        wait_for_completion:
+          type: boolean
+          description: If true, the API will wait for table materialization to complete before returning, up to a configured timeout (default ~45 seconds; may differ per environment). Only relevant when publishing with materialization set to "table". If the materialization does not complete within the timeout, the response will still succeed with materialization_status "running".
+          example: false
+          default: false
+    TransformSchemaDto:
+      type: object
+      properties:
+        data:
+          description: The columns of the transform. These can be used as the source (left-hand side) of a Reverse ETL mapping.
+          type: array
+          items:
+            $ref: '#/components/schemas/TransformSchemaFieldDto'
+      required:
+      - data
+    TransformAttachOrchestrationRequestDto:
+      type: object
+      properties:
+        orchestration_workflow_id:
+          type: string
+          description: The ID of the Orchestration Workflow to attach this transform to.
+          example: 3LIw2FdxoByya9
+      required:
+      - orchestration_workflow_id
+    PagedTransformDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of transforms
+          type: array
+          items:
+            $ref: '#/components/schemas/TransformDto'
+      required:
+      - has_more
+      - data
+    TransformDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the transform.
+          example: OoORhGXUVjsqFG
+        name:
+          type: string
+          description: The name of the transform.
+          example: marketing_attribution
+        folder_path:
+          type: string
+          description: The folder path for the transform.
+          example: analytics/marketing
+        status:
+          type: string
+          description: The status of the transform.
+          enum:
+          - draft
+          - published
+          example: published
+        materialization:
+          type: string
+          description: The materialization type.
+          enum:
+          - view
+          - table
+          example: view
+        sql_template:
+          type: string
+          description: The SQL template with {{weldTag}} parameter references.
+          example: SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30
+        parameters:
+          description: The parameters (dependencies) referenced in the SQL template.
+          type: array
+          items:
+            $ref: '#/components/schemas/TransformParameterDto'
+        documentation:
+          type: string
+          description: Documentation for the transform.
+          example: Calculates marketing attribution.
+        materialization_status:
+          type: string
+          description: The status of the table materialization in the data warehouse. Set to "running", "completed", or "failed" for published table transforms, or null for drafts and view-type transforms.
+          enum:
+          - running
+          - completed
+          - failed
+          example: completed
+          nullable: true
+        materialization_error:
+          type: string
+          description: Error message from the data warehouse if table materialization failed.
+          example: Column "foo" not found in table "bar".
+        orchestration_workflow_id:
+          type: string
+          description: The ID of the Orchestration Workflow that this transform is attached to, if any.
+          example: 3LIw2FdxoByya9
+        created_at:
+          format: date-time
+          type: string
+          description: The datetime when the transform was created.
+          example: '2020-01-01T00:00:00.000Z'
+        updated_at:
+          format: date-time
+          type: string
+          description: The datetime when the transform was last updated.
+          example: '2020-01-01T00:00:00.000Z'
+      required:
+      - id
+      - name
+      - folder_path
+      - status
+      - materialization
+      - sql_template
+      - parameters
+      - created_at
+      - updated_at
+    AvailableReferenceDto:
+      type: object
+      properties:
+        weld_tag:
+          type: string
+          description: The weld tag to use in {{}} syntax in sql_template.
+          example: raw.stripe.payments
+        type:
+          type: string
+          description: The type of the reference.
+          enum:
+          - raw_view
+          - model_view
+          - materialized_table
+          example: raw_view
+        dw_item_id:
+          type: string
+          description: The fully-qualified data warehouse item identifier.
+          example: stripe_schema.payments
+      required:
+      - weld_tag
+      - type
+      - dw_item_id
+    AvailableReferencesResponseDto:
+      type: object
+      properties:
+        data:
+          description: List of available references for use in sql_template.
+          type: array
+          items:
+            $ref: '#/components/schemas/AvailableReferenceDto'
+      required:
+      - data
+    TransformParameterDto:
+      type: object
+      properties:
+        weld_tag:
+          type: string
+          description: The weld tag reference used in the SQL template.
+          example: raw.stripe.payments
+        type:
+          type: string
+          description: The type of dependency.
+          enum:
+          - raw_view
+          - model_view
+          - materialized_table
+          example: raw_view
+        dw_item_id:
+          type: string
+          description: The fully-qualified data warehouse item identifier.
+          example: stripe_schema.payments
+      required:
+      - weld_tag
+      - type
+      - dw_item_id
+    PagedTransformVersionDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of transform versions
+          type: array
+          items:
+            $ref: '#/components/schemas/TransformVersionDto'
+      required:
+      - has_more
+      - data
+    TransformBulkCreateRequestDto:
+      type: object
+      properties:
+        transforms:
+          description: Array of transforms to create. Maximum 50 transforms per request.
+          type: array
+          items:
+            $ref: '#/components/schemas/TransformCreateRequestDto'
+      required:
+      - transforms
+    QueryPreviewStatusResponseDto:
+      type: object
+      properties:
+        status:
+          type: string
+          description: The current status of the query execution.
+          enum:
+          - RUNNING
+          - DONE
+          - FAILED
+          example: DONE
+        error:
+          type: string
+          description: Error message when the query execution has failed. Only present when status is FAILED.
+          example: 'SQL compilation error: Object does not exist'
+      required:
+      - status
+    TransformBulkResultItemDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the transform from the request.
+          example: my_transform
+        success:
+          type: boolean
+          description: Whether the operation succeeded.
+          example: true
+        id:
+          type: string
+          description: The ID of the created transform, if successful.
+          example: OoORhGXUVjsqFG
+          nullable: true
+        error:
+          type: string
+          description: Error message if the operation failed.
+          example: null
+          nullable: true
+      required:
+      - name
+      - success
+    QueryPreviewResultResponseDto:
+      type: object
+      properties:
+        rows:
+          type: array
+          description: The result rows of the query execution.
+          items:
+            type: object
+          example:
+          - id: 1
+            name: John
+          - id: 2
+            name: Jane
+        num_rows_total:
+          type: number
+          description: The total number of rows matching the query (may be larger than the returned rows).
+          example: 1000
+      required:
+      - rows
+      - num_rows_total
+    TransformCreateRequestDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the transform.
+          example: marketing_attribution
+        folder_path:
+          type: string
+          description: The folder path for the transform. Intermediate folders will be auto-created if they do not exist.
+          example: analytics/marketing
+        sql_template:
+          type: string
+          description: The SQL template with {{weldTag}} parameter references.
+          example: SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30
+        materialization:
+          type: string
+          description: The materialization type. Defaults to "view".
+          enum:
+          - view
+          - table
+          example: view
+        documentation:
+          type: string
+          description: Documentation for the transform.
+          example: Calculates marketing attribution from ad spend and conversions.
+        publish:
+          type: boolean
+          description: If true, the transform will be published (materialized to DWH) immediately after creation.
+          example: false
+          default: false
+        wait_for_completion:
+          type: boolean
+          description: If true, the API will wait for table materialization to complete before returning, up to a configured timeout (default ~45 seconds; may differ per environment). Only relevant when publishing with materialization set to "table". If the materialization does not complete within the timeout, the response will still succeed with materialization_status "running".
+          example: false
+          default: false
+      required:
+      - name
+      - sql_template
+    TransformVersionDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of this SQL query version.
+          example: sqlq_abc123
+        sql_template:
+          type: string
+          description: The SQL template with {{weldTag}} parameter references.
+          example: SELECT * FROM {{raw.stripe.payments}}
+        parameters:
+          description: The parameters (dependencies) referenced in this version.
+          type: array
+          items:
+            $ref: '#/components/schemas/TransformParameterDto'
+        is_published:
+          type: boolean
+          description: Whether this version is the currently published version.
+          example: true
+        user_id:
+          type: string
+          description: The user ID who created this version.
+          example: user_123
+        created_at:
+          format: date-time
+          type: string
+          description: The datetime when this version was created.
+          example: '2020-01-01T00:00:00.000Z'
+      required:
+      - id
+      - sql_template
+      - parameters
+      - is_published
+      - created_at
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+      description: The API key from Settings -> API Keys

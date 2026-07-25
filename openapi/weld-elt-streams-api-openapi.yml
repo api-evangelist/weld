@@ -1,0 +1,342 @@
+openapi: 3.0.0
+info:
+  title: Weld REST Connection Bridge ELT Streams API
+  description: With the Weld REST API you can programmatically control your syncs
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://connect.weld.app
+security:
+- api_key: []
+tags:
+- name: ELT Streams
+paths:
+  /elt_streams:
+    get:
+      description: List all ELT Streams in pages sorted by their creation date.
+      operationId: EltStreamsOpenApiController_getEltStreams
+      parameters:
+      - name: elt_sync_id
+        required: false
+        in: query
+        description: The Id of the ELT Sync that the stream belongs to.
+        schema:
+          type: string
+      - name: starting_after
+        required: false
+        in: query
+        description: The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request.
+        schema:
+          example: ewK8sDoLNI4CFR
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: The number of items to return in a single page.
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 10
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedEltStreamDto'
+      summary: List ELT Streams
+      tags:
+      - ELT Streams
+  /elt_streams/{id}:
+    get:
+      description: Get details of a specific ELT Stream by its ID.
+      operationId: EltStreamsOpenApiController_getEltStream
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the ELT Stream.
+        schema:
+          example: vBjnEbMi9i3P4K
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EltStreamDto'
+        '404':
+          description: Stream not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+      summary: Get ELT Stream
+      tags:
+      - ELT Streams
+    delete:
+      operationId: EltStreamsOpenApiController_deleteEltStream
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the ELT Stream to delete.
+        schema:
+          example: vBjnEbMi9i3P4K
+          type: string
+      responses:
+        '204':
+          description: The ELT Stream has been successfully deleted.
+        '404':
+          description: Stream not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+      summary: Delete ELT Stream
+      tags:
+      - ELT Streams
+  /elt_streams/{id}/request_run:
+    post:
+      description: Attempts to run the specified ELT Stream immediately.
+      operationId: EltStreamsOpenApiController_requestRun
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the ELT Stream to run.
+        schema:
+          example: vBjnEbMi9i3P4K
+          type: string
+      responses:
+        '200':
+          description: The ELT Stream has been successfully scheduled to run now.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EltStreamRequestRunResponseDto'
+        '400':
+          description: Invalid request (e.g. sync not running, job stopped)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '404':
+          description: Stream or job not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '409':
+          description: Job is already running or scheduled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EltStreamRequestRunConflictResponseDto'
+      summary: Request ELT Stream Run
+      tags:
+      - ELT Streams
+  /elt_streams/{id}/request_full_refresh:
+    post:
+      description: Marks the next scheduled run as a full refresh. This disregards incremental sync settings and may take longer to complete.
+      operationId: EltStreamsOpenApiController_requestFullRefresh
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the ELT Stream to refresh.
+        schema:
+          example: vBjnEbMi9i3P4K
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EltStreamFullRefreshRequestDto'
+      responses:
+        '204':
+          description: The ELT Stream has been successfully scheduled for a full refresh. This does not trigger the job itself — use the Request ELT Stream Run endpoint if you want to start it immediately.
+        '400':
+          description: Invalid request (e.g. sync not running, job stopped)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '404':
+          description: Stream or job not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+      summary: Request ELT Stream Full Refresh
+      tags:
+      - ELT Streams
+  /elt_streams/{id}/cancel_full_refresh:
+    post:
+      description: Cancels a previously requested full refresh for the ELT Stream, reverting it back to incremental sync.
+      operationId: EltStreamsOpenApiController_cancelFullRefresh
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the ELT Stream to cancel the full refresh for.
+        schema:
+          example: vBjnEbMi9i3P4K
+          type: string
+      responses:
+        '204':
+          description: The full refresh has been successfully cancelled.
+        '404':
+          description: Stream or job not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+      summary: Cancel ELT Stream Full Refresh
+      tags:
+      - ELT Streams
+components:
+  schemas:
+    EltStreamRequestRunConflictResponseDto:
+      type: object
+      properties:
+        error_code:
+          type: string
+          description: A specific error code representing the error type
+        message:
+          type: string
+          description: A human-readable message describing the error
+        active_run_id:
+          type: string
+          description: The ID of the currently active run that caused the conflict. Provided when the request to run conflicts with an already running run.
+          example: c3RyZWFtLXN5bmMtMTIzfDIwMjQtMDMtMjBUMDk6MDA6MDAuMDAwWg
+      required:
+      - error_code
+      - message
+    PagedEltStreamDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of ELT Streams
+          type: array
+          items:
+            $ref: '#/components/schemas/EltStreamDto'
+      required:
+      - has_more
+      - data
+    EltStreamFullRefreshRequestDto:
+      type: object
+      properties:
+        reset_history_table:
+          type: boolean
+          description: Whether to also reset the history table(s). This causes permanent data loss of previously accumulated historical records.
+          default: false
+    EltStreamDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The Id of the ELT Stream.
+          example: SCTVdLAcyDTgNx
+        elt_sync_id:
+          type: string
+          description: The Id of the ELT Sync that the ELT Stream belongs to.
+          example: 3LIw2FdxoByya9
+        name:
+          type: string
+          description: The name of the ELT Stream
+          example: users
+        incremental_primary_key_name:
+          description: The name of the primary key field used for incremental sync. Most commonly used for database incremental syncs.
+          example:
+          - id
+          type: array
+          items:
+            type: string
+        incremental_pointer_id:
+          type: string
+          description: The name of the field used for incremental sync cursor.
+          example: updated_at
+        full_sync_at_midnight:
+          type: boolean
+          description: Indicates whether the full sync should be performed at midnight.
+          example: false
+        full_sync_always:
+          type: boolean
+          description: Indicates whether the full sync should always be performed.
+          example: false
+        protected_from_full_sync:
+          type: boolean
+          description: Indicates whether the stream is protected from full sync.
+          example: false
+        created_at:
+          format: date-time
+          type: string
+          description: The datetime when the ELT Stream was created.
+          example: '2020-01-01T00:00:00.000Z'
+        updated_at:
+          format: date-time
+          type: string
+          description: The datetime when the ELT Stream was last updated.
+          example: '2020-01-01T00:00:00.000Z'
+        excluded_substreams:
+          description: Excluded substreams from syncing.
+          example:
+          - substream1
+          - substream2
+          type: array
+          items:
+            type: string
+        enabled_history_table:
+          type: boolean
+          description: Whether history table(s) are enabled for this stream
+          example: false
+      required:
+      - id
+      - elt_sync_id
+      - name
+      - full_sync_at_midnight
+      - full_sync_always
+      - protected_from_full_sync
+      - created_at
+      - updated_at
+      - excluded_substreams
+      - enabled_history_table
+    EltStreamRequestRunResponseDto:
+      type: object
+      properties:
+        status_url:
+          type: string
+          description: URL to poll for the status of the triggered run. Run scheduling is asynchronous and may take minutes or even up to an hour depending on the integration API constraints. An empty response from this URL does not indicate failure — it means the run has not yet been scheduled.
+          example: /elt_stream_runs?elt_stream_id=vBjnEbMi9i3P4K&starting_after=c3RyZWFtLXN5bmMtMTIzfDIwMjQtMDMtMjBUMDk6MDA6MDAuMDAwWg&limit=1&sort_direction=asc
+      required:
+      - status_url
+    ErrorDto:
+      type: object
+      properties:
+        error_code:
+          type: string
+          description: A specific error code representing the error type
+        message:
+          type: string
+          description: A human-readable message describing the error
+      required:
+      - error_code
+      - message
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+      description: The API key from Settings -> API Keys

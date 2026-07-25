@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: Weld REST Connection Bridge Reverse ETL Failed Records API
+  description: With the Weld REST API you can programmatically control your syncs
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://connect.weld.app
+security:
+- api_key: []
+tags:
+- name: Reverse ETL Failed Records
+paths:
+  /reverse_etl_failed_records:
+    get:
+      description: List the unresolved record errors captured for the specified Reverse ETL Sync.
+      operationId: ReverseEtlFailedRecordsOpenApiController_getReverseEtlSyncFailedRecordErrors
+      parameters:
+      - name: reverse_etl_sync_id
+        required: true
+        in: query
+        description: The ID of the Reverse ETL Sync to fetch record errors for.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: The maximum number of record errors to return.
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 10
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReverseEtlSyncFailedRecordErrorsDto'
+        '404':
+          description: ''
+      summary: List Reverse ETL Sync Failed Record Errors
+      tags:
+      - Reverse ETL Failed Records
+  /reverse_etl_failed_records/count:
+    get:
+      description: Get the number of unresolved failed records captured for the specified Reverse ETL Sync.
+      operationId: ReverseEtlFailedRecordsOpenApiController_getReverseEtlSyncFailedRecordCount
+      parameters:
+      - name: reverse_etl_sync_id
+        required: true
+        in: query
+        description: The ID of the Reverse ETL Sync to fetch record errors for.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReverseEtlSyncFailedRecordCountDto'
+        '404':
+          description: ''
+      summary: Get Reverse ETL Sync Failed Record count
+      tags:
+      - Reverse ETL Failed Records
+  /reverse_etl_failed_records/retry:
+    post:
+      description: Retries the given record IDs on the specified Reverse ETL Sync at the next run by resetting their errors.
+      operationId: ReverseEtlFailedRecordsOpenApiController_retryReverseEtlSyncFailedRecords
+      parameters:
+      - name: reverse_etl_sync_id
+        required: true
+        in: query
+        description: The ID of the Reverse ETL Sync to fetch record errors for.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetryReverseEtlSyncRecordErrorsRequestDto'
+      responses:
+        '204':
+          description: The errors have been successfully reset to be retried at the next run.
+        '404':
+          description: ''
+      summary: Retry Reverse ETL Sync Failed Records
+      tags:
+      - Reverse ETL Failed Records
+  /reverse_etl_failed_records/retry_all:
+    post:
+      description: Retries all failed records captured for the specified Reverse ETL Sync at the next run by resetting their errors.
+      operationId: ReverseEtlFailedRecordsOpenApiController_retryAllReverseEtlSyncFailedRecords
+      parameters:
+      - name: reverse_etl_sync_id
+        required: true
+        in: query
+        description: The ID of the Reverse ETL Sync to fetch record errors for.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      responses:
+        '204':
+          description: All errors have been successfully reset to be retried at the next run.
+        '404':
+          description: ''
+      summary: Retry all Reverse ETL Sync Failed Records
+      tags:
+      - Reverse ETL Failed Records
+components:
+  schemas:
+    ReverseEtlSyncFailedRecordCountDto:
+      type: object
+      properties:
+        count:
+          type: number
+          description: The number of unresolved failed records captured for the Reverse ETL Sync.
+          example: 3
+      required:
+      - count
+    RetryReverseEtlSyncRecordErrorsRequestDto:
+      type: object
+      properties:
+        record_ids:
+          description: The IDs of the records whose errors should be reset so they are retried.
+          example:
+          - rec_123
+          - rec_456
+          type: array
+          items:
+            type: string
+      required:
+      - record_ids
+    ReverseEtlSyncRecordErrorDto:
+      type: object
+      properties:
+        sync_id:
+          type: string
+          description: The ID of the Reverse ETL Sync the record belongs to.
+          example: OoORhGXUVjsqFG
+        record_id:
+          type: string
+          description: The ID of the record that failed to sync.
+          example: rec_123
+        error:
+          type: string
+          description: The error message describing why the record failed to sync.
+      required:
+      - sync_id
+      - record_id
+      - error
+    ReverseEtlSyncFailedRecordErrorsDto:
+      type: object
+      properties:
+        data:
+          description: The record errors captured for the Reverse ETL Sync.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReverseEtlSyncRecordErrorDto'
+      required:
+      - data
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+      description: The API key from Settings -> API Keys

@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: Weld REST Connection Bridge Integrations API
+  description: With the Weld REST API you can programmatically control your syncs
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://connect.weld.app
+security:
+- api_key: []
+tags:
+- name: Integrations
+paths:
+  /integrations:
+    get:
+      description: List all integrations that are available in Weld for the current account based on their plan and entitlements.
+      operationId: IntegrationsOpenApiController_getIntegrations
+      parameters:
+      - name: ability
+        required: false
+        in: query
+        description: Filter integrations by a supported ability. Defaults to `EltSource` when omitted.
+        schema:
+          $ref: '#/components/schemas/OpenApiIntegrationAbility'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedIntegrationDto'
+      summary: List integrations
+      tags:
+      - Integrations
+components:
+  schemas:
+    PagedIntegrationDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of available integrations
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationDto'
+      required:
+      - has_more
+      - data
+    OpenApiIntegrationAbility:
+      type: string
+      enum:
+      - EltSource
+      - ReverseEtlDestination
+    IntegrationDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The Id of the integration.
+          example: amazon-ads
+        name:
+          type: string
+          description: The integration name.
+          example: Amazon Ads
+        min_required_plan:
+          type: string
+          description: The minimum required plan to use this integration.
+          example: BUSINESS
+        supports_start_date:
+          type: boolean
+          description: Whether the integration supports setting a start date to limit historical syncs.
+        abilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenApiIntegrationAbility'
+          description: The abilities that this integration supports.
+          example:
+          - EltSource
+      required:
+      - id
+      - name
+      - supports_start_date
+      - abilities
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+      description: The API key from Settings -> API Keys

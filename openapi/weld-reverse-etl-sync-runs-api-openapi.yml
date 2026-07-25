@@ -1,0 +1,172 @@
+openapi: 3.0.0
+info:
+  title: Weld REST Connection Bridge Reverse ETL Sync Runs API
+  description: With the Weld REST API you can programmatically control your syncs
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://connect.weld.app
+security:
+- api_key: []
+tags:
+- name: Reverse ETL Sync Runs
+paths:
+  /reverse_etl_sync_runs/{id}:
+    get:
+      description: Get details of a specific Reverse ETL Sync Run by its unique identifier.
+      operationId: ReverseEtlSyncRunsOpenApiController_getReverseEtlSyncRun
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The opaque ID of the Reverse ETL Sync Run.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReverseEtlSyncRunDto'
+        '400':
+          description: Invalid run ID format.
+        '404':
+          description: The Reverse ETL Sync Run was not found.
+      summary: Get Reverse ETL Sync Run
+      tags:
+      - Reverse ETL Sync Runs
+  /reverse_etl_sync_runs:
+    get:
+      description: List runs for a specific Reverse ETL Sync in pages sorted by their start date.
+      operationId: ReverseEtlSyncRunsOpenApiController_getReverseEtlSyncRuns
+      parameters:
+      - name: reverse_etl_sync_id
+        required: true
+        in: query
+        description: The ID of the Reverse ETL Sync to list runs for.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      - name: starting_after
+        required: false
+        in: query
+        description: The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request.
+        schema:
+          example: ewK8sDoLNI4CFR
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: The number of items to return in a single page.
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 10
+          type: integer
+      - name: sort_direction
+        required: false
+        in: query
+        description: The direction to sort the results.
+        schema:
+          default: desc
+          example: desc
+          type: string
+          enum:
+          - asc
+          - desc
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedReverseEtlSyncRunDto'
+        '404':
+          description: ''
+      summary: List Reverse ETL Sync Runs
+      tags:
+      - Reverse ETL Sync Runs
+components:
+  schemas:
+    ReverseEtlSyncRunDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique run identifier (opaque)
+          example: T29PUmhHWFVWanNxRkd8MjAyNC0wMy0yMFQwOTowMDowMC4wMDBa
+        reverse_etl_sync_id:
+          type: string
+          description: The Reverse ETL Sync ID
+          example: OoORhGXUVjsqFG
+        started_at:
+          type: string
+          description: When the run started
+          example: '2024-03-20T09:00:00.000Z'
+        finished_at:
+          type: string
+          description: When the run finished
+          example: '2024-03-20T09:05:00.000Z'
+        status:
+          enum:
+          - COMPLETED
+          - FAILED
+          - RUNNING
+          - SCHEDULED
+          type: string
+          description: Run status
+        total_rows:
+          type: number
+          description: The total number of rows retrieved from the source model during the sync job.
+          example: 500
+        distinct_rows:
+          type: number
+          description: The number of distinct rows retrieved from the source model during the sync job.
+          example: 400
+        new_rows:
+          type: number
+          description: The number of rows that are new or have changed since the last sync. This is the number of rows submitted to the destination. It is 0, if no changes were detected in the source model since the last sync.
+          example: 300
+        synced_rows:
+          type: number
+          description: The number of rows successfully synced to the destination.
+          example: 200
+        failed_rows:
+          type: number
+          description: The number of rows that failed to sync to the destination.
+          example: 100
+        error:
+          type: string
+          description: Error message if the whole run has failed.
+          example: Connection timed out
+      required:
+      - id
+      - reverse_etl_sync_id
+      - started_at
+      - status
+    PagedReverseEtlSyncRunDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of Reverse ETL Sync Runs.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReverseEtlSyncRunDto'
+      required:
+      - has_more
+      - data
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+      description: The API key from Settings -> API Keys

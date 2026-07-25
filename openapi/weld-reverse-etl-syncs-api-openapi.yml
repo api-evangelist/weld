@@ -1,0 +1,844 @@
+openapi: 3.0.0
+info:
+  title: Weld REST Connection Bridge Reverse ETL Syncs API
+  description: With the Weld REST API you can programmatically control your syncs
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://connect.weld.app
+security:
+- api_key: []
+tags:
+- name: Reverse ETL Syncs
+paths:
+  /reverse_etl_syncs:
+    get:
+      description: List all Reverse ETL Syncs in pages sorted by their creation date.
+      operationId: ReverseEtlSyncsOpenApiController_getReverseEtlSyncs
+      parameters:
+      - name: starting_after
+        required: false
+        in: query
+        description: The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request.
+        schema:
+          example: ewK8sDoLNI4CFR
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: The number of items to return in a single page.
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 10
+          type: integer
+      - name: destination_connection_id
+        required: false
+        in: query
+        description: Filter Reverse ETL Syncs by the associated Destination Connection ID.
+        schema:
+          example: conn_12345
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedReverseEtlSyncDto'
+      summary: List Reverse ETL Syncs
+      tags:
+      - Reverse ETL Syncs
+    post:
+      description: Create a Reverse ETL Sync that reads from a source Transform and writes to a destination connection. The sync is activated immediately so it runs on its schedule (or as part of its Orchestration Workflow). The `settings` are validated against the settings schema (see the "Get Reverse ETL Settings Schema for a connection" endpoint).
+      operationId: ReverseEtlSyncsOpenApiController_createReverseEtlSync
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReverseEtlSyncRequestDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReverseEtlSyncWithSettingsDto'
+        '400':
+          description: The request is invalid (e.g. invalid `settings`, object type, or schedule).
+      summary: Create Reverse ETL Sync
+      tags:
+      - Reverse ETL Syncs
+  /reverse_etl_syncs/destination_schema:
+    get:
+      description: List the properties available in the destination connection for a given object type. These are the properties used as the right-hand side of a Reverse ETL mapping.
+      operationId: ReverseEtlSyncsOpenApiController_getReverseEtlDestinationSchema
+      parameters:
+      - name: connection_id
+        required: true
+        in: query
+        description: The ID of the (already created) destination connection to read the schema from.
+        schema:
+          example: X4ughggABSd3UY
+          type: string
+      - name: object_type_id
+        required: true
+        in: query
+        description: The ID of the object type as used by the destination.
+        schema:
+          example: Q29udGFjdHx8Y29udGFjdA
+          type: string
+      - name: operation_mode
+        required: true
+        in: query
+        description: The operation mode the destination properties are resolved for (e.g. `MERGE`).
+        schema:
+          example: MERGE
+          type: string
+      - name: source_id
+        required: true
+        in: query
+        description: The ID of the source Transform the sync reads from.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReverseEtlDestinationSchemaDto'
+      summary: Get Reverse ETL destination schema
+      tags:
+      - Reverse ETL Syncs
+  /reverse_etl_syncs/available_operations:
+    get:
+      description: List the operations available in the destination connection for a given object type. These determine how records are written to the destination (e.g. the operation type and mode).
+      operationId: ReverseEtlSyncsOpenApiController_getReverseEtlAvailableOperations
+      parameters:
+      - name: connection_id
+        required: true
+        in: query
+        description: The ID of the (already created) destination connection to read the available operations from.
+        schema:
+          example: X4ughggABSd3UY
+          type: string
+      - name: object_type_id
+        required: true
+        in: query
+        description: The opaque ID of the object type as used by the destination.
+        schema:
+          example: Q29udGFjdHx8Y29udGFjdA
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReverseEtlAvailableOperationsDto'
+      summary: List available Reverse ETL operations
+      tags:
+      - Reverse ETL Syncs
+  /reverse_etl_syncs/object_types:
+    get:
+      description: List the object types available in the destination connection. These are the objects (e.g. Contact, Company) that a Reverse ETL Sync can write to. The connection should already be created before fetching the object types.
+      operationId: ReverseEtlSyncsOpenApiController_getReverseEtlObjectTypes
+      parameters:
+      - name: connection_id
+        required: true
+        in: query
+        description: The ID of the (already created) destination connection.
+        schema:
+          example: X4ughggABSd3UY
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReverseEtlObjectTypesDto'
+      summary: List Reverse ETL Object Types for a connection
+      tags:
+      - Reverse ETL Syncs
+  /reverse_etl_syncs/settings_schema:
+    post:
+      description: Get the settings for a connection, used when creating or updating a Reverse ETL Sync. The connection should already be created before getting the settings. Some settings have options that depend on other settings (e.g. the available sheets depend on the selected file URL) - provide the already-selected values via `partial_settings` to resolve those dependent options. This is a read-only operation - it does not create or modify a Reverse ETL Sync; POST is used so the (potentially large) `partial_settings` can be sent in the request body.
+      operationId: ReverseEtlSyncsOpenApiController_getReverseEtlSettingsSchema
+      parameters:
+      - name: connection_id
+        required: true
+        in: query
+        description: The ID of the (already created) destination connection.
+        schema:
+          example: X4ughggABSd3UY
+          type: string
+      - name: object_type
+        required: true
+        in: query
+        description: The ID of the object type to get the settings for (e.g. `contact`).
+        schema:
+          example: contact
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReverseEtlSettingsRequestDto'
+      responses:
+        '200':
+          description: A JSON Schema (draft-07) describing the available settings and their constraints for the connection. The `dependencies` keyword maps a field name to a list of other field names that must be provided before that field's dependent options (e.g. its `oneOf` list) can be resolved - resolve those dependent options by providing the already-selected values via `partial_settings` in the request body.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  $schema:
+                    type: string
+                    example: http://json-schema.org/draft-07/schema#
+                  title:
+                    type: string
+                    example: Salesforce Settings
+                  type:
+                    type: string
+                    example: object
+                  properties:
+                    type: object
+                    additionalProperties: true
+                  required:
+                    type: array
+                    items:
+                      type: string
+                  dependencies:
+                    type: object
+                    description: Maps a field name to a list of other field names that must be provided before this field's dependent options (e.g. its `oneOf` list) can be resolved.
+                    additionalProperties: true
+                required:
+                - $schema
+                - title
+                - type
+                - properties
+                additionalProperties: true
+      summary: Get Reverse ETL Settings Schema for a connection
+      tags:
+      - Reverse ETL Syncs
+  /reverse_etl_syncs/{id}:
+    get:
+      description: Get data of a specific Reverse ETL Sync.
+      operationId: ReverseEtlSyncsOpenApiController_getReverseEtlSync
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the Reverse ETL Sync.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReverseEtlSyncWithSettingsDto'
+        '404':
+          description: ''
+      summary: Get Reverse ETL Sync
+      tags:
+      - Reverse ETL Syncs
+    post:
+      description: Updates a Reverse ETL Sync. The sync must be paused (deactivated) before it can be updated. The `settings` are validated against the settings schema (see the "Get Reverse ETL Settings Schema for a connection" endpoint).
+      operationId: ReverseEtlSyncsOpenApiController_updateReverseEtlSync
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the Reverse ETL Sync to update.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReverseEtlSyncRequestDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReverseEtlSyncWithSettingsDto'
+        '400':
+          description: The request is invalid (e.g. invalid `settings`, object type, or the sync is still active).
+        '404':
+          description: ''
+      summary: Update Reverse ETL Sync
+      tags:
+      - Reverse ETL Syncs
+    delete:
+      description: Deletes the specified Reverse ETL Sync.
+      operationId: ReverseEtlSyncsOpenApiController_deleteReverseEtlSync
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the Reverse ETL Sync to delete.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      responses:
+        '204':
+          description: The Reverse ETL Sync has been successfully deleted.
+        '404':
+          description: ''
+      summary: Delete Reverse ETL Sync
+      tags:
+      - Reverse ETL Syncs
+  /reverse_etl_syncs/{id}/activate:
+    post:
+      description: Activates the specified Reverse ETL Sync so it runs periodically based on its schedule.
+      operationId: ReverseEtlSyncsOpenApiController_activateReverseEtlSync
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the Reverse ETL Sync to activate.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      responses:
+        '204':
+          description: The Reverse ETL Sync has been successfully activated.
+        '404':
+          description: ''
+      summary: Activate Reverse ETL Sync
+      tags:
+      - Reverse ETL Syncs
+  /reverse_etl_syncs/{id}/deactivate:
+    post:
+      description: Deactivates the specified Reverse ETL Sync so it no longer runs on its schedule.
+      operationId: ReverseEtlSyncsOpenApiController_deactivateReverseEtlSync
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the Reverse ETL Sync to deactivate.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      responses:
+        '204':
+          description: The Reverse ETL Sync has been successfully deactivated.
+        '404':
+          description: ''
+      summary: Deactivate Reverse ETL Sync
+      tags:
+      - Reverse ETL Syncs
+  /reverse_etl_syncs/{id}/request_run:
+    post:
+      description: Attempts to run the specified Reverse ETL Sync immediately.
+      operationId: ReverseEtlSyncsOpenApiController_requestRun
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the Reverse ETL Sync to run.
+        schema:
+          example: OoORhGXUVjsqFG
+          type: string
+      responses:
+        '200':
+          description: The Reverse ETL Sync has been successfully scheduled to run now.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReverseEtlSyncRequestRunResponseDto'
+        '400':
+          description: The Reverse ETL Sync is not eligible to run now.
+        '409':
+          description: The Reverse ETL Sync already has an active run
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReverseEtlSyncRequestRunConflictResponseDto'
+      summary: Request Reverse ETL Sync Run
+      tags:
+      - Reverse ETL Syncs
+components:
+  schemas:
+    PagedReverseEtlSyncDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of Reverse ETL Syncs
+          type: array
+          items:
+            $ref: '#/components/schemas/ReverseEtlSyncDto'
+      required:
+      - has_more
+      - data
+    UpdateReverseEtlSyncRequestDto:
+      type: object
+      properties:
+        object_type_id:
+          type: string
+          description: The opaque ID of the destination object type to write to (as returned by the object types endpoint).
+          example: Q29udGFjdHx8Y29udGFjdA
+        operation:
+          description: The operation that defines how records are written to the destination object type.
+          allOf:
+          - $ref: '#/components/schemas/ReverseEtlSyncOperationRequestDto'
+        sync_interval:
+          type: string
+          description: The cron expression defining when the sync runs. Required unless the sync is attached to an Orchestration Workflow via `orchestration_workflow_id`.
+          format: cron expression
+          example: 0 0 * * *
+        orchestration_workflow_id:
+          type: string
+          description: The ID of the Orchestration Workflow to attach the sync to. When provided, the sync runs as part of the Orchestration instead of on its own `sync_interval`.
+          example: 3LIw2FdxoByya9
+        settings:
+          type: object
+          description: The destination settings for the sync, validated against the settings schema (see the "Get Reverse ETL Settings Schema for a connection" endpoint).
+          example:
+            listId: '12345'
+            sheetId: abc123
+      required:
+      - object_type_id
+      - operation
+    ReverseEtlSyncWithSettingsDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The Id of the Reverse ETL Sync.
+          example: OoORhGXUVjsqFG
+        enabled:
+          type: boolean
+          description: Whether the Reverse ETL Sync is enabled and running on its schedule.
+          example: true
+        source_type:
+          enum:
+          - RawView
+          - Transform
+          type: string
+          description: The type of the source the Reverse ETL Sync reads from.
+          example: Transform
+        source_id:
+          type: string
+          description: The Id of the source (Transform or Raw View) the Reverse ETL Sync reads from.
+          example: mdl_123
+        transform_id:
+          type: string
+          description: The Id of the Transform the Reverse ETL Sync reads from, if the source is a Transform.
+          example: mdl_123
+        destination_connection_id:
+          type: string
+          description: The Id of the Destination Connection.
+          example: conn_456
+        destination_integration_id:
+          type: string
+          description: The Id of the Destination Integration.
+          example: hubspot
+        object_type_id:
+          type: string
+          description: The Id of the object in the destination that the Reverse ETL Sync writes to.
+          example: Q29udGFjdHx8Y29udGFjdA
+        sync_interval:
+          type: string
+          description: The cron expression when the sync should run. Provided if the sync is not attached to an Orchestration.
+          format: cron expression
+          example: 0 0 * * *
+        orchestration_workflow_id:
+          type: string
+          description: The Id of the Orchestration Workflow that the sync is attached to.
+          example: 3LIw2FdxoByya9
+        operation:
+          description: The operation that defines how records are written to the destination object type.
+          allOf:
+          - $ref: '#/components/schemas/ReverseEtlSyncOperationDto'
+        created_at:
+          format: date-time
+          type: string
+          description: The datetime when the Reverse ETL Sync was created.
+          example: '2020-01-01T00:00:00.000Z'
+        updated_at:
+          format: date-time
+          type: string
+          description: The datetime when the Reverse ETL Sync was last updated.
+          example: '2020-01-01T00:00:00.000Z'
+        settings:
+          type: object
+          description: The settings for the Reverse ETL Sync, provided when creating/updating the sync.
+          example:
+            listId: '12345'
+            sheetId: abc123
+      required:
+      - id
+      - enabled
+      - source_type
+      - source_id
+      - destination_connection_id
+      - destination_integration_id
+      - object_type_id
+      - created_at
+      - updated_at
+      - settings
+    CreateReverseEtlSyncRequestDto:
+      type: object
+      properties:
+        destination_connection_id:
+          type: string
+          description: The ID of the (already created) destination connection the Reverse ETL Sync writes to.
+          example: X4ughggABSd3UY
+        source_id:
+          type: string
+          description: The ID of the source Transform the Reverse ETL Sync reads from.
+          example: OoORhGXUVjsqFG
+        object_type_id:
+          type: string
+          description: The opaque ID of the destination object type to write to (as returned by the object types endpoint).
+          example: Q29udGFjdHx8Y29udGFjdA
+        operation:
+          description: The operation that defines how records are written to the destination object type.
+          allOf:
+          - $ref: '#/components/schemas/ReverseEtlSyncOperationRequestDto'
+        sync_interval:
+          type: string
+          description: The cron expression defining when the sync runs. Required unless the sync is attached to an Orchestration Workflow via `orchestration_workflow_id`.
+          format: cron expression
+          example: 0 0 * * *
+        orchestration_workflow_id:
+          type: string
+          description: The ID of the Orchestration Workflow to attach the sync to. When provided, the sync runs as part of the Orchestration instead of on its own `sync_interval`.
+          example: 3LIw2FdxoByya9
+        settings:
+          type: object
+          description: The destination settings for the sync, validated against the settings schema (see the "Get Reverse ETL Settings Schema for a connection" endpoint).
+          example:
+            listId: '12345'
+            sheetId: abc123
+      required:
+      - destination_connection_id
+      - source_id
+      - object_type_id
+      - operation
+    ReverseEtlDestinationSchemaDto:
+      type: object
+      properties:
+        data:
+          description: The properties available in the destination, used as the right-hand side of a Reverse ETL mapping.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReverseEtlDestinationPropertyDto'
+      required:
+      - data
+    ReverseEtlSyncRequestRunResponseDto:
+      type: object
+      properties:
+        status_url:
+          type: string
+          description: URL to poll for the status of the triggered run. Run scheduling is asynchronous and may take a few minutes. An empty response from this URL does not indicate failure — it means the run has not yet been scheduled.
+          example: /reverse_etl_sync_runs?reverse_etl_sync_id=OoORhGXUVjsqFG&starting_after=T29PUmhHWFVWanNxRkd8MjAyNC0wMy0yMFQwOTowMDowMC4wMDBa&limit=1&sort_direction=asc
+      required:
+      - status_url
+    ReverseEtlSyncOperationRequestDto:
+      type: object
+      properties:
+        mode:
+          enum:
+          - insert
+          - mirror
+          - update
+          - upsert
+          type: string
+          description: The mode of the available operation to perform (as returned by the "List available Reverse ETL operations" endpoint).
+          example: insert
+        mappings:
+          description: The property mappings that define how source properties are written to the destination.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReverseEtlSyncMappingRequestDto'
+      required:
+      - mode
+      - mappings
+    ReverseEtlAvailableOperationDto:
+      type: object
+      properties:
+        type:
+          enum:
+          - association
+          - primary
+          type: string
+          description: The type of the operation.
+          example: primary
+        mode:
+          enum:
+          - insert
+          - mirror
+          - update
+          - upsert
+          type: string
+          description: The mode of the operation.
+          example: upsert
+        primary_key_required:
+          type: boolean
+          description: Whether a primary key is required for this operation.
+          example: true
+      required:
+      - type
+      - mode
+      - primary_key_required
+    ReverseEtlObjectTypesDto:
+      type: object
+      properties:
+        data:
+          description: The list of object types available in the destination connection.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReverseEtlObjectTypeDto'
+      required:
+      - data
+    ReverseEtlSettingsRequestDto:
+      type: object
+      properties:
+        partial_settings:
+          type: object
+          description: A JSON object of already-selected setting values, used to resolve options that depend on other settings (e.g. `{"url":"https://..."}` to resolve the available sheets with the Excel integration).
+          example:
+            url: https://onedrive.live.com/...
+    ReverseEtlDestinationPropertyDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the destination property as used by the destination.
+          example: email
+        property_name:
+          type: string
+          description: The human-readable name of the destination property.
+          example: Email
+        property_type:
+          type: string
+          description: The data type of the destination property.
+          example: string
+        readonly:
+          type: boolean
+          description: Whether the destination property is read-only.
+          example: false
+        is_required:
+          type: boolean
+          description: Whether the destination property is required.
+          example: true
+        is_primary_key:
+          type: boolean
+          description: Whether the destination property can be used as a primary key for matching.
+          example: true
+      required:
+      - id
+      - property_name
+      - property_type
+      - readonly
+      - is_required
+      - is_primary_key
+    ReverseEtlSyncMappingRequestDto:
+      type: object
+      properties:
+        source_property_id:
+          type: string
+          description: The ID of the source property (a column of the source Transform) the mapping reads from.
+          example: email
+        destination_property_id:
+          type: string
+          description: The ID of the destination property the mapping writes to (as returned by the "Get Reverse ETL destination schema" endpoint).
+          example: email
+        primary_key:
+          type: boolean
+          description: Whether this mapping is used as the primary key for matching records in the destination.
+          example: true
+      required:
+      - source_property_id
+      - destination_property_id
+    ReverseEtlSyncMappingDto:
+      type: object
+      properties:
+        source_property_id:
+          type: string
+          description: The ID of the source property (a column of the source Transform) the mapping reads from.
+          example: email
+        destination_property_id:
+          type: string
+          description: The ID of the destination property the mapping writes to.
+          example: email
+        primary_key:
+          type: boolean
+          description: Whether this mapping is used as the primary key for matching records in the destination.
+          example: true
+      required:
+      - source_property_id
+      - destination_property_id
+    ReverseEtlSyncOperationDto:
+      type: object
+      properties:
+        mode:
+          enum:
+          - insert
+          - mirror
+          - update
+          - upsert
+          type: string
+          description: The mode of the operation, defining how records are written to the destination.
+          example: upsert
+        mappings:
+          description: The property mappings that define how source properties are written to the destination.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReverseEtlSyncMappingDto'
+      required:
+      - mode
+      - mappings
+    ReverseEtlObjectTypeDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the object type.
+          example: Q29udGFjdHx8Y29udGFjdA
+        name:
+          type: string
+          description: The human-readable name of the object type.
+          example: Contact
+        type:
+          type: string
+          description: Whether the object type is a standard or custom object.
+          example: standard
+        associations:
+          description: The object types this object type can be associated with.
+          example:
+          - company
+          type: array
+          items:
+            type: string
+      required:
+      - id
+      - name
+      - type
+      - associations
+    ReverseEtlAvailableOperationsDto:
+      type: object
+      properties:
+        data:
+          description: The operations available in the destination for the given object type.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReverseEtlAvailableOperationDto'
+      required:
+      - data
+    ReverseEtlSyncRequestRunConflictResponseDto:
+      type: object
+      properties:
+        error_code:
+          type: string
+          description: A specific error code representing the error type
+        message:
+          type: string
+          description: A human-readable message describing the error
+        active_run_id:
+          type: string
+          description: The ID of the currently active run that caused the conflict. Provided when the request to run conflicts with an already running run.
+          example: T29PUmhHWFVWanNxRkd8MjAyNC0wMy0yMFQwOTowMDowMC4wMDBa
+      required:
+      - error_code
+      - message
+    ReverseEtlSyncDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The Id of the Reverse ETL Sync.
+          example: OoORhGXUVjsqFG
+        enabled:
+          type: boolean
+          description: Whether the Reverse ETL Sync is enabled and running on its schedule.
+          example: true
+        source_type:
+          enum:
+          - RawView
+          - Transform
+          type: string
+          description: The type of the source the Reverse ETL Sync reads from.
+          example: Transform
+        source_id:
+          type: string
+          description: The Id of the source (Transform or Raw View) the Reverse ETL Sync reads from.
+          example: mdl_123
+        transform_id:
+          type: string
+          description: The Id of the Transform the Reverse ETL Sync reads from, if the source is a Transform.
+          example: mdl_123
+        destination_connection_id:
+          type: string
+          description: The Id of the Destination Connection.
+          example: conn_456
+        destination_integration_id:
+          type: string
+          description: The Id of the Destination Integration.
+          example: hubspot
+        object_type_id:
+          type: string
+          description: The Id of the object in the destination that the Reverse ETL Sync writes to.
+          example: Q29udGFjdHx8Y29udGFjdA
+        sync_interval:
+          type: string
+          description: The cron expression when the sync should run. Provided if the sync is not attached to an Orchestration.
+          format: cron expression
+          example: 0 0 * * *
+        orchestration_workflow_id:
+          type: string
+          description: The Id of the Orchestration Workflow that the sync is attached to.
+          example: 3LIw2FdxoByya9
+        operation:
+          description: The operation that defines how records are written to the destination object type.
+          allOf:
+          - $ref: '#/components/schemas/ReverseEtlSyncOperationDto'
+        created_at:
+          format: date-time
+          type: string
+          description: The datetime when the Reverse ETL Sync was created.
+          example: '2020-01-01T00:00:00.000Z'
+        updated_at:
+          format: date-time
+          type: string
+          description: The datetime when the Reverse ETL Sync was last updated.
+          example: '2020-01-01T00:00:00.000Z'
+      required:
+      - id
+      - enabled
+      - source_type
+      - source_id
+      - destination_connection_id
+      - destination_integration_id
+      - object_type_id
+      - created_at
+      - updated_at
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+      description: The API key from Settings -> API Keys

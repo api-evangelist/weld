@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: Weld REST Connection Bridge Orchestrations API
+  description: With the Weld REST API you can programmatically control your syncs
+  version: '0.1'
+  contact: {}
+servers:
+- url: https://connect.weld.app
+security:
+- api_key: []
+tags:
+- name: Orchestrations
+paths:
+  /orchestrations:
+    get:
+      description: List all Orchestrations in pages, sorted by name in alphabetical order.
+      operationId: OrchestrationsOpenApiController_getOrchestrations
+      parameters:
+      - name: starting_after
+        required: false
+        in: query
+        description: The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request.
+        schema:
+          example: ewK8sDoLNI4CFR
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: The number of items to return in a single page.
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 10
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedOrchestrationDto'
+      summary: List Orchestrations
+      tags:
+      - Orchestrations
+  /orchestrations/{id}:
+    get:
+      description: Get a specific Orchestration by its ID.
+      operationId: OrchestrationsOpenApiController_getOrchestration
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the Orchestration.
+        schema:
+          example: ewK8sDoLNI4CFR
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrchestrationDto'
+        '404':
+          description: Orchestration not found.
+      summary: Get Orchestration
+      tags:
+      - Orchestrations
+  /orchestrations/{id}/request_run:
+    post:
+      description: Attempts to run the specified Orchestration immediately.
+      operationId: OrchestrationsOpenApiController_requestRun
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The ID of the Orchestration to run.
+        schema:
+          example: ewK8sDoLNI4CFR
+          type: string
+      responses:
+        '200':
+          description: The scheduled Orchestration Run.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrchestrationRunDto'
+        '404':
+          description: Orchestration not found.
+      summary: Request Orchestration Run
+      tags:
+      - Orchestrations
+components:
+  schemas:
+    OrchestrationRunDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the Orchestration Run.
+          example: ewK8sDoLNI4CFR
+        orchestration_id:
+          type: string
+          description: The ID of the Orchestration this run belongs to.
+          example: 3LIw2FdxoByya9
+        status:
+          enum:
+          - CANCELED
+          - COMPLETED
+          - FAILED
+          - NOT_STARTED
+          - RUNNING
+          type: string
+          description: The status of the run.
+          example: COMPLETED
+        due_at:
+          format: date-time
+          type: string
+          description: The datetime when the run was due to start.
+          example: '2024-01-01T00:00:00.000Z'
+        started_at:
+          format: date-time
+          type: string
+          description: The datetime when the run actually started.
+          example: '2024-01-01T00:00:05.000Z'
+        finished_at:
+          format: date-time
+          type: string
+          description: The datetime when the run finished.
+          example: '2024-01-01T00:05:00.000Z'
+      required:
+      - id
+      - orchestration_id
+      - status
+      - due_at
+    PagedOrchestrationDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of Orchestrations
+          type: array
+          items:
+            $ref: '#/components/schemas/OrchestrationDto'
+      required:
+      - has_more
+      - data
+    OrchestrationDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The Id of the Orchestration.
+          example: ewK8sDoLNI4CFR
+        name:
+          type: string
+          description: The name of the Orchestration.
+          example: My Orchestration
+      required:
+      - id
+      - name
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+      description: The API key from Settings -> API Keys
