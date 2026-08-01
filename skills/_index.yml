@@ -1,0 +1,35 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/weld-connect-openapi.json
+skills:
+- file: weld-run-and-monitor-elt-sync.md
+  name: Run and monitor a Weld ELT sync
+  api: openapi/weld-connect-openapi.json
+  operations:
+  - ConnectionsOpenApiController_listConnections
+  - EltSyncsOpenApiController_createEltSync
+  - EltSyncsOpenApiController_getSourceStreams
+  - EltSyncsOpenApiController_addSourceStreams
+  - EltSyncsOpenApiController_enableEltSync
+  - EltStreamsOpenApiController_requestRun
+  - EltSyncsOpenApiController_getEltSyncStatus
+- file: weld-build-and-publish-transform.md
+  name: Build and publish a Weld SQL transform
+  api: openapi/weld-connect-openapi.json
+  operations:
+  - TransformOpenApiController_createTransform
+  - TransformOpenApiController_createQueryPreview
+  - TransformOpenApiController_getQueryPreviewResult
+  - TransformOpenApiController_getTransformSchema
+  - TransformOpenApiController_publishTransform
+  - TransformOpenApiController_listVersions
+- file: weld-activate-reverse-etl-sync.md
+  name: Activate a Weld Reverse ETL sync
+  api: openapi/weld-connect-openapi.json
+  operations:
+  - ReverseEtlSyncsOpenApiController_getReverseEtlObjectTypes
+  - ReverseEtlSyncsOpenApiController_getReverseEtlDestinationSchema
+  - ReverseEtlSyncsOpenApiController_createReverseEtlSync
+  - ReverseEtlSyncsOpenApiController_activateReverseEtlSync
+  - ReverseEtlSyncsOpenApiController_requestRun
+  - ReverseEtlFailedRecordsOpenApiController_retryReverseEtlSyncFailedRecords

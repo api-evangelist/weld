@@ -1,0 +1,35 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/weld-connect-openapi.json
+sources:
+- openapi/weld-connect-openapi.json
+- https://weld.app/security
+standards:
+- id: oauth2
+  conforms: false
+  evidence: >-
+    The REST API uses apiKey (x-api-key) auth. OAuth is supported only at the MCP
+    server layer for MCP clients, not documented as REST OAuth scopes.
+- id: openapi-3.0
+  conforms: true
+  evidence: Published OpenAPI 3.0.0 document with 65 operations across 52 paths.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use a custom application/json envelope (error_code + message), not
+    application/problem+json.
+- id: cursor-pagination
+  conforms: true
+  evidence: All list endpoints use cursor-based pagination via starting_after + limit.
+- id: api-key-auth
+  conforms: true
+  evidence: securityScheme api_key of type apiKey in header (x-api-key).
+- id: soc2-type-ii
+  conforms: true
+  evidence: SOC 2 Type II asserted on https://weld.app/security.
+- id: iso-27001
+  conforms: true
+  evidence: ISO 27001 asserted on https://weld.app/security.
+- id: gdpr
+  conforms: true
+  evidence: GDPR / DPA published; EU (Copenhagen) based.

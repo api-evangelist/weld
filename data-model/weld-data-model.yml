@@ -1,0 +1,81 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/weld-connect-openapi.json
+notes: >-
+  Entity-relationship graph derived from the Weld Connect OpenAPI schemas and the
+  id-reference query parameters that link resources (connection_id, elt_sync_id,
+  elt_stream_id, reverse_etl_sync_id, orchestration_id, destination_connection_id).
+entities:
+- name: Account
+  description: A Weld workspace; the tenant boundary for connections, syncs, and transforms.
+- name: Connection
+  description: A configured source or destination integration instance.
+  relationships:
+  - has_many: EltSync
+    via: connection_id
+  - has_many: ReverseEtlSync
+    via: destination_connection_id
+- name: Integration
+  description: A catalog integration (300+ connectors) that a Connection instantiates.
+- name: ConnectionBridge
+  description: A bridge linking connections for pipeline routing.
+- name: EltSync
+  description: An ELT sync moving data from a source connection into a destination.
+  relationships:
+  - belongs_to: Connection
+    via: connection_id
+  - has_many: EltStream
+    via: elt_sync_id
+  - has_many: SourceStream
+    via: source_streams
+  - belongs_to: Orchestration
+    via: orchestration
+- name: EltStream
+  description: A single stream/table within an ELT sync.
+  relationships:
+  - belongs_to: EltSync
+    via: elt_sync_id
+  - has_many: EltStreamRun
+    via: elt_stream_id
+- name: EltStreamRun
+  description: An execution record for an ELT stream.
+  relationships:
+  - belongs_to: EltStream
+    via: id
+- name: Transform
+  description: A SQL transformation (data model) with versions and a schema.
+  relationships:
+  - has_many: TransformVersion
+    via: id
+  - belongs_to: Orchestration
+    via: orchestration
+- name: Orchestration
+  description: A schedule/DAG that runs syncs and transforms together.
+  relationships:
+  - has_many: OrchestrationRun
+    via: id
+  - has_many: EltSync
+    via: orchestration
+  - has_many: Transform
+    via: orchestration
+- name: OrchestrationRun
+  description: An execution record for an orchestration.
+  relationships:
+  - belongs_to: Orchestration
+    via: id
+- name: ReverseEtlSync
+  description: A Reverse ETL sync activating modeled data into an operational destination.
+  relationships:
+  - belongs_to: Connection
+    via: destination_connection_id
+  - has_many: ReverseEtlSyncRun
+    via: reverse_etl_sync_id
+  - has_many: ReverseEtlSyncRecordError
+    via: reverse_etl_sync_id
+- name: ReverseEtlSyncRun
+  description: An execution record for a reverse-ETL sync.
+  relationships:
+  - belongs_to: ReverseEtlSync
+    via: id
+- name: CustomReport
+  description: A custom report definition created via the API.

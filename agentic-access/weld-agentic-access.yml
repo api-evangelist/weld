@@ -1,0 +1,864 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/weld-connect-openapi.json
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 65
+  by_action_class:
+    connected: 32
+    acting: 33
+  by_consequence:
+    read: 32
+    safety-critical: 33
+  human_in_the_loop_required: 33
+operations:
+- path: /connection_bridges
+  method: get
+  operationId: ConnectionBridgeOpenApiController_listConnectionBridges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /connection_bridges
+  method: post
+  operationId: ConnectionBridgeOpenApiController_createConnectionBridge
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /connections/{id}/settings
+  method: get
+  operationId: ConnectionsOpenApiController_getEltSettings
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /connections
+  method: get
+  operationId: ConnectionsOpenApiController_listConnections
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /connections/{id}
+  method: delete
+  operationId: ConnectionsOpenApiController_deleteConnection
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /custom_reports
+  method: post
+  operationId: CustomReportsOpenApiController_createCustomReports
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /elt_streams
+  method: get
+  operationId: EltStreamsOpenApiController_getEltStreams
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /elt_streams/{id}
+  method: get
+  operationId: EltStreamsOpenApiController_getEltStream
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /elt_streams/{id}
+  method: delete
+  operationId: EltStreamsOpenApiController_deleteEltStream
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /elt_streams/{id}/request_run
+  method: post
+  operationId: EltStreamsOpenApiController_requestRun
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /elt_streams/{id}/request_full_refresh
+  method: post
+  operationId: EltStreamsOpenApiController_requestFullRefresh
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /elt_streams/{id}/cancel_full_refresh
+  method: post
+  operationId: EltStreamsOpenApiController_cancelFullRefresh
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /elt_stream_runs/{id}
+  method: get
+  operationId: EltStreamRunsOpenApiController_getEltStreamRun
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /elt_stream_runs
+  method: get
+  operationId: EltStreamRunsOpenApiController_getEltStreamRuns
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /elt_syncs/{id}/enable
+  method: post
+  operationId: EltSyncsOpenApiController_enableEltSync
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /elt_syncs/{id}/disable
+  method: post
+  operationId: EltSyncsOpenApiController_disableEltSync
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /elt_syncs
+  method: get
+  operationId: EltSyncsOpenApiController_getEltSyncs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /elt_syncs
+  method: post
+  operationId: EltSyncsOpenApiController_createEltSync
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /elt_syncs/{id}
+  method: post
+  operationId: EltSyncsOpenApiController_updateEltSync
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /elt_syncs/{id}
+  method: get
+  operationId: EltSyncsOpenApiController_getEltSync
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /elt_syncs/{id}
+  method: delete
+  operationId: EltSyncsOpenApiController_deleteEltSync
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /elt_syncs/{id}/orchestration
+  method: post
+  operationId: EltSyncsOpenApiController_attachOrchestration
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /elt_syncs/{id}/orchestration
+  method: delete
+  operationId: EltSyncsOpenApiController_detachOrchestration
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /elt_syncs/{id}/available_source_streams
+  method: get
+  operationId: EltSyncsOpenApiController_getSourceStreams
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /elt_syncs/{id}/source_streams
+  method: post
+  operationId: EltSyncsOpenApiController_addSourceStreams
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /elt_syncs/{id}/status
+  method: get
+  operationId: EltSyncsOpenApiController_getEltSyncStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /integrations
+  method: get
+  operationId: IntegrationsOpenApiController_getIntegrations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /orchestration_runs
+  method: get
+  operationId: OrchestrationRunsOpenApiController_getOrchestrationRuns
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /orchestration_runs/{id}
+  method: get
+  operationId: OrchestrationRunsOpenApiController_getOrchestrationRun
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /orchestrations
+  method: get
+  operationId: OrchestrationsOpenApiController_getOrchestrations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /orchestrations/{id}
+  method: get
+  operationId: OrchestrationsOpenApiController_getOrchestration
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /orchestrations/{id}/request_run
+  method: post
+  operationId: OrchestrationsOpenApiController_requestRun
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /reverse_etl_failed_records
+  method: get
+  operationId: ReverseEtlFailedRecordsOpenApiController_getReverseEtlSyncFailedRecordErrors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /reverse_etl_failed_records/count
+  method: get
+  operationId: ReverseEtlFailedRecordsOpenApiController_getReverseEtlSyncFailedRecordCount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /reverse_etl_failed_records/retry
+  method: post
+  operationId: ReverseEtlFailedRecordsOpenApiController_retryReverseEtlSyncFailedRecords
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /reverse_etl_failed_records/retry_all
+  method: post
+  operationId: ReverseEtlFailedRecordsOpenApiController_retryAllReverseEtlSyncFailedRecords
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /reverse_etl_sync_runs/{id}
+  method: get
+  operationId: ReverseEtlSyncRunsOpenApiController_getReverseEtlSyncRun
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /reverse_etl_sync_runs
+  method: get
+  operationId: ReverseEtlSyncRunsOpenApiController_getReverseEtlSyncRuns
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /reverse_etl_syncs
+  method: get
+  operationId: ReverseEtlSyncsOpenApiController_getReverseEtlSyncs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /reverse_etl_syncs
+  method: post
+  operationId: ReverseEtlSyncsOpenApiController_createReverseEtlSync
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /reverse_etl_syncs/destination_schema
+  method: get
+  operationId: ReverseEtlSyncsOpenApiController_getReverseEtlDestinationSchema
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /reverse_etl_syncs/available_operations
+  method: get
+  operationId: ReverseEtlSyncsOpenApiController_getReverseEtlAvailableOperations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /reverse_etl_syncs/object_types
+  method: get
+  operationId: ReverseEtlSyncsOpenApiController_getReverseEtlObjectTypes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /reverse_etl_syncs/settings_schema
+  method: post
+  operationId: ReverseEtlSyncsOpenApiController_getReverseEtlSettingsSchema
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /reverse_etl_syncs/{id}
+  method: get
+  operationId: ReverseEtlSyncsOpenApiController_getReverseEtlSync
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /reverse_etl_syncs/{id}
+  method: post
+  operationId: ReverseEtlSyncsOpenApiController_updateReverseEtlSync
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /reverse_etl_syncs/{id}
+  method: delete
+  operationId: ReverseEtlSyncsOpenApiController_deleteReverseEtlSync
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /reverse_etl_syncs/{id}/activate
+  method: post
+  operationId: ReverseEtlSyncsOpenApiController_activateReverseEtlSync
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /reverse_etl_syncs/{id}/deactivate
+  method: post
+  operationId: ReverseEtlSyncsOpenApiController_deactivateReverseEtlSync
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /reverse_etl_syncs/{id}/request_run
+  method: post
+  operationId: ReverseEtlSyncsOpenApiController_requestRun
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /transforms
+  method: get
+  operationId: TransformOpenApiController_listTransforms
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /transforms
+  method: post
+  operationId: TransformOpenApiController_createTransform
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /transforms/available_references
+  method: get
+  operationId: TransformOpenApiController_getAvailableReferences
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /transforms/{id}
+  method: get
+  operationId: TransformOpenApiController_getTransform
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /transforms/{id}
+  method: patch
+  operationId: TransformOpenApiController_updateTransform
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /transforms/{id}
+  method: delete
+  operationId: TransformOpenApiController_deleteTransform
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /transforms/{id}/schema
+  method: get
+  operationId: TransformOpenApiController_getTransformSchema
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /transforms/{id}/orchestration
+  method: post
+  operationId: TransformOpenApiController_attachOrchestration
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /transforms/{id}/orchestration
+  method: delete
+  operationId: TransformOpenApiController_detachOrchestration
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /transforms/bulk
+  method: post
+  operationId: TransformOpenApiController_bulkCreateTransforms
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /transforms/{id}/versions
+  method: get
+  operationId: TransformOpenApiController_listVersions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /transforms/{id}/publish
+  method: post
+  operationId: TransformOpenApiController_publishTransform
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /transforms/query_previews
+  method: post
+  operationId: TransformOpenApiController_createQueryPreview
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /transforms/query_previews/{queryExecutionId}/status
+  method: get
+  operationId: TransformOpenApiController_getQueryPreviewStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /transforms/query_previews/{queryExecutionId}/result
+  method: get
+  operationId: TransformOpenApiController_getQueryPreviewResult
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

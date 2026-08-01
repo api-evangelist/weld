@@ -1,0 +1,31 @@
+generated: '2026-07-21'
+method: searched
+source: https://weld.app/docs
+sources:
+- https://status.weld.app/
+- https://weld.app/service-level-agreement
+- https://weld.app/docs
+- openapi/weld-connect-openapi.json
+versioning:
+  scheme: unversioned-host
+  base_url: https://connect.weld.app
+  spec_version: '0.1'
+  notes: >-
+    The Connect API is served without a version path segment; OpenAPI info.version
+    is 0.1. Product changes are published as dated Release Notes in the docs
+    (sections for 2022-2026).
+release_notes:
+  present: true
+  location: Weld Documentation -> Release Notes (yearly sections 2022-2026)
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: >-
+    No formal deprecation policy or RFC 8594 Sunset/Deprecation header support was
+    found. Some OpenAPI schemas carry a RetirementDetails object indicating
+    connector/integration retirement metadata.
+sla:
+  url: https://weld.app/service-level-agreement
+  notes: Weld publishes a Service Level Agreement.
+status_page: https://status.weld.app/
+deprecated_operations: []

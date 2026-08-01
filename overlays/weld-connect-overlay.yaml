@@ -1,0 +1,31 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Weld Connect API
+  version: 1.0.0
+extends: openapi/weld-connect-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: weld
+    x-apievangelist-enriched: '2026-07-21'
+    x-apievangelist-auth: apiKey (x-api-key header, workspace-scoped)
+    x-apievangelist-pagination: cursor (starting_after + limit)
+    x-apievangelist-error-envelope: 'custom application/json {error_code, message}'
+    x-apievangelist-mcp-server: https://connect.weld.app/mcp
+- target: $.info
+  update:
+    contact:
+      name: Weld Support
+      url: https://weld.app/support
+    x-status-page: https://status.weld.app/
+    x-sla: https://weld.app/service-level-agreement
+- target: $
+  update:
+    x-apievangelist-artifacts:
+      authentication: authentication/weld-authentication.yml
+      conventions: conventions/weld-conventions.yml
+      errors: errors/weld-problem-types.yml
+      lifecycle: lifecycle/weld-lifecycle.yml
+      data_model: data-model/weld-data-model.yml
+      mcp: mcp/weld-mcp.yml
+      agentic_access: agentic-access/weld-agentic-access.yml

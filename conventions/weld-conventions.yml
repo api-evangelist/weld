@@ -1,0 +1,56 @@
+generated: '2026-07-21'
+method: searched
+source: https://weld.app/docs/weld-connect/getting-started
+sources:
+- https://weld.app/docs/weld-connect/getting-started
+- https://weld.app/docs/weld-connect/pagination
+- openapi/weld-connect-openapi.json
+authentication:
+  style: api-key
+  location: header
+  parameter: x-api-key
+  scope: workspace
+  notes: >-
+    Create an API key in the Weld app under Settings -> API keys. Keys are scoped
+    to a single workspace. The MCP server additionally supports an OAuth flow.
+  ref: authentication/weld-authentication.yml
+pagination:
+  style: cursor
+  direction: reverse-chronological
+  request_params:
+  - name: starting_after
+    in: query
+    description: >-
+      Cursor set to the id of an existing object; returns the next page of results
+      in reverse chronological order by creation time.
+  - name: limit
+    in: query
+    description: Maximum number of items to return per page.
+  - name: sort_direction
+    in: query
+    description: Sort direction for list endpoints (where supported).
+  notes: All list endpoints that return collections support cursor-based pagination.
+error_envelope:
+  content_type: application/json
+  shape:
+    error_code: A specific string code representing the error type.
+    message: A human-readable message describing the error.
+  format: custom
+  ref: errors/weld-problem-types.yml
+idempotency:
+  supported: false
+  notes: >-
+    Weld does not document an idempotency-key mechanism for the Connect API as of
+    this capture. Mutations (create/update/delete, request_run, request_full_refresh)
+    are not advertised as idempotent.
+rate_limiting:
+  documented: false
+  notes: No rate-limit headers or 429 responses are declared in the OpenAPI or docs.
+versioning:
+  scheme: unversioned-host
+  base_url: https://connect.weld.app
+  spec_version: '0.1'
+  notes: >-
+    The Connect API is served from https://connect.weld.app with no version path
+    segment; the OpenAPI info.version is 0.1.
+lifecycle_ref: lifecycle/weld-lifecycle.yml

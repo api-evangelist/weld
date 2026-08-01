@@ -1,0 +1,37 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/weld-connect-openapi.json
+format: custom
+envelope:
+  content_type: application/json
+  schema: ErrorDto
+  fields:
+    error_code: A specific string code representing the error type (required).
+    message: A human-readable message describing the error (required).
+notes: >-
+  Derived from the 4xx/5xx responses declared across the Weld Connect OpenAPI. Weld
+  returns a custom JSON error envelope (error_code + message), not RFC 9457
+  application/problem+json. Response counts by status: 404 x31, 400 x9, 409 x3.
+problems:
+- status: 400
+  title: Bad Request
+  description: >-
+    The request was malformed or failed validation (invalid body, missing required
+    field, or unsupported parameter value).
+  schema: ErrorDto
+  occurrences: 9
+- status: 404
+  title: Not Found
+  description: >-
+    The referenced resource (connection, ELT sync, ELT stream, transform,
+    orchestration, or reverse-ETL sync) does not exist or is not accessible to the
+    workspace.
+  schema: ErrorDto
+  occurrences: 31
+- status: 409
+  title: Conflict
+  description: >-
+    The requested action conflicts with the resource's current state — for example
+    requesting a run or full refresh while one is already in progress.
+  schema: EltStreamRequestRunConflictResponseDto
+  occurrences: 3

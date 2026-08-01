@@ -1,0 +1,38 @@
+{
+  "provider": "weld",
+  "sources": [
+    "weld-connection-bridge-api-openapi.yml",
+    "weld-connections-api-openapi.yml",
+    "weld-custom-reports-api-openapi.yml",
+    "weld-elt-stream-runs-api-openapi.yml",
+    "weld-elt-streams-api-openapi.yml",
+    "weld-elt-syncs-api-openapi.yml",
+    "weld-integrations-api-openapi.yml",
+    "weld-orchestration-runs-api-openapi.yml",
+    "weld-orchestrations-api-openapi.yml",
+    "weld-reverse-etl-failed-records-api-openapi.yml",
+    "weld-reverse-etl-sync-runs-api-openapi.yml",
+    "weld-reverse-etl-syncs-api-openapi.yml",
+    "weld-transforms-api-openapi.yml"
+  ],
+  "outputs": [
+    "weld-connection-bridge-api-openapi.yml",
+    "weld-connections-api-openapi.yml",
+    "weld-custom-reports-api-openapi.yml",
+    "weld-elt-stream-runs-api-openapi.yml",
+    "weld-elt-streams-api-openapi.yml",
+    "weld-elt-syncs-api-openapi.yml",
+    "weld-integrations-api-openapi.yml",
+    "weld-orchestration-runs-api-openapi.yml",
+    "weld-orchestrations-api-openapi.yml",
+    "weld-reverse-etl-failed-records-api-openapi.yml",
+    "weld-reverse-etl-sync-runs-api-openapi.yml",
+    "weld-reverse-etl-syncs-api-openapi.yml",
+    "weld-transforms-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

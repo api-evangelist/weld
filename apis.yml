@@ -1,22 +1,298 @@
 aid: weld
 name: Weld
-description: Weld is a company surfaced as a portfolio company of a16z and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Weld is a programmable data-infrastructure platform for moving and transforming
+  data. It runs near real-time ELT/ETL pipelines from 300+ prebuilt connectors,
+  log-based Change Data Capture (CDC), SQL-based data transformations with lineage
+  and version history, and Reverse ETL to activate modeled data back into operational
+  tools. The Weld Connect REST API and a hosted Model Context Protocol (MCP) server
+  let developers and AI agents create connections, run and monitor ELT syncs, build
+  and publish transforms, and orchestrate pipelines programmatically. Weld is a
+  Copenhagen-based company backed by a16z and other leading investors.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://weld.app/opengraph-image.png
 url: https://raw.githubusercontent.com/api-evangelist/weld/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - a16z
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-from-portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Data
+- ETL
+- ELT
+- Reverse ETL
+- Data Pipelines
+- Data Integration
+- Change Data Capture
+- Transformations
+- Analytics
+- MCP
+- AI Agents
+apis:
+- aid: weld:weld-connection-bridge-api
+  name: Weld Connection Bridge API
+  description: The Connection Bridge API from Weld — 1 operation(s) for connection bridge.
+  humanURL: https://weld.app/docs/api-reference
+  baseURL: https://connect.weld.app
+  tags:
+  - Connection Bridge
+  properties:
+  - type: OpenAPI
+    url: openapi/weld-connection-bridge-api-openapi.yml
+  - type: Documentation
+    url: https://weld.app/docs/api-reference
+  - type: GettingStarted
+    url: https://weld.app/docs/weld-connect/getting-started
+- aid: weld:weld-connections-api
+  name: Weld Connections API
+  description: The Connections API from Weld — 3 operation(s) for connections.
+  humanURL: https://weld.app/docs/api-reference
+  baseURL: https://connect.weld.app
+  tags:
+  - Connections
+  properties:
+  - type: OpenAPI
+    url: openapi/weld-connections-api-openapi.yml
+  - type: Documentation
+    url: https://weld.app/docs/api-reference
+  - type: GettingStarted
+    url: https://weld.app/docs/weld-connect/getting-started
+- aid: weld:weld-custom-reports-api
+  name: Weld Custom Reports API
+  description: The Custom Reports API from Weld — 1 operation(s) for custom reports.
+  humanURL: https://weld.app/docs/api-reference
+  baseURL: https://connect.weld.app
+  tags:
+  - Custom Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/weld-custom-reports-api-openapi.yml
+  - type: Documentation
+    url: https://weld.app/docs/api-reference
+  - type: GettingStarted
+    url: https://weld.app/docs/weld-connect/getting-started
+- aid: weld:weld-elt-stream-runs-api
+  name: Weld ELT Stream Runs API
+  description: The ELT Stream Runs API from Weld — 2 operation(s) for elt stream runs.
+  humanURL: https://weld.app/docs/api-reference
+  baseURL: https://connect.weld.app
+  tags:
+  - ELT Stream Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/weld-elt-stream-runs-api-openapi.yml
+  - type: Documentation
+    url: https://weld.app/docs/api-reference
+  - type: GettingStarted
+    url: https://weld.app/docs/weld-connect/getting-started
+- aid: weld:weld-elt-streams-api
+  name: Weld ELT Streams API
+  description: The ELT Streams API from Weld — 5 operation(s) for elt streams.
+  humanURL: https://weld.app/docs/api-reference
+  baseURL: https://connect.weld.app
+  tags:
+  - ELT Streams
+  properties:
+  - type: OpenAPI
+    url: openapi/weld-elt-streams-api-openapi.yml
+  - type: Documentation
+    url: https://weld.app/docs/api-reference
+  - type: GettingStarted
+    url: https://weld.app/docs/weld-connect/getting-started
+- aid: weld:weld-elt-syncs-api
+  name: Weld ELT Syncs API
+  description: The ELT Syncs API from Weld — 8 operation(s) for elt syncs.
+  humanURL: https://weld.app/docs/api-reference
+  baseURL: https://connect.weld.app
+  tags:
+  - ELT Syncs
+  properties:
+  - type: OpenAPI
+    url: openapi/weld-elt-syncs-api-openapi.yml
+  - type: Documentation
+    url: https://weld.app/docs/api-reference
+  - type: GettingStarted
+    url: https://weld.app/docs/weld-connect/getting-started
+- aid: weld:weld-integrations-api
+  name: Weld Integrations API
+  description: The Integrations API from Weld — 1 operation(s) for integrations.
+  humanURL: https://weld.app/docs/api-reference
+  baseURL: https://connect.weld.app
+  tags:
+  - Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/weld-integrations-api-openapi.yml
+  - type: Documentation
+    url: https://weld.app/docs/api-reference
+  - type: GettingStarted
+    url: https://weld.app/docs/weld-connect/getting-started
+- aid: weld:weld-orchestration-runs-api
+  name: Weld Orchestration Runs API
+  description: The Orchestration Runs API from Weld — 2 operation(s) for orchestration runs.
+  humanURL: https://weld.app/docs/api-reference
+  baseURL: https://connect.weld.app
+  tags:
+  - Orchestration Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/weld-orchestration-runs-api-openapi.yml
+  - type: Documentation
+    url: https://weld.app/docs/api-reference
+  - type: GettingStarted
+    url: https://weld.app/docs/weld-connect/getting-started
+- aid: weld:weld-orchestrations-api
+  name: Weld Orchestrations API
+  description: The Orchestrations API from Weld — 3 operation(s) for orchestrations.
+  humanURL: https://weld.app/docs/api-reference
+  baseURL: https://connect.weld.app
+  tags:
+  - Orchestrations
+  properties:
+  - type: OpenAPI
+    url: openapi/weld-orchestrations-api-openapi.yml
+  - type: Documentation
+    url: https://weld.app/docs/api-reference
+  - type: GettingStarted
+    url: https://weld.app/docs/weld-connect/getting-started
+- aid: weld:weld-reverse-etl-failed-records-api
+  name: Weld Reverse ETL Failed Records API
+  description: >-
+    The Reverse ETL Failed Records API from Weld — 4 operation(s) for reverse etl failed records.
+  humanURL: https://weld.app/docs/api-reference
+  baseURL: https://connect.weld.app
+  tags:
+  - Reverse ETL Failed Records
+  properties:
+  - type: OpenAPI
+    url: openapi/weld-reverse-etl-failed-records-api-openapi.yml
+  - type: Documentation
+    url: https://weld.app/docs/api-reference
+  - type: GettingStarted
+    url: https://weld.app/docs/weld-connect/getting-started
+- aid: weld:weld-reverse-etl-sync-runs-api
+  name: Weld Reverse ETL Sync Runs API
+  description: The Reverse ETL Sync Runs API from Weld — 2 operation(s) for reverse etl sync runs.
+  humanURL: https://weld.app/docs/api-reference
+  baseURL: https://connect.weld.app
+  tags:
+  - Reverse ETL Sync Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/weld-reverse-etl-sync-runs-api-openapi.yml
+  - type: Documentation
+    url: https://weld.app/docs/api-reference
+  - type: GettingStarted
+    url: https://weld.app/docs/weld-connect/getting-started
+- aid: weld:weld-reverse-etl-syncs-api
+  name: Weld Reverse ETL Syncs API
+  description: The Reverse ETL Syncs API from Weld — 9 operation(s) for reverse etl syncs.
+  humanURL: https://weld.app/docs/api-reference
+  baseURL: https://connect.weld.app
+  tags:
+  - Reverse ETL Syncs
+  properties:
+  - type: OpenAPI
+    url: openapi/weld-reverse-etl-syncs-api-openapi.yml
+  - type: Documentation
+    url: https://weld.app/docs/api-reference
+  - type: GettingStarted
+    url: https://weld.app/docs/weld-connect/getting-started
+- aid: weld:weld-transforms-api
+  name: Weld Transforms API
+  description: The Transforms API from Weld — 11 operation(s) for transforms.
+  humanURL: https://weld.app/docs/api-reference
+  baseURL: https://connect.weld.app
+  tags:
+  - Transforms
+  properties:
+  - type: OpenAPI
+    url: openapi/weld-transforms-api-openapi.yml
+  - type: Documentation
+    url: https://weld.app/docs/api-reference
+  - type: GettingStarted
+    url: https://weld.app/docs/weld-connect/getting-started
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+common:
+- type: TrustCenter
+  url: security/weld-trust-center.yml
+- type: DomainSecurity
+  url: security/weld-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/weld-agentic-access.yml
+- type: Authentication
+  url: authentication/weld-authentication.yml
+- type: MCPServer
+  url: mcp/weld-mcp.yml
+- type: Conventions
+  url: conventions/weld-conventions.yml
+- type: ErrorCatalog
+  url: errors/weld-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/weld-lifecycle.yml
+- type: Conformance
+  url: conformance/weld-conformance.yml
+- type: Compliance
+  url: https://weld.app/security
+- type: DataModel
+  url: data-model/weld-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Overlay
+  url: overlays/weld-connect-overlay.yaml
+- type: LLMsTxt
+  url: llms/weld-llms.txt
+- type: WellKnown
+  url: well-known/weld-well-known.yml
+- type: SLA
+  url: https://weld.app/service-level-agreement
+- type: DeveloperPortal
+  url: https://weld.app/docs
+- type: Documentation
+  url: https://weld.app/docs
+- type: APIReference
+  url: https://weld.app/docs/api-reference
+- type: GettingStarted
+  url: https://weld.app/docs/weld-connect/getting-started
+- type: Blog
+  url: https://weld.app/blog
+- type: Pricing
+  url: https://weld.app/pricing
+- type: Support
+  url: https://weld.app/support
+- type: SignUp
+  url: https://workspace.weld.app/signup
+- type: TermsOfService
+  url: https://weld.app/terms-of-service
+- type: PrivacyPolicy
+  url: https://weld.app/privacy-policy
+- type: StatusPage
+  url: https://status.weld.app/
+- type: Website
+  url: https://weld.app
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1

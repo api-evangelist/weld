@@ -1,0 +1,52 @@
+generated: '2026-07-21'
+method: searched
+status: published
+source: https://weld.app/docs/weld-connect/mcp-server
+server:
+  name: weld
+  transport: streamable-http
+  url: https://connect.weld.app/mcp
+  description: >-
+    Official hosted Weld MCP server. Lets AI assistants (Claude Desktop, claude.ai,
+    Claude Code, Cursor, GitHub Copilot, Windsurf, and other MCP clients) interact
+    directly with a Weld workspace — listing syncs, inspecting connections, debugging
+    failures, creating transforms, and orchestrating pipelines via natural language.
+authentication:
+  methods:
+  - type: oauth
+    recommended: true
+    notes: >-
+      MCP OAuth flow; supported by Claude Desktop, claude.ai, and Claude Code. No
+      API key required — browser login authorizes the connection and scopes it to
+      your Weld account/workspace.
+  - type: api_key
+    header: x-api-key
+    notes: >-
+      For clients without OAuth or programmatic/headless use. Workspace-scoped key
+      created under Settings -> API keys in the Weld app.
+availability:
+  plans: Premium plan and above; free 2-week trial on Basic
+  pricing: add-on at EUR 99/month after trial
+install:
+  claude_code: claude mcp add weld --transport streamable-http https://connect.weld.app/mcp
+  claude_desktop_config: |
+    {
+      "mcpServers": {
+        "weld": {
+          "url": "https://connect.weld.app/mcp"
+        }
+      }
+    }
+tools:
+  # Verbatim tool confirmed in the docs; the full tool surface mirrors the Weld
+  # Connect REST API operations (see openapi/weld-connect-openapi.json). Not
+  # enumerated here beyond what the docs publish — no fabrication.
+  - name: list_accounts
+    description: List the Weld workspaces the authenticated user can access.
+    source: https://weld.app/docs/weld-connect/mcp-server
+capabilities:
+  - List and inspect ELT syncs and their run status
+  - Inspect connections and their configuration
+  - Debug failing syncs and reverse-ETL failed records
+  - Create and manage SQL transforms
+  - Trigger and monitor orchestration runs
