@@ -1,0 +1,279 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Weld REST Connection Bridge ELT Syncs API",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ELT Syncs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Enable ELT Sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/elt_syncs/:id/enable",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ELT Sync to enable."
+              }
+            ]
+          },
+          "docs": "Enables scheduling for the specified ELT Sync. It will be executed periodically based on its sync interval."
+        },
+        {
+          "info": {
+            "name": "Disable ELT Sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/elt_syncs/:id/disable",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ELT Sync to disable."
+              }
+            ]
+          },
+          "docs": "Disables scheduling for the specified ELT Sync. It will no longer be executed periodically."
+        },
+        {
+          "info": {
+            "name": "List ELT Syncs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/elt_syncs",
+            "params": [
+              {
+                "name": "starting_after",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return in a single page."
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter ELT Syncs by the associated Source Connection ID."
+              }
+            ]
+          },
+          "docs": "List all ELT Syncs in pages sorted by their creation date."
+        },
+        {
+          "info": {
+            "name": "Create a new ELT Sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/elt_syncs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new ELT Sync"
+        },
+        {
+          "info": {
+            "name": "Get ELT Sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/elt_syncs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ELT sync."
+              }
+            ]
+          },
+          "docs": "Get data of a specific ELT sync."
+        },
+        {
+          "info": {
+            "name": "Update an existing ELT Sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/elt_syncs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing ELT Sync"
+        },
+        {
+          "info": {
+            "name": "Delete ELT sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://connect.weld.app/elt_syncs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ELT sync."
+              },
+              {
+                "name": "removeDataReferences",
+                "value": "",
+                "type": "query",
+                "description": "If set to true, all tables created in the destination by this ELT sync will also be removed. Default is false."
+              }
+            ]
+          },
+          "docs": "Delete a specific ELT sync. This will also delete all associated source streams."
+        },
+        {
+          "info": {
+            "name": "Attach ELT sync to an orchestration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/elt_syncs/:id/orchestration",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ELT sync."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attaches this ELT sync to an Orchestration Workflow, so it runs as part of that workflow's runs instead of on its own schedule."
+        },
+        {
+          "info": {
+            "name": "Detach ELT sync from its orchestration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://connect.weld.app/elt_syncs/:id/orchestration",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ELT sync."
+              }
+            ]
+          },
+          "docs": "Detaches this ELT sync from its Orchestration Workflow. Streams with their own sync_interval will resume running on it; streams without one will fall back to the sync_interval on the sync (defaulting to daily if none is set)."
+        },
+        {
+          "info": {
+            "name": "Get available streams for ELT sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/elt_syncs/:id/available_source_streams",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ELT sync."
+              }
+            ]
+          },
+          "docs": "List all streams that can be created for the given ELT sync."
+        },
+        {
+          "info": {
+            "name": "Add source streams to ELT sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/elt_syncs/:id/source_streams",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ELT sync."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add source streams to the given ELT sync and return the newly created streams. This method will only add new streams and update existing streams"
+        },
+        {
+          "info": {
+            "name": "Get ELT Sync Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/elt_syncs/:id/status",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the ELT sync."
+              }
+            ]
+          },
+          "docs": "Get the current status of an ELT sync, including active and latest sync states for each source stream."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

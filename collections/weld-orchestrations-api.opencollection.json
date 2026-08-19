@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Weld REST Connection Bridge Orchestrations API",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orchestrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Orchestrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/orchestrations",
+            "params": [
+              {
+                "name": "starting_after",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return in a single page."
+              }
+            ]
+          },
+          "docs": "List all Orchestrations in pages, sorted by name in alphabetical order."
+        },
+        {
+          "info": {
+            "name": "Get Orchestration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/orchestrations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Orchestration."
+              }
+            ]
+          },
+          "docs": "Get a specific Orchestration by its ID."
+        },
+        {
+          "info": {
+            "name": "Request Orchestration Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/orchestrations/:id/request_run",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Orchestration to run."
+              }
+            ]
+          },
+          "docs": "Attempts to run the specified Orchestration immediately."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Weld REST Connection Bridge Integrations API",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/integrations",
+            "params": [
+              {
+                "name": "ability",
+                "value": "",
+                "type": "query",
+                "description": "Filter integrations by a supported ability. Defaults to `EltSource` when omitted."
+              }
+            ]
+          },
+          "docs": "List all integrations that are available in Weld for the current account based on their plan and entitlements."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

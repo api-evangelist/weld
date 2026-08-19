@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Weld REST Connection Bridge Reverse ETL Failed Records API",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reverse ETL Failed Records",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Reverse ETL Sync Failed Record Errors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/reverse_etl_failed_records",
+            "params": [
+              {
+                "name": "reverse_etl_sync_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Reverse ETL Sync to fetch record errors for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of record errors to return."
+              }
+            ]
+          },
+          "docs": "List the unresolved record errors captured for the specified Reverse ETL Sync."
+        },
+        {
+          "info": {
+            "name": "Get Reverse ETL Sync Failed Record count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/reverse_etl_failed_records/count",
+            "params": [
+              {
+                "name": "reverse_etl_sync_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Reverse ETL Sync to fetch record errors for."
+              }
+            ]
+          },
+          "docs": "Get the number of unresolved failed records captured for the specified Reverse ETL Sync."
+        },
+        {
+          "info": {
+            "name": "Retry Reverse ETL Sync Failed Records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/reverse_etl_failed_records/retry",
+            "params": [
+              {
+                "name": "reverse_etl_sync_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Reverse ETL Sync to fetch record errors for."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retries the given record IDs on the specified Reverse ETL Sync at the next run by resetting their errors."
+        },
+        {
+          "info": {
+            "name": "Retry all Reverse ETL Sync Failed Records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/reverse_etl_failed_records/retry_all",
+            "params": [
+              {
+                "name": "reverse_etl_sync_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Reverse ETL Sync to fetch record errors for."
+              }
+            ]
+          },
+          "docs": "Retries all failed records captured for the specified Reverse ETL Sync at the next run by resetting their errors."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

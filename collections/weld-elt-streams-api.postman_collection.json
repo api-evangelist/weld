@@ -1,0 +1,1087 @@
+{
+  "item": [
+    {
+      "id": "f45c75f1-4462-4f07-99d3-5d7ab4267e39",
+      "name": "ELT Streams",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "91f2ff04-61b1-4a8d-a1a4-3beb8cf2b49e",
+          "name": "List ELT Streams",
+          "request": {
+            "name": "List ELT Streams",
+            "description": {
+              "content": "List all ELT Streams in pages sorted by their creation date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_streams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "elt_sync_id",
+                  "value": "<string>",
+                  "description": "The Id of the ELT Sync that the stream belongs to."
+                },
+                {
+                  "disabled": false,
+                  "key": "starting_after",
+                  "value": "<string>",
+                  "description": "The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The number of items to return in a single page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d5b797d4-8cba-4867-b87a-08c61e605edf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "elt_sync_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "starting_after",
+                      "value": "ewK8sDoLNI4CFR"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"data\": [\n    {\n      \"id\": \"SCTVdLAcyDTgNx\",\n      \"elt_sync_id\": \"3LIw2FdxoByya9\",\n      \"name\": \"users\",\n      \"full_sync_at_midnight\": false,\n      \"full_sync_always\": false,\n      \"protected_from_full_sync\": false,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false,\n      \"incremental_primary_key_name\": [\n        \"id\"\n      ],\n      \"incremental_pointer_id\": \"updated_at\"\n    },\n    {\n      \"id\": \"SCTVdLAcyDTgNx\",\n      \"elt_sync_id\": \"3LIw2FdxoByya9\",\n      \"name\": \"users\",\n      \"full_sync_at_midnight\": false,\n      \"full_sync_always\": false,\n      \"protected_from_full_sync\": false,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false,\n      \"incremental_primary_key_name\": [\n        \"id\"\n      ],\n      \"incremental_pointer_id\": \"updated_at\"\n    }\n  ],\n  \"next_cursor\": \"VeN1GjhVIq1D9h\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba642169-1ceb-4abd-98d6-d5985a94793a",
+          "name": "Get ELT Stream",
+          "request": {
+            "name": "Get ELT Stream",
+            "description": {
+              "content": "Get details of a specific ELT Stream by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_streams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the ELT Stream."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63795234-c3a9-4c5e-bce2-860832d8d44f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"SCTVdLAcyDTgNx\",\n  \"elt_sync_id\": \"3LIw2FdxoByya9\",\n  \"name\": \"users\",\n  \"full_sync_at_midnight\": false,\n  \"full_sync_always\": false,\n  \"protected_from_full_sync\": false,\n  \"created_at\": \"2020-01-01T00:00:00.000Z\",\n  \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n  \"excluded_substreams\": [\n    \"substream1\",\n    \"substream2\"\n  ],\n  \"enabled_history_table\": false,\n  \"incremental_primary_key_name\": [\n    \"id\"\n  ],\n  \"incremental_pointer_id\": \"updated_at\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "641dc83e-9f29-4ece-afcb-64be2acff9a6",
+              "name": "Stream not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Stream."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41e35b05-e2c4-4fdf-b353-465fecf8b464",
+          "name": "Delete ELT Stream",
+          "request": {
+            "name": "Delete ELT Stream",
+            "description": {},
+            "url": {
+              "path": [
+                "elt_streams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the ELT Stream to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a6a44da3-3fd0-4a81-b79e-e750cb2aa089",
+              "name": "The ELT Stream has been successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Stream to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fdb5e719-74f3-4a56-9ab2-76ccab4b53fa",
+              "name": "Stream not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Stream to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f865835a-16b8-4a42-b0f3-61705e2918af",
+          "name": "Request ELT Stream Run",
+          "request": {
+            "name": "Request ELT Stream Run",
+            "description": {
+              "content": "Attempts to run the specified ELT Stream immediately.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_streams",
+                ":id",
+                "request_run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the ELT Stream to run."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a2c46369-0b3d-4f61-a463-b1ebdbf6f503",
+              "name": "The ELT Stream has been successfully scheduled to run now.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_streams",
+                    ":id",
+                    "request_run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Stream to run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_url\": \"/elt_stream_runs?elt_stream_id=vBjnEbMi9i3P4K&starting_after=c3RyZWFtLXN5bmMtMTIzfDIwMjQtMDMtMjBUMDk6MDA6MDAuMDAwWg&limit=1&sort_direction=asc\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab7d6047-7f2f-4f96-a3ea-342d48fc42de",
+              "name": "Invalid request (e.g. sync not running, job stopped)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_streams",
+                    ":id",
+                    "request_run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Stream to run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce0bc758-e7e6-4d78-a084-de512e507cb6",
+              "name": "Stream or job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_streams",
+                    ":id",
+                    "request_run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Stream to run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbf0d947-9a52-421e-a0dc-7ed8d034e69f",
+              "name": "Job is already running or scheduled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_streams",
+                    ":id",
+                    "request_run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Stream to run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\",\n  \"active_run_id\": \"c3RyZWFtLXN5bmMtMTIzfDIwMjQtMDMtMjBUMDk6MDA6MDAuMDAwWg\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8f1e21f4-744f-42fe-a699-5f641160e48d",
+          "name": "Request ELT Stream Full Refresh",
+          "request": {
+            "name": "Request ELT Stream Full Refresh",
+            "description": {
+              "content": "Marks the next scheduled run as a full refresh. This disregards incremental sync settings and may take longer to complete.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_streams",
+                ":id",
+                "request_full_refresh"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the ELT Stream to refresh."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reset_history_table\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ca04854d-395d-4763-90fa-174ea3bc287f",
+              "name": "The ELT Stream has been successfully scheduled for a full refresh. This does not trigger the job itself — use the Request ELT Stream Run endpoint if you want to start it immediately.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_streams",
+                    ":id",
+                    "request_full_refresh"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Stream to refresh."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reset_history_table\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1cfc91e7-c8d3-4b08-93d0-eb484a2ad0f8",
+              "name": "Invalid request (e.g. sync not running, job stopped)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_streams",
+                    ":id",
+                    "request_full_refresh"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Stream to refresh."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reset_history_table\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aabd0764-58e4-4e8d-815a-98daedbd6fd9",
+              "name": "Stream or job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_streams",
+                    ":id",
+                    "request_full_refresh"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Stream to refresh."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reset_history_table\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9f693e6-9ef8-4d60-aea1-f23c115b1d4a",
+          "name": "Cancel ELT Stream Full Refresh",
+          "request": {
+            "name": "Cancel ELT Stream Full Refresh",
+            "description": {
+              "content": "Cancels a previously requested full refresh for the ELT Stream, reverting it back to incremental sync.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_streams",
+                ":id",
+                "cancel_full_refresh"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the ELT Stream to cancel the full refresh for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "260dae61-31bd-4469-852c-d18455613f6c",
+              "name": "The full refresh has been successfully cancelled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_streams",
+                    ":id",
+                    "cancel_full_refresh"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Stream to cancel the full refresh for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e61906ac-3117-477e-8586-7618eb47f0c3",
+              "name": "Stream or job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_streams",
+                    ":id",
+                    "cancel_full_refresh"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Stream to cancel the full refresh for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.weld.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "206df1bc-e5f7-4ba7-890d-2bac356e8f9e",
+    "name": "Weld REST Connection Bridge ELT Streams API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With the Weld REST API you can programmatically control your syncs",
+      "type": "text/plain"
+    }
+  }
+}

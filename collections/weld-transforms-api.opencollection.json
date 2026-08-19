@@ -1,0 +1,339 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Weld REST Connection Bridge Transforms API",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transforms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List transforms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/transforms",
+            "params": [
+              {
+                "name": "starting_after",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return in a single page."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name (case-insensitive substring match)."
+              },
+              {
+                "name": "folder_path",
+                "value": "",
+                "type": "query",
+                "description": "Filter by folder path (e.g. \"analytics/marketing\")."
+              }
+            ]
+          },
+          "docs": "List all transforms (models) in pages sorted by creation date."
+        },
+        {
+          "info": {
+            "name": "Create transform",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/transforms",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new transform. Provide sql_template with {{weldTag}} references. Set publish=true to immediately materialize in the data warehouse."
+        },
+        {
+          "info": {
+            "name": "List available references",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/transforms/available_references"
+          },
+          "docs": "List all available {{weldTag}} references that can be used in sql_template. This includes raw views from synced sources and published transforms."
+        },
+        {
+          "info": {
+            "name": "Get transform",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/transforms/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the transform."
+              }
+            ]
+          },
+          "docs": "Get a specific transform by ID."
+        },
+        {
+          "info": {
+            "name": "Update transform",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://connect.weld.app/transforms/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the transform."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing transform. All fields are optional. If the transform is published and publish=true, changes to sql_template or materialization will trigger a re-publish to the DWH."
+        },
+        {
+          "info": {
+            "name": "Delete transform",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://connect.weld.app/transforms/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the transform."
+              }
+            ]
+          },
+          "docs": "Soft-delete a transform. If the transform is published, its view/table will be removed from the data warehouse."
+        },
+        {
+          "info": {
+            "name": "Get transform schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/transforms/:id/schema",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the transform."
+              }
+            ]
+          },
+          "docs": "List the columns of a transform. These can be used as the source (left-hand side) of a Reverse ETL mapping."
+        },
+        {
+          "info": {
+            "name": "Attach transform to an orchestration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/transforms/:id/orchestration",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the transform."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attaches this transform to an Orchestration Workflow, so it materializes as part of that workflow's runs instead of on its own schedule."
+        },
+        {
+          "info": {
+            "name": "Detach transform from its orchestration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://connect.weld.app/transforms/:id/orchestration",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the transform."
+              }
+            ]
+          },
+          "docs": "Detaches this transform from its Orchestration Workflow, reverting it to its own schedule."
+        },
+        {
+          "info": {
+            "name": "Bulk create transforms",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/transforms/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create multiple transforms in a single request. Each transform is processed independently; failures on individual items do not affect others. Maximum 50 transforms per request."
+        },
+        {
+          "info": {
+            "name": "List transform versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/transforms/:id/versions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the transform."
+              },
+              {
+                "name": "starting_after",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return in a single page."
+              }
+            ]
+          },
+          "docs": "List the SQL revision history for a transform, ordered by most recent first."
+        },
+        {
+          "info": {
+            "name": "Publish transform",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/transforms/:id/publish",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the transform."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Publish or re-publish a transform to the data warehouse. This materializes the latest SQL as a view or table. You can optionally override name, folder_path, and materialization for this publish."
+        },
+        {
+          "info": {
+            "name": "Create async query preview",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/transforms/query_previews",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a SQL template asynchronously against the data warehouse. The {{weldTag}} references in the template are automatically resolved. Returns a query_execution_id that can be used to poll for status and retrieve results."
+        },
+        {
+          "info": {
+            "name": "Get query preview status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/transforms/query_previews/:queryExecutionId/status",
+            "params": [
+              {
+                "name": "queryExecutionId",
+                "value": "",
+                "type": "path",
+                "description": "The query execution ID returned from the create query preview endpoint."
+              }
+            ]
+          },
+          "docs": "Check the execution status of an async query preview. Poll this endpoint until the status is \"DONE\", then retrieve results."
+        },
+        {
+          "info": {
+            "name": "Get query preview result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/transforms/query_previews/:queryExecutionId/result",
+            "params": [
+              {
+                "name": "queryExecutionId",
+                "value": "",
+                "type": "path",
+                "description": "The query execution ID returned from the create query preview endpoint."
+              }
+            ]
+          },
+          "docs": "Retrieve the results of a completed async query preview. Only call this endpoint after the status endpoint returns \"DONE\"."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

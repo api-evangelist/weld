@@ -1,0 +1,138 @@
+{
+  "item": [
+    {
+      "id": "09abe96b-35e2-4c4e-8e56-8cac55aab538",
+      "name": "Integrations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6ee32bad-7727-48a7-b2d6-22610bbb263a",
+          "name": "List integrations",
+          "request": {
+            "name": "List integrations",
+            "description": {
+              "content": "List all integrations that are available in Weld for the current account based on their plan and entitlements.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ability",
+                  "value": "<string>",
+                  "description": "Filter integrations by a supported ability. Defaults to `EltSource` when omitted."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8d754a94-54ad-43fd-9848-8d380d81d74b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ability",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"data\": [\n    {\n      \"id\": \"amazon-ads\",\n      \"name\": \"Amazon Ads\",\n      \"supports_start_date\": false,\n      \"abilities\": [\n        \"EltSource\"\n      ],\n      \"min_required_plan\": \"BUSINESS\"\n    },\n    {\n      \"id\": \"amazon-ads\",\n      \"name\": \"Amazon Ads\",\n      \"supports_start_date\": false,\n      \"abilities\": [\n        \"EltSource\"\n      ],\n      \"min_required_plan\": \"BUSINESS\"\n    }\n  ],\n  \"next_cursor\": \"VeN1GjhVIq1D9h\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.weld.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "601c7626-6b31-4d24-b7ce-81ff1cc2d9ce",
+    "name": "Weld REST Connection Bridge Integrations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With the Weld REST API you can programmatically control your syncs",
+      "type": "text/plain"
+    }
+  }
+}

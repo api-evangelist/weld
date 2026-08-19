@@ -1,0 +1,208 @@
+{
+  "item": [
+    {
+      "id": "77a3270d-d17e-414f-a781-760c66591545",
+      "name": "Connection Bridge",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3b6993c7-c959-486d-926f-ac05042c7dd7",
+          "name": "List connection bridges",
+          "request": {
+            "name": "List connection bridges",
+            "description": {
+              "content": "List all active connection bridges for the current account. Connection bridges are short-lived sessions that expire after 86400 seconds.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "connection_bridges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "58cd5ad4-63e8-49ad-9973-fbab2b2c432d",
+              "name": "List of Connection Bridges has been successfully retrieved.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connection_bridges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b0a629eb-8274-4e8d-987d-57e5f73da06b",
+          "name": "Create a connection bridge",
+          "request": {
+            "name": "Create a connection bridge",
+            "description": {
+              "content": "Create a short-lived connection bridge session that expires after 86400 seconds.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "connection_bridges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"redirect_uri\": \"<string>\",\n  \"integration_id\": \"<string>\",\n  \"label\": \"<string>\",\n  \"connection_id\": \"<string>\",\n  \"state\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4256e9e0-970f-4d7c-975a-2683462187bc",
+              "name": "The connection bridge is successfully created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connection_bridges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"redirect_uri\": \"https://subdomain.mypage.com/page\",\n  \"integration_id\": \"google-drive\",\n  \"label\": \"google-drive-business-folder\",\n  \"connection_id\": \"q4Rk8vp_fhTjqf\",\n  \"state\": \"giOoRgo5G7L8REPyWZrO\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.weld.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "944fb3b1-a4f9-4e45-94ca-be445f81478d",
+    "name": "Weld REST Connection Bridge API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With the Weld REST API you can programmatically control your syncs",
+      "type": "text/plain"
+    }
+  }
+}

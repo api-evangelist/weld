@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Weld REST Connection Bridge API",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connection Bridge",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List connection bridges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/connection_bridges"
+          },
+          "docs": "List all active connection bridges for the current account. Connection bridges are short-lived sessions that expire after 86400 seconds."
+        },
+        {
+          "info": {
+            "name": "Create a connection bridge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/connection_bridges",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a short-lived connection bridge session that expires after 86400 seconds."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

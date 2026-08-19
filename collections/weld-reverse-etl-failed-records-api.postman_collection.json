@@ -1,0 +1,613 @@
+{
+  "item": [
+    {
+      "id": "f6b7af89-7e2a-40a3-acf9-c446e05aa432",
+      "name": "Reverse ETL Failed Records",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8fd182ee-2ab5-4ce6-9e03-b4a8eb4bf777",
+          "name": "List Reverse ETL Sync Failed Record Errors",
+          "request": {
+            "name": "List Reverse ETL Sync Failed Record Errors",
+            "description": {
+              "content": "List the unresolved record errors captured for the specified Reverse ETL Sync.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reverse_etl_failed_records"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "reverse_etl_sync_id",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the Reverse ETL Sync to fetch record errors for."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The maximum number of record errors to return."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2b872c12-a852-41c8-9c89-ea34cdc48c83",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reverse_etl_failed_records"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reverse_etl_sync_id",
+                      "value": "OoORhGXUVjsqFG"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"sync_id\": \"OoORhGXUVjsqFG\",\n      \"record_id\": \"rec_123\",\n      \"error\": \"string\"\n    },\n    {\n      \"sync_id\": \"OoORhGXUVjsqFG\",\n      \"record_id\": \"rec_123\",\n      \"error\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e67cbc8-2689-4086-bfbf-00989af70f6e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reverse_etl_failed_records"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reverse_etl_sync_id",
+                      "value": "OoORhGXUVjsqFG"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64ea183e-e645-4ba9-b13e-c9d1b1b46f00",
+          "name": "Get Reverse ETL Sync Failed Record count",
+          "request": {
+            "name": "Get Reverse ETL Sync Failed Record count",
+            "description": {
+              "content": "Get the number of unresolved failed records captured for the specified Reverse ETL Sync.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reverse_etl_failed_records",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "reverse_etl_sync_id",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the Reverse ETL Sync to fetch record errors for."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fe005f5d-e212-4342-8035-d30df31ce1c1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reverse_etl_failed_records",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reverse_etl_sync_id",
+                      "value": "OoORhGXUVjsqFG"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 3\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54cd6890-b772-4f8a-a60d-c4c3267cb4e5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reverse_etl_failed_records",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reverse_etl_sync_id",
+                      "value": "OoORhGXUVjsqFG"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "72862056-3abc-4a32-9cb4-42ce90a89fe2",
+          "name": "Retry Reverse ETL Sync Failed Records",
+          "request": {
+            "name": "Retry Reverse ETL Sync Failed Records",
+            "description": {
+              "content": "Retries the given record IDs on the specified Reverse ETL Sync at the next run by resetting their errors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reverse_etl_failed_records",
+                "retry"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "reverse_etl_sync_id",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the Reverse ETL Sync to fetch record errors for."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"record_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "11d24a29-4403-4083-9bca-871219726cee",
+              "name": "The errors have been successfully reset to be retried at the next run.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reverse_etl_failed_records",
+                    "retry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reverse_etl_sync_id",
+                      "value": "OoORhGXUVjsqFG"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"record_ids\": [\n    \"rec_123\",\n    \"rec_456\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "db93a92a-d377-4ee0-9c17-dfcd0e535902",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reverse_etl_failed_records",
+                    "retry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reverse_etl_sync_id",
+                      "value": "OoORhGXUVjsqFG"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"record_ids\": [\n    \"rec_123\",\n    \"rec_456\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bcb50b18-d6a2-438e-8f93-1e272d2fefdb",
+          "name": "Retry all Reverse ETL Sync Failed Records",
+          "request": {
+            "name": "Retry all Reverse ETL Sync Failed Records",
+            "description": {
+              "content": "Retries all failed records captured for the specified Reverse ETL Sync at the next run by resetting their errors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reverse_etl_failed_records",
+                "retry_all"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "reverse_etl_sync_id",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the Reverse ETL Sync to fetch record errors for."
+                }
+              ],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9c62c2b3-4b9d-4b85-b087-353585852ab6",
+              "name": "All errors have been successfully reset to be retried at the next run.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reverse_etl_failed_records",
+                    "retry_all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reverse_etl_sync_id",
+                      "value": "OoORhGXUVjsqFG"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "33904f98-771b-4b7c-aaf0-786022c47806",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reverse_etl_failed_records",
+                    "retry_all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reverse_etl_sync_id",
+                      "value": "OoORhGXUVjsqFG"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.weld.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4abe27f4-10b5-4584-b853-f2244b2d4c2a",
+    "name": "Weld REST Connection Bridge Reverse ETL Failed Records API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With the Weld REST API you can programmatically control your syncs",
+      "type": "text/plain"
+    }
+  }
+}

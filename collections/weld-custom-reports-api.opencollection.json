@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Weld REST Connection Bridge Custom Reports API",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Custom Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create custom reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/custom_reports",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create one or more custom reports (GAQL for Google Ads, ShopifyQL for Shopify) and attach them to the given ELT Syncs. Batchable: pass multiple items to create the same or different reports across many ELT Syncs in a single call. Each item is processed independently, so one failing item does not affect the others."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

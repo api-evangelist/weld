@@ -1,0 +1,1521 @@
+{
+  "item": [
+    {
+      "id": "991bea23-c197-45c9-9a9c-43564c78e331",
+      "name": "ELT Syncs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "84439694-5d5e-4bd7-b5f3-911b17b2ea33",
+          "name": "Enable ELT Sync",
+          "request": {
+            "name": "Enable ELT Sync",
+            "description": {
+              "content": "Enables scheduling for the specified ELT Sync. It will be executed periodically based on its sync interval.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_syncs",
+                ":id",
+                "enable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the ELT Sync to enable."
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8f837c04-25f4-445b-883f-56628cd62e31",
+              "name": "The ELT Sync has been successfully enabled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs",
+                    ":id",
+                    "enable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Sync to enable."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b5f4c6e-1f00-4d58-a169-081b5ffc8b7e",
+          "name": "Disable ELT Sync",
+          "request": {
+            "name": "Disable ELT Sync",
+            "description": {
+              "content": "Disables scheduling for the specified ELT Sync. It will no longer be executed periodically.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_syncs",
+                ":id",
+                "disable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the ELT Sync to disable."
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9c2e19dd-9cbd-4007-b2e8-882de28a63fa",
+              "name": "The ELT Sync has been successfully disabled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs",
+                    ":id",
+                    "disable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT Sync to disable."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c6566d4-de59-4178-ad3c-14e6cbc9c8ae",
+          "name": "List ELT Syncs",
+          "request": {
+            "name": "List ELT Syncs",
+            "description": {
+              "content": "List all ELT Syncs in pages sorted by their creation date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_syncs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "starting_after",
+                  "value": "<string>",
+                  "description": "The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The number of items to return in a single page."
+                },
+                {
+                  "disabled": false,
+                  "key": "connection_id",
+                  "value": "<string>",
+                  "description": "Filter ELT Syncs by the associated Source Connection ID."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e61836c3-2361-4dbe-837f-fb4af9309c40",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "starting_after",
+                      "value": "ewK8sDoLNI4CFR"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "connection_id",
+                      "value": "SrcCon_12345"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"data\": [\n    {\n      \"account_id\": \"acc_789\",\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"destination_connection_id\": \"conn_456\",\n      \"destination_integration_id\": \"bigquery\",\n      \"enabled\": true,\n      \"id\": \"OoORhGXUVjsqFG\",\n      \"source_connection_id\": \"conn_123\",\n      \"source_integration_id\": \"excel\",\n      \"status\": \"RUNNING\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"config\": {\n        \"sourceSettings\": {}\n      },\n      \"destination_schema_name\": \"my_schema\",\n      \"orchestration_workflow_id\": \"3LIw2FdxoByya9\",\n      \"source_streams\": [\n        {\n          \"id\": \"SCTVdLAcyDTgNx\",\n          \"elt_sync_id\": \"3LIw2FdxoByya9\",\n          \"name\": \"users\",\n          \"full_sync_at_midnight\": false,\n          \"full_sync_always\": false,\n          \"protected_from_full_sync\": false,\n          \"created_at\": \"2020-01-01T00:00:00.000Z\",\n          \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n          \"excluded_substreams\": [\n            \"substream1\",\n            \"substream2\"\n          ],\n          \"enabled_history_table\": false,\n          \"incremental_primary_key_name\": [\n            \"id\"\n          ],\n          \"incremental_pointer_id\": \"updated_at\"\n        },\n        {\n          \"id\": \"SCTVdLAcyDTgNx\",\n          \"elt_sync_id\": \"3LIw2FdxoByya9\",\n          \"name\": \"users\",\n          \"full_sync_at_midnight\": false,\n          \"full_sync_always\": false,\n          \"protected_from_full_sync\": false,\n          \"created_at\": \"2020-01-01T00:00:00.000Z\",\n          \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n          \"excluded_substreams\": [\n            \"substream1\",\n            \"substream2\"\n          ],\n          \"enabled_history_table\": false,\n          \"incremental_primary_key_name\": [\n            \"id\"\n          ],\n          \"incremental_pointer_id\": \"updated_at\"\n        }\n      ],\n      \"start_date\": \"2020-01-01T00:00:00.000Z\",\n      \"sync_interval\": \"0 0 * * *\"\n    },\n    {\n      \"account_id\": \"acc_789\",\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"destination_connection_id\": \"conn_456\",\n      \"destination_integration_id\": \"bigquery\",\n      \"enabled\": true,\n      \"id\": \"OoORhGXUVjsqFG\",\n      \"source_connection_id\": \"conn_123\",\n      \"source_integration_id\": \"excel\",\n      \"status\": \"RUNNING\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"config\": {\n        \"sourceSettings\": {}\n      },\n      \"destination_schema_name\": \"my_schema\",\n      \"orchestration_workflow_id\": \"3LIw2FdxoByya9\",\n      \"source_streams\": [\n        {\n          \"id\": \"SCTVdLAcyDTgNx\",\n          \"elt_sync_id\": \"3LIw2FdxoByya9\",\n          \"name\": \"users\",\n          \"full_sync_at_midnight\": false,\n          \"full_sync_always\": false,\n          \"protected_from_full_sync\": false,\n          \"created_at\": \"2020-01-01T00:00:00.000Z\",\n          \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n          \"excluded_substreams\": [\n            \"substream1\",\n            \"substream2\"\n          ],\n          \"enabled_history_table\": false,\n          \"incremental_primary_key_name\": [\n            \"id\"\n          ],\n          \"incremental_pointer_id\": \"updated_at\"\n        },\n        {\n          \"id\": \"SCTVdLAcyDTgNx\",\n          \"elt_sync_id\": \"3LIw2FdxoByya9\",\n          \"name\": \"users\",\n          \"full_sync_at_midnight\": false,\n          \"full_sync_always\": false,\n          \"protected_from_full_sync\": false,\n          \"created_at\": \"2020-01-01T00:00:00.000Z\",\n          \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n          \"excluded_substreams\": [\n            \"substream1\",\n            \"substream2\"\n          ],\n          \"enabled_history_table\": false,\n          \"incremental_primary_key_name\": [\n            \"id\"\n          ],\n          \"incremental_pointer_id\": \"updated_at\"\n        }\n      ],\n      \"start_date\": \"2020-01-01T00:00:00.000Z\",\n      \"sync_interval\": \"0 0 * * *\"\n    }\n  ],\n  \"next_cursor\": \"VeN1GjhVIq1D9h\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58e6fc1f-d39d-412e-91bb-66e90313b651",
+          "name": "Create a new ELT Sync",
+          "request": {
+            "name": "Create a new ELT Sync",
+            "description": {},
+            "url": {
+              "path": [
+                "elt_syncs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"connection_id\": \"<string>\",\n  \"destination_schema_name\": \"<string>\",\n  \"sync_interval\": \"<string>\",\n  \"elt_settings\": \"<object>\",\n  \"start_date\": \"<YYYY-MM-DD>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "50e0b4e0-5564-4ba9-babd-b3a0387ada2e",
+              "name": "The ELT Sync has been successfully created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connection_id\": \"<string>\",\n  \"destination_schema_name\": \"<string>\",\n  \"sync_interval\": \"0 0 * * *\",\n  \"elt_settings\": \"<object>\",\n  \"start_date\": \"2020-01-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"acc_789\",\n  \"created_at\": \"2020-01-01T00:00:00.000Z\",\n  \"destination_connection_id\": \"conn_456\",\n  \"destination_integration_id\": \"bigquery\",\n  \"enabled\": true,\n  \"id\": \"OoORhGXUVjsqFG\",\n  \"source_connection_id\": \"conn_123\",\n  \"source_integration_id\": \"excel\",\n  \"status\": \"RUNNING\",\n  \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n  \"config\": {\n    \"sourceSettings\": {}\n  },\n  \"destination_schema_name\": \"my_schema\",\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\",\n  \"source_streams\": [\n    {\n      \"id\": \"SCTVdLAcyDTgNx\",\n      \"elt_sync_id\": \"3LIw2FdxoByya9\",\n      \"name\": \"users\",\n      \"full_sync_at_midnight\": false,\n      \"full_sync_always\": false,\n      \"protected_from_full_sync\": false,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false,\n      \"incremental_primary_key_name\": [\n        \"id\"\n      ],\n      \"incremental_pointer_id\": \"updated_at\"\n    },\n    {\n      \"id\": \"SCTVdLAcyDTgNx\",\n      \"elt_sync_id\": \"3LIw2FdxoByya9\",\n      \"name\": \"users\",\n      \"full_sync_at_midnight\": false,\n      \"full_sync_always\": false,\n      \"protected_from_full_sync\": false,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false,\n      \"incremental_primary_key_name\": [\n        \"id\"\n      ],\n      \"incremental_pointer_id\": \"updated_at\"\n    }\n  ],\n  \"start_date\": \"2020-01-01T00:00:00.000Z\",\n  \"sync_interval\": \"0 0 * * *\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0ca3baf-6ca3-44b8-9426-7a1ae9b6e929",
+              "name": "The connection reached the maximum number of allowed syncs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connection_id\": \"<string>\",\n  \"destination_schema_name\": \"<string>\",\n  \"sync_interval\": \"0 0 * * *\",\n  \"elt_settings\": \"<object>\",\n  \"start_date\": \"2020-01-01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e07a130f-2e78-42a7-9c1a-f15ae64217eb",
+          "name": "Update an existing ELT Sync",
+          "request": {
+            "name": "Update an existing ELT Sync",
+            "description": {},
+            "url": {
+              "path": [
+                "elt_syncs",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"elt_settings\": \"<object>\",\n  \"sync_interval\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b3545ed3-b19d-4f7e-a1af-ac9a7e0845e3",
+              "name": "The ELT Sync has been successfully updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"elt_settings\": \"<object>\",\n  \"sync_interval\": \"0 0 * * *\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"acc_789\",\n  \"created_at\": \"2020-01-01T00:00:00.000Z\",\n  \"destination_connection_id\": \"conn_456\",\n  \"destination_integration_id\": \"bigquery\",\n  \"enabled\": true,\n  \"id\": \"OoORhGXUVjsqFG\",\n  \"source_connection_id\": \"conn_123\",\n  \"source_integration_id\": \"excel\",\n  \"status\": \"RUNNING\",\n  \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n  \"config\": {\n    \"sourceSettings\": {}\n  },\n  \"destination_schema_name\": \"my_schema\",\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\",\n  \"source_streams\": [\n    {\n      \"id\": \"SCTVdLAcyDTgNx\",\n      \"elt_sync_id\": \"3LIw2FdxoByya9\",\n      \"name\": \"users\",\n      \"full_sync_at_midnight\": false,\n      \"full_sync_always\": false,\n      \"protected_from_full_sync\": false,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false,\n      \"incremental_primary_key_name\": [\n        \"id\"\n      ],\n      \"incremental_pointer_id\": \"updated_at\"\n    },\n    {\n      \"id\": \"SCTVdLAcyDTgNx\",\n      \"elt_sync_id\": \"3LIw2FdxoByya9\",\n      \"name\": \"users\",\n      \"full_sync_at_midnight\": false,\n      \"full_sync_always\": false,\n      \"protected_from_full_sync\": false,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false,\n      \"incremental_primary_key_name\": [\n        \"id\"\n      ],\n      \"incremental_pointer_id\": \"updated_at\"\n    }\n  ],\n  \"start_date\": \"2020-01-01T00:00:00.000Z\",\n  \"sync_interval\": \"0 0 * * *\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7eee77aa-1d34-493e-91ee-e6b32159c99e",
+          "name": "Get ELT Sync",
+          "request": {
+            "name": "Get ELT Sync",
+            "description": {
+              "content": "Get data of a specific ELT sync.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_syncs",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the ELT sync."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86303bb6-49de-4d76-afd2-73bbb7f5f492",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT sync."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"acc_789\",\n  \"created_at\": \"2020-01-01T00:00:00.000Z\",\n  \"destination_connection_id\": \"conn_456\",\n  \"destination_integration_id\": \"bigquery\",\n  \"enabled\": true,\n  \"id\": \"OoORhGXUVjsqFG\",\n  \"source_connection_id\": \"conn_123\",\n  \"source_integration_id\": \"excel\",\n  \"status\": \"RUNNING\",\n  \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n  \"config\": {\n    \"sourceSettings\": {}\n  },\n  \"destination_schema_name\": \"my_schema\",\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\",\n  \"source_streams\": [\n    {\n      \"id\": \"SCTVdLAcyDTgNx\",\n      \"elt_sync_id\": \"3LIw2FdxoByya9\",\n      \"name\": \"users\",\n      \"full_sync_at_midnight\": false,\n      \"full_sync_always\": false,\n      \"protected_from_full_sync\": false,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false,\n      \"incremental_primary_key_name\": [\n        \"id\"\n      ],\n      \"incremental_pointer_id\": \"updated_at\"\n    },\n    {\n      \"id\": \"SCTVdLAcyDTgNx\",\n      \"elt_sync_id\": \"3LIw2FdxoByya9\",\n      \"name\": \"users\",\n      \"full_sync_at_midnight\": false,\n      \"full_sync_always\": false,\n      \"protected_from_full_sync\": false,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false,\n      \"incremental_primary_key_name\": [\n        \"id\"\n      ],\n      \"incremental_pointer_id\": \"updated_at\"\n    }\n  ],\n  \"start_date\": \"2020-01-01T00:00:00.000Z\",\n  \"sync_interval\": \"0 0 * * *\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30b0b7ab-8670-44d0-9e42-fe5667d83c9f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT sync."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "651e29a1-ca57-491a-94ef-9377c7659a92",
+          "name": "Delete ELT sync",
+          "request": {
+            "name": "Delete ELT sync",
+            "description": {
+              "content": "Delete a specific ELT sync. This will also delete all associated source streams.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_syncs",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "removeDataReferences",
+                  "value": "<string>",
+                  "description": "If set to true, all tables created in the destination by this ELT sync will also be removed. Default is false."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the ELT sync."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6cee8b48-189b-4198-8bca-0985f1a99b9c",
+              "name": "The ELT Sync has been successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "removeDataReferences",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT sync."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d20a509-fbb3-48f5-897c-1eb2e60fe8b7",
+          "name": "Attach ELT sync to an orchestration",
+          "request": {
+            "name": "Attach ELT sync to an orchestration",
+            "description": {
+              "content": "Attaches this ELT sync to an Orchestration Workflow, so it runs as part of that workflow's runs instead of on its own schedule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_syncs",
+                ":id",
+                "orchestration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the ELT sync."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orchestration_workflow_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d8858f30-e022-4ebb-a741-a07b5188f80d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs",
+                    ":id",
+                    "orchestration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT sync."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"acc_789\",\n  \"created_at\": \"2020-01-01T00:00:00.000Z\",\n  \"destination_connection_id\": \"conn_456\",\n  \"destination_integration_id\": \"bigquery\",\n  \"enabled\": true,\n  \"id\": \"OoORhGXUVjsqFG\",\n  \"source_connection_id\": \"conn_123\",\n  \"source_integration_id\": \"excel\",\n  \"status\": \"RUNNING\",\n  \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n  \"config\": {\n    \"sourceSettings\": {}\n  },\n  \"destination_schema_name\": \"my_schema\",\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\",\n  \"source_streams\": [\n    {\n      \"id\": \"SCTVdLAcyDTgNx\",\n      \"elt_sync_id\": \"3LIw2FdxoByya9\",\n      \"name\": \"users\",\n      \"full_sync_at_midnight\": false,\n      \"full_sync_always\": false,\n      \"protected_from_full_sync\": false,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false,\n      \"incremental_primary_key_name\": [\n        \"id\"\n      ],\n      \"incremental_pointer_id\": \"updated_at\"\n    },\n    {\n      \"id\": \"SCTVdLAcyDTgNx\",\n      \"elt_sync_id\": \"3LIw2FdxoByya9\",\n      \"name\": \"users\",\n      \"full_sync_at_midnight\": false,\n      \"full_sync_always\": false,\n      \"protected_from_full_sync\": false,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false,\n      \"incremental_primary_key_name\": [\n        \"id\"\n      ],\n      \"incremental_pointer_id\": \"updated_at\"\n    }\n  ],\n  \"start_date\": \"2020-01-01T00:00:00.000Z\",\n  \"sync_interval\": \"0 0 * * *\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68395d48-1ea6-4dd3-8455-d93a95a696f9",
+              "name": "ELT sync or Orchestration Workflow not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs",
+                    ":id",
+                    "orchestration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT sync."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6cfad6c9-a60a-420a-a0bc-20a445fee1dc",
+          "name": "Detach ELT sync from its orchestration",
+          "request": {
+            "name": "Detach ELT sync from its orchestration",
+            "description": {
+              "content": "Detaches this ELT sync from its Orchestration Workflow. Streams with their own sync_interval will resume running on it; streams without one will fall back to the sync_interval on the sync (defaulting to daily if none is set).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_syncs",
+                ":id",
+                "orchestration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the ELT sync."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cf30f3c7-66cf-4f6f-ab97-086c46a4504b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs",
+                    ":id",
+                    "orchestration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT sync."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"acc_789\",\n  \"created_at\": \"2020-01-01T00:00:00.000Z\",\n  \"destination_connection_id\": \"conn_456\",\n  \"destination_integration_id\": \"bigquery\",\n  \"enabled\": true,\n  \"id\": \"OoORhGXUVjsqFG\",\n  \"source_connection_id\": \"conn_123\",\n  \"source_integration_id\": \"excel\",\n  \"status\": \"RUNNING\",\n  \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n  \"config\": {\n    \"sourceSettings\": {}\n  },\n  \"destination_schema_name\": \"my_schema\",\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\",\n  \"source_streams\": [\n    {\n      \"id\": \"SCTVdLAcyDTgNx\",\n      \"elt_sync_id\": \"3LIw2FdxoByya9\",\n      \"name\": \"users\",\n      \"full_sync_at_midnight\": false,\n      \"full_sync_always\": false,\n      \"protected_from_full_sync\": false,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false,\n      \"incremental_primary_key_name\": [\n        \"id\"\n      ],\n      \"incremental_pointer_id\": \"updated_at\"\n    },\n    {\n      \"id\": \"SCTVdLAcyDTgNx\",\n      \"elt_sync_id\": \"3LIw2FdxoByya9\",\n      \"name\": \"users\",\n      \"full_sync_at_midnight\": false,\n      \"full_sync_always\": false,\n      \"protected_from_full_sync\": false,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false,\n      \"incremental_primary_key_name\": [\n        \"id\"\n      ],\n      \"incremental_pointer_id\": \"updated_at\"\n    }\n  ],\n  \"start_date\": \"2020-01-01T00:00:00.000Z\",\n  \"sync_interval\": \"0 0 * * *\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f43c7111-971a-46a4-928d-f3dfa3efb720",
+              "name": "ELT sync not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs",
+                    ":id",
+                    "orchestration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT sync."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ae669c6-ed0e-4d29-bd03-f04665dc3d76",
+          "name": "Get available streams for ELT sync",
+          "request": {
+            "name": "Get available streams for ELT sync",
+            "description": {
+              "content": "List all streams that can be created for the given ELT sync.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_syncs",
+                ":id",
+                "available_source_streams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the ELT sync."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1cae529c-62f7-4d86-8a7a-4990e3536e40",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs",
+                    ":id",
+                    "available_source_streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT sync."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"data\": [\n    {\n      \"name\": \"users\",\n      \"retired\": false,\n      \"is_selectable\": false,\n      \"preselect\": false,\n      \"sub_streams\": [\n        \"user_address\"\n      ],\n      \"retirement_details\": {\n        \"in_favor_of\": \"string\",\n        \"removal_date\": \"string\",\n        \"details\": \"string\",\n        \"link\": \"string\"\n      }\n    },\n    {\n      \"name\": \"users\",\n      \"retired\": false,\n      \"is_selectable\": false,\n      \"preselect\": true,\n      \"sub_streams\": [\n        \"user_address\"\n      ],\n      \"retirement_details\": {\n        \"in_favor_of\": \"string\",\n        \"removal_date\": \"string\",\n        \"details\": \"string\",\n        \"link\": \"string\"\n      }\n    }\n  ],\n  \"next_cursor\": \"VeN1GjhVIq1D9h\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18f27ffa-2117-4b34-b909-936473ff1c5c",
+          "name": "Add source streams to ELT sync",
+          "request": {
+            "name": "Add source streams to ELT sync",
+            "description": {
+              "content": "Add source streams to the given ELT sync and return the newly created streams. This method will only add new streams and update existing streams",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_syncs",
+                ":id",
+                "source_streams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the ELT sync."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source_streams\": [\n    {\n      \"name\": \"<string>\",\n      \"incremental_pointer_id\": \"<string>\",\n      \"excluded_columns\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"hashed_columns\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"full_sync_always\": \"<boolean>\",\n      \"full_sync_at_midnight\": \"<boolean>\",\n      \"protected_from_full_sync\": \"<boolean>\",\n      \"excluded_substreams\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enabled_history_table\": false\n    },\n    {\n      \"name\": \"<string>\",\n      \"incremental_pointer_id\": \"<string>\",\n      \"excluded_columns\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"hashed_columns\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"full_sync_always\": \"<boolean>\",\n      \"full_sync_at_midnight\": \"<boolean>\",\n      \"protected_from_full_sync\": \"<boolean>\",\n      \"excluded_substreams\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enabled_history_table\": false\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3c4992c1-f717-4129-9547-4799db671ce0",
+              "name": "The source streams have been successfully added.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs",
+                    ":id",
+                    "source_streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT sync."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_streams\": [\n    {\n      \"name\": \"<string>\",\n      \"incremental_pointer_id\": \"<string>\",\n      \"excluded_columns\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"hashed_columns\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"full_sync_always\": \"<boolean>\",\n      \"full_sync_at_midnight\": \"<boolean>\",\n      \"protected_from_full_sync\": \"<boolean>\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false\n    },\n    {\n      \"name\": \"<string>\",\n      \"incremental_pointer_id\": \"<string>\",\n      \"excluded_columns\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"hashed_columns\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"full_sync_always\": \"<boolean>\",\n      \"full_sync_at_midnight\": \"<boolean>\",\n      \"protected_from_full_sync\": \"<boolean>\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"source_streams\": [\n    {\n      \"id\": \"SCTVdLAcyDTgNx\",\n      \"elt_sync_id\": \"3LIw2FdxoByya9\",\n      \"name\": \"users\",\n      \"full_sync_at_midnight\": false,\n      \"full_sync_always\": false,\n      \"protected_from_full_sync\": false,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false,\n      \"incremental_primary_key_name\": [\n        \"id\"\n      ],\n      \"incremental_pointer_id\": \"updated_at\"\n    },\n    {\n      \"id\": \"SCTVdLAcyDTgNx\",\n      \"elt_sync_id\": \"3LIw2FdxoByya9\",\n      \"name\": \"users\",\n      \"full_sync_at_midnight\": false,\n      \"full_sync_always\": false,\n      \"protected_from_full_sync\": false,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false,\n      \"incremental_primary_key_name\": [\n        \"id\"\n      ],\n      \"incremental_pointer_id\": \"updated_at\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85075c4b-d2ed-4bd0-935d-a2be47ff51b9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs",
+                    ":id",
+                    "source_streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT sync."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_streams\": [\n    {\n      \"name\": \"<string>\",\n      \"incremental_pointer_id\": \"<string>\",\n      \"excluded_columns\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"hashed_columns\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"full_sync_always\": \"<boolean>\",\n      \"full_sync_at_midnight\": \"<boolean>\",\n      \"protected_from_full_sync\": \"<boolean>\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false\n    },\n    {\n      \"name\": \"<string>\",\n      \"incremental_pointer_id\": \"<string>\",\n      \"excluded_columns\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"hashed_columns\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"full_sync_always\": \"<boolean>\",\n      \"full_sync_at_midnight\": \"<boolean>\",\n      \"protected_from_full_sync\": \"<boolean>\",\n      \"excluded_substreams\": [\n        \"substream1\",\n        \"substream2\"\n      ],\n      \"enabled_history_table\": false\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d2d18e6-6292-4373-88b8-3e93822e8e18",
+          "name": "Get ELT Sync Status",
+          "request": {
+            "name": "Get ELT Sync Status",
+            "description": {
+              "content": "Get the current status of an ELT sync, including active and latest sync states for each source stream.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_syncs",
+                ":id",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the ELT sync."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "51d0889f-b6e8-4f68-b613-6913d23e7813",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_syncs",
+                    ":id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the ELT sync."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"elt_sync_id\": \"X4ughggABSd3UY\",\n  \"source_streams\": [\n    {\n      \"name\": \"users\",\n      \"active_sync\": {\n        \"bytes_synced\": 1024,\n        \"error_message\": \"Connection timeout\",\n        \"estimated_total_count\": 1000,\n        \"finished_at\": \"2024-03-20T10:00:00Z\",\n        \"full_sync_trigger\": \"USER\",\n        \"operation_mode\": \"INCREMENTAL\",\n        \"records_synced\": 500,\n        \"retry_attempt\": 0,\n        \"started_at\": \"2024-03-20T09:00:00Z\",\n        \"status\": \"FAILED\",\n        \"details\": \"Processing chunk 1/5\"\n      },\n      \"latest_sync\": {\n        \"bytes_synced\": 1024,\n        \"error_message\": \"Connection timeout\",\n        \"estimated_total_count\": 1000,\n        \"finished_at\": \"2024-03-20T10:00:00Z\",\n        \"full_sync_trigger\": \"LOOKBACK\",\n        \"operation_mode\": \"INCREMENTAL\",\n        \"records_synced\": 500,\n        \"retry_attempt\": 0,\n        \"started_at\": \"2024-03-20T09:00:00Z\",\n        \"status\": \"RETRYING\",\n        \"details\": \"Processing chunk 1/5\"\n      }\n    },\n    {\n      \"name\": \"users\",\n      \"active_sync\": {\n        \"bytes_synced\": 1024,\n        \"error_message\": \"Connection timeout\",\n        \"estimated_total_count\": 1000,\n        \"finished_at\": \"2024-03-20T10:00:00Z\",\n        \"full_sync_trigger\": \"ERROR\",\n        \"operation_mode\": \"APPEND\",\n        \"records_synced\": 500,\n        \"retry_attempt\": 0,\n        \"started_at\": \"2024-03-20T09:00:00Z\",\n        \"status\": \"RETRYING\",\n        \"details\": \"Processing chunk 1/5\"\n      },\n      \"latest_sync\": {\n        \"bytes_synced\": 1024,\n        \"error_message\": \"Connection timeout\",\n        \"estimated_total_count\": 1000,\n        \"finished_at\": \"2024-03-20T10:00:00Z\",\n        \"full_sync_trigger\": \"MIDNIGHT\",\n        \"operation_mode\": \"APPEND\",\n        \"records_synced\": 500,\n        \"retry_attempt\": 0,\n        \"started_at\": \"2024-03-20T09:00:00Z\",\n        \"status\": \"SCHEDULED\",\n        \"details\": \"Processing chunk 1/5\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.weld.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f1ee834d-9218-47ab-8de3-c5f63f0df54c",
+    "name": "Weld REST Connection Bridge ELT Syncs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With the Weld REST API you can programmatically control your syncs",
+      "type": "text/plain"
+    }
+  }
+}

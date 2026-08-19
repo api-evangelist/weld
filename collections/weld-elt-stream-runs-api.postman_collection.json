@@ -1,0 +1,414 @@
+{
+  "item": [
+    {
+      "id": "b3cdaf31-1838-488d-8f9b-1c82fb758e60",
+      "name": "ELT Stream Runs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "960d8cb5-e9e7-484a-88e3-ad4aa25d24a6",
+          "name": "Get ELT Stream Run",
+          "request": {
+            "name": "Get ELT Stream Run",
+            "description": {
+              "content": "Get details of a specific ELT Stream Run by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_stream_runs",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The opaque ID of the ELT Stream Run."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b613a5c0-cb40-4bd7-9998-e0c83eee4825",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_stream_runs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The opaque ID of the ELT Stream Run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"c3RyZWFtLXN5bmMtMTIzfDIwMjQtMDMtMjBUMDk6MDA6MDAuMDAwWg\",\n  \"elt_sync_id\": \"X4ughggABSd3UY\",\n  \"elt_stream_id\": \"X4ughggABSd3UY\",\n  \"started_at\": \"2024-03-20T09:00:00.000Z\",\n  \"finished_at\": \"2024-03-20T09:05:00.000Z\",\n  \"status\": \"FAILED\",\n  \"rows_synced\": 500\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61701eb0-24ba-4eac-9a3b-874785d8130f",
+              "name": "Invalid run ID format.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_stream_runs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The opaque ID of the ELT Stream Run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a6af1aad-e18f-48d6-9ebd-704865d9ac9a",
+              "name": "The ELT Stream Run was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_stream_runs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The opaque ID of the ELT Stream Run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "65e1218f-3be4-49da-8e50-c2b5799ac58d",
+          "name": "List ELT Stream Runs",
+          "request": {
+            "name": "List ELT Stream Runs",
+            "description": {
+              "content": "List runs for a specific ELT Stream in pages sorted by their start date. Only runs from the last 3 months are available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elt_stream_runs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "elt_stream_id",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the ELT Stream to list runs for."
+                },
+                {
+                  "disabled": false,
+                  "key": "starting_after",
+                  "value": "<string>",
+                  "description": "The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The number of items to return in a single page."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "desc",
+                  "description": "The direction to sort the results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "32d56984-6f34-43c7-94ad-70c0c6d178c2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_stream_runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "elt_stream_id",
+                      "value": "vBjnEbMi9i3P4K"
+                    },
+                    {
+                      "key": "starting_after",
+                      "value": "ewK8sDoLNI4CFR"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"data\": [\n    {\n      \"id\": \"c3RyZWFtLXN5bmMtMTIzfDIwMjQtMDMtMjBUMDk6MDA6MDAuMDAwWg\",\n      \"elt_sync_id\": \"X4ughggABSd3UY\",\n      \"elt_stream_id\": \"X4ughggABSd3UY\",\n      \"started_at\": \"2024-03-20T09:00:00.000Z\",\n      \"finished_at\": \"2024-03-20T09:05:00.000Z\",\n      \"status\": \"COMPLETED\",\n      \"rows_synced\": 500\n    },\n    {\n      \"id\": \"c3RyZWFtLXN5bmMtMTIzfDIwMjQtMDMtMjBUMDk6MDA6MDAuMDAwWg\",\n      \"elt_sync_id\": \"X4ughggABSd3UY\",\n      \"elt_stream_id\": \"X4ughggABSd3UY\",\n      \"started_at\": \"2024-03-20T09:00:00.000Z\",\n      \"finished_at\": \"2024-03-20T09:05:00.000Z\",\n      \"status\": \"CHUNK_COMPLETED\",\n      \"rows_synced\": 500\n    }\n  ],\n  \"next_cursor\": \"VeN1GjhVIq1D9h\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec59c1b3-ba8d-433f-aec2-785aac03d39c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elt_stream_runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "elt_stream_id",
+                      "value": "vBjnEbMi9i3P4K"
+                    },
+                    {
+                      "key": "starting_after",
+                      "value": "ewK8sDoLNI4CFR"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.weld.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a36c4dda-c929-4d3c-9e63-9b2bfa5b2430",
+    "name": "Weld REST Connection Bridge ELT Stream Runs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With the Weld REST API you can programmatically control your syncs",
+      "type": "text/plain"
+    }
+  }
+}

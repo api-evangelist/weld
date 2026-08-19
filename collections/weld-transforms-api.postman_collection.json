@@ -1,0 +1,2032 @@
+{
+  "item": [
+    {
+      "id": "6fc718e5-1fef-4c23-bbea-874753d05cca",
+      "name": "Transforms",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "056c62b4-73e7-43a4-a9ae-d0f3d7126f85",
+          "name": "List transforms",
+          "request": {
+            "name": "List transforms",
+            "description": {
+              "content": "List all transforms (models) in pages sorted by creation date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "starting_after",
+                  "value": "<string>",
+                  "description": "The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The number of items to return in a single page."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by status."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter by name (case-insensitive substring match)."
+                },
+                {
+                  "disabled": false,
+                  "key": "folder_path",
+                  "value": "<string>",
+                  "description": "Filter by folder path (e.g. \"analytics/marketing\")."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81f7909e-924e-4aef-945f-50d2e4d16c4d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "starting_after",
+                      "value": "ewK8sDoLNI4CFR"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "folder_path",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"data\": [\n    {\n      \"id\": \"OoORhGXUVjsqFG\",\n      \"name\": \"marketing_attribution\",\n      \"folder_path\": \"analytics/marketing\",\n      \"status\": \"published\",\n      \"materialization\": \"view\",\n      \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30\",\n      \"parameters\": [\n        {\n          \"weld_tag\": \"raw.stripe.payments\",\n          \"type\": \"raw_view\",\n          \"dw_item_id\": \"stripe_schema.payments\"\n        },\n        {\n          \"weld_tag\": \"raw.stripe.payments\",\n          \"type\": \"raw_view\",\n          \"dw_item_id\": \"stripe_schema.payments\"\n        }\n      ],\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"documentation\": \"Calculates marketing attribution.\",\n      \"materialization_status\": \"completed\",\n      \"materialization_error\": \"Column \\\"foo\\\" not found in table \\\"bar\\\".\",\n      \"orchestration_workflow_id\": \"3LIw2FdxoByya9\"\n    },\n    {\n      \"id\": \"OoORhGXUVjsqFG\",\n      \"name\": \"marketing_attribution\",\n      \"folder_path\": \"analytics/marketing\",\n      \"status\": \"published\",\n      \"materialization\": \"view\",\n      \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30\",\n      \"parameters\": [\n        {\n          \"weld_tag\": \"raw.stripe.payments\",\n          \"type\": \"raw_view\",\n          \"dw_item_id\": \"stripe_schema.payments\"\n        },\n        {\n          \"weld_tag\": \"raw.stripe.payments\",\n          \"type\": \"raw_view\",\n          \"dw_item_id\": \"stripe_schema.payments\"\n        }\n      ],\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n      \"documentation\": \"Calculates marketing attribution.\",\n      \"materialization_status\": \"completed\",\n      \"materialization_error\": \"Column \\\"foo\\\" not found in table \\\"bar\\\".\",\n      \"orchestration_workflow_id\": \"3LIw2FdxoByya9\"\n    }\n  ],\n  \"next_cursor\": \"VeN1GjhVIq1D9h\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5525af9d-6ae6-4191-8a2f-d8830e892601",
+          "name": "Create transform",
+          "request": {
+            "name": "Create transform",
+            "description": {
+              "content": "Create a new transform. Provide sql_template with {{weldTag}} references. Set publish=true to immediately materialize in the data warehouse.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"sql_template\": \"<string>\",\n  \"folder_path\": \"<string>\",\n  \"materialization\": \"<string>\",\n  \"documentation\": \"<string>\",\n  \"publish\": false,\n  \"wait_for_completion\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "99704476-78a2-4bc7-a92a-8699955f461a",
+              "name": "The transform has been successfully created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"marketing_attribution\",\n  \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30\",\n  \"folder_path\": \"analytics/marketing\",\n  \"materialization\": \"view\",\n  \"documentation\": \"Calculates marketing attribution from ad spend and conversions.\",\n  \"publish\": false,\n  \"wait_for_completion\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"OoORhGXUVjsqFG\",\n  \"name\": \"marketing_attribution\",\n  \"folder_path\": \"analytics/marketing\",\n  \"status\": \"published\",\n  \"materialization\": \"view\",\n  \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30\",\n  \"parameters\": [\n    {\n      \"weld_tag\": \"raw.stripe.payments\",\n      \"type\": \"raw_view\",\n      \"dw_item_id\": \"stripe_schema.payments\"\n    },\n    {\n      \"weld_tag\": \"raw.stripe.payments\",\n      \"type\": \"raw_view\",\n      \"dw_item_id\": \"stripe_schema.payments\"\n    }\n  ],\n  \"created_at\": \"2020-01-01T00:00:00.000Z\",\n  \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n  \"documentation\": \"Calculates marketing attribution.\",\n  \"materialization_status\": \"completed\",\n  \"materialization_error\": \"Column \\\"foo\\\" not found in table \\\"bar\\\".\",\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "efdcffc7-fde8-441f-8676-a4381f4ebe9d",
+          "name": "List available references",
+          "request": {
+            "name": "List available references",
+            "description": {
+              "content": "List all available {{weldTag}} references that can be used in sql_template. This includes raw views from synced sources and published transforms.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms",
+                "available_references"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c35906d6-6f46-48f5-bbe4-4c165cacf78b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    "available_references"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"weld_tag\": \"raw.stripe.payments\",\n      \"type\": \"raw_view\",\n      \"dw_item_id\": \"stripe_schema.payments\"\n    },\n    {\n      \"weld_tag\": \"raw.stripe.payments\",\n      \"type\": \"raw_view\",\n      \"dw_item_id\": \"stripe_schema.payments\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03aa6fe7-885c-44e6-ab9d-c7559c55e8b9",
+          "name": "Get transform",
+          "request": {
+            "name": "Get transform",
+            "description": {
+              "content": "Get a specific transform by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the transform."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0d7252aa-f261-4b40-823e-7247ad56d19b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"OoORhGXUVjsqFG\",\n  \"name\": \"marketing_attribution\",\n  \"folder_path\": \"analytics/marketing\",\n  \"status\": \"published\",\n  \"materialization\": \"view\",\n  \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30\",\n  \"parameters\": [\n    {\n      \"weld_tag\": \"raw.stripe.payments\",\n      \"type\": \"raw_view\",\n      \"dw_item_id\": \"stripe_schema.payments\"\n    },\n    {\n      \"weld_tag\": \"raw.stripe.payments\",\n      \"type\": \"raw_view\",\n      \"dw_item_id\": \"stripe_schema.payments\"\n    }\n  ],\n  \"created_at\": \"2020-01-01T00:00:00.000Z\",\n  \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n  \"documentation\": \"Calculates marketing attribution.\",\n  \"materialization_status\": \"completed\",\n  \"materialization_error\": \"Column \\\"foo\\\" not found in table \\\"bar\\\".\",\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cef828c8-44d1-417f-a148-7d330ed276e9",
+              "name": "Transform not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9256f188-c77c-4573-b0eb-f3bf0225f64d",
+          "name": "Update transform",
+          "request": {
+            "name": "Update transform",
+            "description": {
+              "content": "Update an existing transform. All fields are optional. If the transform is published and publish=true, changes to sql_template or materialization will trigger a re-publish to the DWH.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the transform."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"folder_path\": \"<string>\",\n  \"sql_template\": \"<string>\",\n  \"materialization\": \"<string>\",\n  \"documentation\": \"<string>\",\n  \"publish\": false,\n  \"wait_for_completion\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "57bc0aa0-2eaf-4bcb-8ca5-37898deea2d8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"marketing_attribution_v2\",\n  \"folder_path\": \"analytics/marketing\",\n  \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 7\",\n  \"materialization\": \"view\",\n  \"documentation\": \"Calculates marketing attribution.\",\n  \"publish\": false,\n  \"wait_for_completion\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"OoORhGXUVjsqFG\",\n  \"name\": \"marketing_attribution\",\n  \"folder_path\": \"analytics/marketing\",\n  \"status\": \"published\",\n  \"materialization\": \"view\",\n  \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30\",\n  \"parameters\": [\n    {\n      \"weld_tag\": \"raw.stripe.payments\",\n      \"type\": \"raw_view\",\n      \"dw_item_id\": \"stripe_schema.payments\"\n    },\n    {\n      \"weld_tag\": \"raw.stripe.payments\",\n      \"type\": \"raw_view\",\n      \"dw_item_id\": \"stripe_schema.payments\"\n    }\n  ],\n  \"created_at\": \"2020-01-01T00:00:00.000Z\",\n  \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n  \"documentation\": \"Calculates marketing attribution.\",\n  \"materialization_status\": \"completed\",\n  \"materialization_error\": \"Column \\\"foo\\\" not found in table \\\"bar\\\".\",\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8bfeabfc-c4ff-4e90-9859-440f66bb10b2",
+              "name": "Transform not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"marketing_attribution_v2\",\n  \"folder_path\": \"analytics/marketing\",\n  \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 7\",\n  \"materialization\": \"view\",\n  \"documentation\": \"Calculates marketing attribution.\",\n  \"publish\": false,\n  \"wait_for_completion\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a32ba06f-a4ad-422c-843f-05b6e941e8b8",
+          "name": "Delete transform",
+          "request": {
+            "name": "Delete transform",
+            "description": {
+              "content": "Soft-delete a transform. If the transform is published, its view/table will be removed from the data warehouse.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the transform."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8e058a71-c666-43b1-a6e9-c94a7e1f7ea2",
+              "name": "The transform has been successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e169e042-7327-4d93-86df-db5d7ef5cd90",
+          "name": "Get transform schema",
+          "request": {
+            "name": "Get transform schema",
+            "description": {
+              "content": "List the columns of a transform. These can be used as the source (left-hand side) of a Reverse ETL mapping.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms",
+                ":id",
+                "schema"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the transform."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a433477c-13b7-41ea-b5a4-7f6fc70e7b46",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"name\": \"email\",\n      \"type\": \"STRING\",\n      \"nullable\": true\n    },\n    {\n      \"name\": \"email\",\n      \"type\": \"STRING\",\n      \"nullable\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a338a59-8806-4d3d-acd6-46f8223b2b3d",
+              "name": "Transform not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20721c4f-7f46-40e2-8d10-5f649983c66e",
+          "name": "Attach transform to an orchestration",
+          "request": {
+            "name": "Attach transform to an orchestration",
+            "description": {
+              "content": "Attaches this transform to an Orchestration Workflow, so it materializes as part of that workflow's runs instead of on its own schedule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms",
+                ":id",
+                "orchestration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the transform."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orchestration_workflow_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "822d4920-267e-4eec-a420-2e4aa84bd8dc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id",
+                    "orchestration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"OoORhGXUVjsqFG\",\n  \"name\": \"marketing_attribution\",\n  \"folder_path\": \"analytics/marketing\",\n  \"status\": \"published\",\n  \"materialization\": \"view\",\n  \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30\",\n  \"parameters\": [\n    {\n      \"weld_tag\": \"raw.stripe.payments\",\n      \"type\": \"raw_view\",\n      \"dw_item_id\": \"stripe_schema.payments\"\n    },\n    {\n      \"weld_tag\": \"raw.stripe.payments\",\n      \"type\": \"raw_view\",\n      \"dw_item_id\": \"stripe_schema.payments\"\n    }\n  ],\n  \"created_at\": \"2020-01-01T00:00:00.000Z\",\n  \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n  \"documentation\": \"Calculates marketing attribution.\",\n  \"materialization_status\": \"completed\",\n  \"materialization_error\": \"Column \\\"foo\\\" not found in table \\\"bar\\\".\",\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79848ad7-9c25-4737-a920-ab6acbaed8c1",
+              "name": "Transform must be published to attach to an orchestration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id",
+                    "orchestration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3e83b9fc-39d4-4f1d-9496-410a532f972f",
+              "name": "Transform or Orchestration Workflow not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id",
+                    "orchestration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0f40ed0-f3c9-4d07-85a3-854c0bd5d4ab",
+          "name": "Detach transform from its orchestration",
+          "request": {
+            "name": "Detach transform from its orchestration",
+            "description": {
+              "content": "Detaches this transform from its Orchestration Workflow, reverting it to its own schedule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms",
+                ":id",
+                "orchestration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the transform."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "710e49be-d893-43e4-a02a-beb6a57d89f9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id",
+                    "orchestration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"OoORhGXUVjsqFG\",\n  \"name\": \"marketing_attribution\",\n  \"folder_path\": \"analytics/marketing\",\n  \"status\": \"published\",\n  \"materialization\": \"view\",\n  \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30\",\n  \"parameters\": [\n    {\n      \"weld_tag\": \"raw.stripe.payments\",\n      \"type\": \"raw_view\",\n      \"dw_item_id\": \"stripe_schema.payments\"\n    },\n    {\n      \"weld_tag\": \"raw.stripe.payments\",\n      \"type\": \"raw_view\",\n      \"dw_item_id\": \"stripe_schema.payments\"\n    }\n  ],\n  \"created_at\": \"2020-01-01T00:00:00.000Z\",\n  \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n  \"documentation\": \"Calculates marketing attribution.\",\n  \"materialization_status\": \"completed\",\n  \"materialization_error\": \"Column \\\"foo\\\" not found in table \\\"bar\\\".\",\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e747267-36eb-490f-84bd-ca8d57e5ea3b",
+              "name": "Transform not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id",
+                    "orchestration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0eb4655-74bd-478e-ba6f-fa5735f69ae2",
+          "name": "Bulk create transforms",
+          "request": {
+            "name": "Bulk create transforms",
+            "description": {
+              "content": "Create multiple transforms in a single request. Each transform is processed independently; failures on individual items do not affect others. Maximum 50 transforms per request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms",
+                "bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transforms\": [\n    {\n      \"name\": \"<string>\",\n      \"sql_template\": \"<string>\",\n      \"folder_path\": \"<string>\",\n      \"materialization\": \"<string>\",\n      \"documentation\": \"<string>\",\n      \"publish\": false,\n      \"wait_for_completion\": false\n    },\n    {\n      \"name\": \"<string>\",\n      \"sql_template\": \"<string>\",\n      \"folder_path\": \"<string>\",\n      \"materialization\": \"<string>\",\n      \"documentation\": \"<string>\",\n      \"publish\": false,\n      \"wait_for_completion\": false\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b05190ec-599e-4ed2-bf1b-e6b6fd4455dd",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transforms\": [\n    {\n      \"name\": \"marketing_attribution\",\n      \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30\",\n      \"folder_path\": \"analytics/marketing\",\n      \"materialization\": \"view\",\n      \"documentation\": \"Calculates marketing attribution from ad spend and conversions.\",\n      \"publish\": false,\n      \"wait_for_completion\": false\n    },\n    {\n      \"name\": \"marketing_attribution\",\n      \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30\",\n      \"folder_path\": \"analytics/marketing\",\n      \"materialization\": \"view\",\n      \"documentation\": \"Calculates marketing attribution from ad spend and conversions.\",\n      \"publish\": false,\n      \"wait_for_completion\": false\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"name\": \"my_transform\",\n      \"success\": true,\n      \"id\": \"OoORhGXUVjsqFG\",\n      \"error\": null\n    },\n    {\n      \"name\": \"my_transform\",\n      \"success\": true,\n      \"id\": \"OoORhGXUVjsqFG\",\n      \"error\": null\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f80ade1-1672-4fea-bc10-6b79d520eff7",
+          "name": "List transform versions",
+          "request": {
+            "name": "List transform versions",
+            "description": {
+              "content": "List the SQL revision history for a transform, ordered by most recent first.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms",
+                ":id",
+                "versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "starting_after",
+                  "value": "<string>",
+                  "description": "The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The number of items to return in a single page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the transform."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "80d2e20a-8ad0-46b8-aff3-680a14fba034",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "starting_after",
+                      "value": "ewK8sDoLNI4CFR"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"data\": [\n    {\n      \"id\": \"sqlq_abc123\",\n      \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}}\",\n      \"parameters\": [\n        {\n          \"weld_tag\": \"raw.stripe.payments\",\n          \"type\": \"raw_view\",\n          \"dw_item_id\": \"stripe_schema.payments\"\n        },\n        {\n          \"weld_tag\": \"raw.stripe.payments\",\n          \"type\": \"raw_view\",\n          \"dw_item_id\": \"stripe_schema.payments\"\n        }\n      ],\n      \"is_published\": true,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"user_id\": \"user_123\"\n    },\n    {\n      \"id\": \"sqlq_abc123\",\n      \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}}\",\n      \"parameters\": [\n        {\n          \"weld_tag\": \"raw.stripe.payments\",\n          \"type\": \"raw_view\",\n          \"dw_item_id\": \"stripe_schema.payments\"\n        },\n        {\n          \"weld_tag\": \"raw.stripe.payments\",\n          \"type\": \"raw_view\",\n          \"dw_item_id\": \"stripe_schema.payments\"\n        }\n      ],\n      \"is_published\": true,\n      \"created_at\": \"2020-01-01T00:00:00.000Z\",\n      \"user_id\": \"user_123\"\n    }\n  ],\n  \"next_cursor\": \"VeN1GjhVIq1D9h\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2485c6e9-3c03-421f-81b6-8c55451b08d0",
+              "name": "Transform not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "starting_after",
+                      "value": "ewK8sDoLNI4CFR"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b354a46-6b73-4e65-84b8-7e6e4eb36095",
+          "name": "Publish transform",
+          "request": {
+            "name": "Publish transform",
+            "description": {
+              "content": "Publish or re-publish a transform to the data warehouse. This materializes the latest SQL as a view or table. You can optionally override name, folder_path, and materialization for this publish.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms",
+                ":id",
+                "publish"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the transform."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version_id\": \"<string>\",\n  \"materialization\": \"<string>\",\n  \"folder_path\": \"<string>\",\n  \"name\": \"<string>\",\n  \"wait_for_completion\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5096c1eb-2bf6-43e2-a770-d818311330a2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id",
+                    "publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version_id\": \"abc123def456\",\n  \"materialization\": \"view\",\n  \"folder_path\": \"analytics/marketing\",\n  \"name\": \"marketing_attribution\",\n  \"wait_for_completion\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"OoORhGXUVjsqFG\",\n  \"name\": \"marketing_attribution\",\n  \"folder_path\": \"analytics/marketing\",\n  \"status\": \"published\",\n  \"materialization\": \"view\",\n  \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30\",\n  \"parameters\": [\n    {\n      \"weld_tag\": \"raw.stripe.payments\",\n      \"type\": \"raw_view\",\n      \"dw_item_id\": \"stripe_schema.payments\"\n    },\n    {\n      \"weld_tag\": \"raw.stripe.payments\",\n      \"type\": \"raw_view\",\n      \"dw_item_id\": \"stripe_schema.payments\"\n    }\n  ],\n  \"created_at\": \"2020-01-01T00:00:00.000Z\",\n  \"updated_at\": \"2020-01-01T00:00:00.000Z\",\n  \"documentation\": \"Calculates marketing attribution.\",\n  \"materialization_status\": \"completed\",\n  \"materialization_error\": \"Column \\\"foo\\\" not found in table \\\"bar\\\".\",\n  \"orchestration_workflow_id\": \"3LIw2FdxoByya9\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dcf1f497-7652-4429-a548-08e22fb6202d",
+              "name": "Transform not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    ":id",
+                    "publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the transform."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version_id\": \"abc123def456\",\n  \"materialization\": \"view\",\n  \"folder_path\": \"analytics/marketing\",\n  \"name\": \"marketing_attribution\",\n  \"wait_for_completion\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0a7ff19-5e2b-4ffd-b126-cbbc263aa784",
+          "name": "Create async query preview",
+          "request": {
+            "name": "Create async query preview",
+            "description": {
+              "content": "Execute a SQL template asynchronously against the data warehouse. The {{weldTag}} references in the template are automatically resolved. Returns a query_execution_id that can be used to poll for status and retrieve results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms",
+                "query_previews"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sql_template\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "729902b9-f37a-43d9-a3b1-343111d3e9d6",
+              "name": "The query has been submitted for execution.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    "query_previews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sql_template\": \"SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"query_execution_id\": \"qe_abc123def456\",\n  \"dw_sql\": \"SELECT * FROM stripe_schema.payments WHERE created_at > CURRENT_DATE - 30\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91597c77-2b3e-432c-b070-cf7d8f15209c",
+          "name": "Get query preview status",
+          "request": {
+            "name": "Get query preview status",
+            "description": {
+              "content": "Check the execution status of an async query preview. Poll this endpoint until the status is \"DONE\", then retrieve results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms",
+                "query_previews",
+                ":queryExecutionId",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "queryExecutionId",
+                  "description": "(Required) The query execution ID returned from the create query preview endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8f57565e-e46a-4848-a294-f03f8c726a66",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    "query_previews",
+                    ":queryExecutionId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queryExecutionId",
+                      "description": "(Required) The query execution ID returned from the create query preview endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"DONE\",\n  \"error\": \"SQL compilation error: Object does not exist\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05f5754d-c08b-45ea-9a8d-f3b3fc9aaff0",
+          "name": "Get query preview result",
+          "request": {
+            "name": "Get query preview result",
+            "description": {
+              "content": "Retrieve the results of a completed async query preview. Only call this endpoint after the status endpoint returns \"DONE\".",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transforms",
+                "query_previews",
+                ":queryExecutionId",
+                "result"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "queryExecutionId",
+                  "description": "(Required) The query execution ID returned from the create query preview endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c6311f00-e8e3-43e8-8e10-f7cf44a1d4cb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transforms",
+                    "query_previews",
+                    ":queryExecutionId",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "queryExecutionId",
+                      "description": "(Required) The query execution ID returned from the create query preview endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rows\": [\n    {\n      \"id\": 1,\n      \"name\": \"John\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Jane\"\n    }\n  ],\n  \"num_rows_total\": 1000\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.weld.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c023b7e9-782b-48e4-b03f-224391aa6905",
+    "name": "Weld REST Connection Bridge Transforms API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With the Weld REST API you can programmatically control your syncs",
+      "type": "text/plain"
+    }
+  }
+}

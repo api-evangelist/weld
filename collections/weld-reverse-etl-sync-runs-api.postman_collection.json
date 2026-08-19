@@ -1,0 +1,414 @@
+{
+  "item": [
+    {
+      "id": "4d1ea4af-2c24-486a-9707-4aecbcf52df4",
+      "name": "Reverse ETL Sync Runs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dc155540-2380-4cde-9581-72e5f4539855",
+          "name": "Get Reverse ETL Sync Run",
+          "request": {
+            "name": "Get Reverse ETL Sync Run",
+            "description": {
+              "content": "Get details of a specific Reverse ETL Sync Run by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reverse_etl_sync_runs",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The opaque ID of the Reverse ETL Sync Run."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a4d5f318-b2d4-432c-b74f-8636208521cc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reverse_etl_sync_runs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The opaque ID of the Reverse ETL Sync Run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"T29PUmhHWFVWanNxRkd8MjAyNC0wMy0yMFQwOTowMDowMC4wMDBa\",\n  \"reverse_etl_sync_id\": \"OoORhGXUVjsqFG\",\n  \"started_at\": \"2024-03-20T09:00:00.000Z\",\n  \"status\": \"COMPLETED\",\n  \"finished_at\": \"2024-03-20T09:05:00.000Z\",\n  \"total_rows\": 500,\n  \"distinct_rows\": 400,\n  \"new_rows\": 300,\n  \"synced_rows\": 200,\n  \"failed_rows\": 100,\n  \"error\": \"Connection timed out\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a31f62d-ad4d-4ca8-93c5-85227049e0f7",
+              "name": "Invalid run ID format.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reverse_etl_sync_runs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The opaque ID of the Reverse ETL Sync Run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "db356b40-d55a-4a2e-9eec-2058010c1d83",
+              "name": "The Reverse ETL Sync Run was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reverse_etl_sync_runs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The opaque ID of the Reverse ETL Sync Run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "30389746-8526-4083-9015-ebee514a2697",
+          "name": "List Reverse ETL Sync Runs",
+          "request": {
+            "name": "List Reverse ETL Sync Runs",
+            "description": {
+              "content": "List runs for a specific Reverse ETL Sync in pages sorted by their start date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reverse_etl_sync_runs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "reverse_etl_sync_id",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the Reverse ETL Sync to list runs for."
+                },
+                {
+                  "disabled": false,
+                  "key": "starting_after",
+                  "value": "<string>",
+                  "description": "The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The number of items to return in a single page."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "desc",
+                  "description": "The direction to sort the results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ec092d33-293b-4245-9c74-94f609fffb68",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reverse_etl_sync_runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reverse_etl_sync_id",
+                      "value": "OoORhGXUVjsqFG"
+                    },
+                    {
+                      "key": "starting_after",
+                      "value": "ewK8sDoLNI4CFR"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"data\": [\n    {\n      \"id\": \"T29PUmhHWFVWanNxRkd8MjAyNC0wMy0yMFQwOTowMDowMC4wMDBa\",\n      \"reverse_etl_sync_id\": \"OoORhGXUVjsqFG\",\n      \"started_at\": \"2024-03-20T09:00:00.000Z\",\n      \"status\": \"SCHEDULED\",\n      \"finished_at\": \"2024-03-20T09:05:00.000Z\",\n      \"total_rows\": 500,\n      \"distinct_rows\": 400,\n      \"new_rows\": 300,\n      \"synced_rows\": 200,\n      \"failed_rows\": 100,\n      \"error\": \"Connection timed out\"\n    },\n    {\n      \"id\": \"T29PUmhHWFVWanNxRkd8MjAyNC0wMy0yMFQwOTowMDowMC4wMDBa\",\n      \"reverse_etl_sync_id\": \"OoORhGXUVjsqFG\",\n      \"started_at\": \"2024-03-20T09:00:00.000Z\",\n      \"status\": \"FAILED\",\n      \"finished_at\": \"2024-03-20T09:05:00.000Z\",\n      \"total_rows\": 500,\n      \"distinct_rows\": 400,\n      \"new_rows\": 300,\n      \"synced_rows\": 200,\n      \"failed_rows\": 100,\n      \"error\": \"Connection timed out\"\n    }\n  ],\n  \"next_cursor\": \"VeN1GjhVIq1D9h\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a568935-35b3-4f57-a260-5d51e261f8db",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reverse_etl_sync_runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reverse_etl_sync_id",
+                      "value": "OoORhGXUVjsqFG"
+                    },
+                    {
+                      "key": "starting_after",
+                      "value": "ewK8sDoLNI4CFR"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.weld.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bcdbe595-9b15-409a-87d2-c94ca58808f0",
+    "name": "Weld REST Connection Bridge Reverse ETL Sync Runs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With the Weld REST API you can programmatically control your syncs",
+      "type": "text/plain"
+    }
+  }
+}

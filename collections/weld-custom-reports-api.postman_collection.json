@@ -1,0 +1,148 @@
+{
+  "item": [
+    {
+      "id": "d1d3c1bc-0113-44fe-a825-fe80b9dfd0c3",
+      "name": "Custom Reports",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2e8f5107-b8b2-4131-a273-c8c81588f7f8",
+          "name": "Create custom reports",
+          "request": {
+            "name": "Create custom reports",
+            "description": {
+              "content": "Create one or more custom reports (GAQL for Google Ads, ShopifyQL for Shopify) and attach them to the given ELT Syncs. Batchable: pass multiple items to create the same or different reports across many ELT Syncs in a single call. Each item is processed independently, so one failing item does not affect the others.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "custom_reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reports\": [\n    {\n      \"elt_sync_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"query\": \"<string>\"\n    },\n    {\n      \"elt_sync_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"query\": \"<string>\"\n    }\n  ],\n  \"add_as_source_stream\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "43719c21-0c6b-4861-a2b8-fcee6e4d2fed",
+              "name": "The result of each requested custom report creation, in the same order as the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "custom_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reports\": [\n    {\n      \"elt_sync_id\": \"X4ughggABSd3UY\",\n      \"name\": \"Weekly Spend by Campaign\",\n      \"query\": \"SELECT campaign.id, campaign.name, metrics.cost_micros FROM campaign\"\n    },\n    {\n      \"elt_sync_id\": \"X4ughggABSd3UY\",\n      \"name\": \"Weekly Spend by Campaign\",\n      \"query\": \"SELECT campaign.id, campaign.name, metrics.cost_micros FROM campaign\"\n    }\n  ],\n  \"add_as_source_stream\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"elt_sync_id\": \"string\",\n      \"name\": \"string\",\n      \"source_stream_name\": \"string\",\n      \"error\": {\n        \"error_code\": \"not_found\",\n        \"message\": \"string\"\n      }\n    },\n    {\n      \"elt_sync_id\": \"string\",\n      \"name\": \"string\",\n      \"source_stream_name\": \"string\",\n      \"error\": {\n        \"error_code\": \"unknown\",\n        \"message\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://connect.weld.app",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "40359be1-c158-420c-a149-29dbafa947ee",
+    "name": "Weld REST Connection Bridge Custom Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "With the Weld REST API you can programmatically control your syncs",
+      "type": "text/plain"
+    }
+  }
+}

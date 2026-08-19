@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Weld REST Connection Bridge Reverse ETL Sync Runs API",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reverse ETL Sync Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Reverse ETL Sync Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/reverse_etl_sync_runs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The opaque ID of the Reverse ETL Sync Run."
+              }
+            ]
+          },
+          "docs": "Get details of a specific Reverse ETL Sync Run by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "List Reverse ETL Sync Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/reverse_etl_sync_runs",
+            "params": [
+              {
+                "name": "reverse_etl_sync_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Reverse ETL Sync to list runs for."
+              },
+              {
+                "name": "starting_after",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return in a single page."
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query",
+                "description": "The direction to sort the results."
+              }
+            ]
+          },
+          "docs": "List runs for a specific Reverse ETL Sync in pages sorted by their start date."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,300 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Weld REST Connection Bridge Reverse ETL Syncs API",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reverse ETL Syncs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Reverse ETL Syncs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/reverse_etl_syncs",
+            "params": [
+              {
+                "name": "starting_after",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to use in pagination. Use the value of the `next_cursor` field from the response of a previous list request."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return in a single page."
+              },
+              {
+                "name": "destination_connection_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter Reverse ETL Syncs by the associated Destination Connection ID."
+              }
+            ]
+          },
+          "docs": "List all Reverse ETL Syncs in pages sorted by their creation date."
+        },
+        {
+          "info": {
+            "name": "Create Reverse ETL Sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/reverse_etl_syncs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Reverse ETL Sync that reads from a source Transform and writes to a destination connection. The sync is activated immediately so it runs on its schedule (or as part of its Orchestration Workflow). The `settings` are validated against the settings schema (see the \"Get Reverse ETL Settings Schema for a connection\" endpoint)."
+        },
+        {
+          "info": {
+            "name": "Get Reverse ETL destination schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/reverse_etl_syncs/destination_schema",
+            "params": [
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the (already created) destination connection to read the schema from."
+              },
+              {
+                "name": "object_type_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the object type as used by the destination."
+              },
+              {
+                "name": "operation_mode",
+                "value": "",
+                "type": "query",
+                "description": "The operation mode the destination properties are resolved for (e.g. `MERGE`)."
+              },
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the source Transform the sync reads from."
+              }
+            ]
+          },
+          "docs": "List the properties available in the destination connection for a given object type. These are the properties used as the right-hand side of a Reverse ETL mapping."
+        },
+        {
+          "info": {
+            "name": "List available Reverse ETL operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/reverse_etl_syncs/available_operations",
+            "params": [
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the (already created) destination connection to read the available operations from."
+              },
+              {
+                "name": "object_type_id",
+                "value": "",
+                "type": "query",
+                "description": "The opaque ID of the object type as used by the destination."
+              }
+            ]
+          },
+          "docs": "List the operations available in the destination connection for a given object type. These determine how records are written to the destination (e.g. the operation type and mode)."
+        },
+        {
+          "info": {
+            "name": "List Reverse ETL Object Types for a connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/reverse_etl_syncs/object_types",
+            "params": [
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the (already created) destination connection."
+              }
+            ]
+          },
+          "docs": "List the object types available in the destination connection. These are the objects (e.g. Contact, Company) that a Reverse ETL Sync can write to. The connection should already be created before fetching the object types."
+        },
+        {
+          "info": {
+            "name": "Get Reverse ETL Settings Schema for a connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/reverse_etl_syncs/settings_schema",
+            "params": [
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the (already created) destination connection."
+              },
+              {
+                "name": "object_type",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the object type to get the settings for (e.g. `contact`)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get the settings for a connection, used when creating or updating a Reverse ETL Sync. The connection should already be created before getting the settings. Some settings have options that depend on other settings (e.g. the available sheets depend on the selected file URL) - provide the already-selected values via `partial_settings` to resolve those dependent options. This is a read-only operation - it does not create or modify a Reverse ETL Sync; POST is used so the (potentially large) `partial_"
+        },
+        {
+          "info": {
+            "name": "Get Reverse ETL Sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://connect.weld.app/reverse_etl_syncs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Reverse ETL Sync."
+              }
+            ]
+          },
+          "docs": "Get data of a specific Reverse ETL Sync."
+        },
+        {
+          "info": {
+            "name": "Update Reverse ETL Sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/reverse_etl_syncs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Reverse ETL Sync to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a Reverse ETL Sync. The sync must be paused (deactivated) before it can be updated. The `settings` are validated against the settings schema (see the \"Get Reverse ETL Settings Schema for a connection\" endpoint)."
+        },
+        {
+          "info": {
+            "name": "Delete Reverse ETL Sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://connect.weld.app/reverse_etl_syncs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Reverse ETL Sync to delete."
+              }
+            ]
+          },
+          "docs": "Deletes the specified Reverse ETL Sync."
+        },
+        {
+          "info": {
+            "name": "Activate Reverse ETL Sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/reverse_etl_syncs/:id/activate",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Reverse ETL Sync to activate."
+              }
+            ]
+          },
+          "docs": "Activates the specified Reverse ETL Sync so it runs periodically based on its schedule."
+        },
+        {
+          "info": {
+            "name": "Deactivate Reverse ETL Sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/reverse_etl_syncs/:id/deactivate",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Reverse ETL Sync to deactivate."
+              }
+            ]
+          },
+          "docs": "Deactivates the specified Reverse ETL Sync so it no longer runs on its schedule."
+        },
+        {
+          "info": {
+            "name": "Request Reverse ETL Sync Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://connect.weld.app/reverse_etl_syncs/:id/request_run",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Reverse ETL Sync to run."
+              }
+            ]
+          },
+          "docs": "Attempts to run the specified Reverse ETL Sync immediately."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
