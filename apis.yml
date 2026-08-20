@@ -38,6 +38,19 @@ tags:
 - ETL
 - ELT
 - Reverse ETL
+- Data Pipeline
+- Data Integration
+- Change Data Capture
+- Transformation
+- Analytics
+- MCP
+- AI Agents
+tags_raw:
+- Company
+- Data
+- ETL
+- ELT
+- Reverse ETL
 - Data Pipelines
 - Data Integration
 - Change Data Capture
@@ -136,6 +149,8 @@ apis:
   humanURL: https://weld.app/docs/api-reference
   baseURL: https://connect.weld.app
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
