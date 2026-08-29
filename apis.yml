@@ -9,6 +9,18 @@ description: >-
   let developers and AI agents create connections, run and monitor ELT syncs, build
   and publish transforms, and orchestrate pipelines programmatically. Weld is a
   Copenhagen-based company backed by a16z and other leading investors.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
