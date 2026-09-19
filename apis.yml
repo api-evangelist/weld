@@ -192,6 +192,8 @@ apis:
   humanURL: https://weld.app/docs/api-reference
   baseURL: https://connect.weld.app
   tags:
+  - Orchestration
+  tags_raw:
   - Orchestrations
   properties:
   - type: OpenAPI
