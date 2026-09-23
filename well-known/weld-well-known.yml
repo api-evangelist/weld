@@ -1,19 +1,50 @@
-generated: '2026-07-21'
+generated: '2026-09-19'
 method: searched
 host: https://weld.app
-notes: >-
-  Probed the standard /.well-known/ discovery surface on weld.app. None are
-  published as of this capture (all 404). Absence is valid, recorded data.
-documents:
-- path: /.well-known/security.txt
-  status: 404
-- path: /.well-known/openid-configuration
-  status: 404
-- path: /.well-known/oauth-authorization-server
-  status: 404
-- path: /.well-known/api-catalog
-  status: 404
-- path: /.well-known/ai-plugin.json
-  status: 404
-- path: /llms.txt
-  status: 404
+notes: Probed the standard /.well-known/ discovery surface on weld.app. None are published as of this
+  capture (all 404). Absence is valid, recorded data.
+hosts:
+- host: https://weld.app
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://connect.weld.app
+  documents:
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: weld-connect-oauth-protected-resource.json
+    bytes: 233
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: weld-connect-oauth-authorization-server.json
+    bytes: 484
+  path_echo_control: passed
+x-shape-fix:
+  converted: '2026-08-20'
+  from: documents
+  note: Rewritten into hosts[] -> documents[], the only shape well_known_docs() in score.rb reads. A served
+    .well-known surface recorded in any other shape scores as absent.
+x-mcp-probe:
+  probed: '2026-09-19'
+  issue: roadmap#321, roadmap#337
+  documents:
+  - host: https://connect.weld.app
+    path: /.well-known/oauth-protected-resource
+    file: weld-connect-oauth-protected-resource.json
+  - host: https://connect.weld.app
+    path: /.well-known/oauth-authorization-server
+    file: weld-connect-oauth-authorization-server.json
+  validated_on: resource (RFC 9728) / issuer (RFC 8414, OIDC)
+  negative_control: one per host; a 2xx JSON object at an impossible path discards the host
+note: 'MCP-host OAuth discovery added 2026-09-19 (roadmap#321/#337): the harvest visits a provider''s
+  primary hosts, and RFC 9728 protected-resource metadata lives on the MCP host, so these documents existed
+  and were invisible to the scorer. Fetched live and validated on `resource`/`issuer`; one negative control
+  per host.'

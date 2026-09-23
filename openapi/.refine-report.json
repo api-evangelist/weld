@@ -1,19 +1,7 @@
 {
   "provider": "weld",
   "sources": [
-    "weld-connection-bridge-api-openapi.yml",
-    "weld-connections-api-openapi.yml",
-    "weld-custom-reports-api-openapi.yml",
-    "weld-elt-stream-runs-api-openapi.yml",
-    "weld-elt-streams-api-openapi.yml",
-    "weld-elt-syncs-api-openapi.yml",
-    "weld-integrations-api-openapi.yml",
-    "weld-orchestration-runs-api-openapi.yml",
-    "weld-orchestrations-api-openapi.yml",
-    "weld-reverse-etl-failed-records-api-openapi.yml",
-    "weld-reverse-etl-sync-runs-api-openapi.yml",
-    "weld-reverse-etl-syncs-api-openapi.yml",
-    "weld-transforms-api-openapi.yml"
+    "_original/weld-connect-openapi.json"
   ],
   "outputs": [
     "weld-connection-bridge-api-openapi.yml",
@@ -33,6 +21,37 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "weld-connect-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "weld-connect-openapi.json: declared missing tag: Connection Bridge",
+    "weld-connect-openapi.json: declared missing tag: Connections",
+    "weld-connect-openapi.json: declared missing tag: Custom Reports",
+    "weld-connect-openapi.json: declared missing tag: ELT Stream Runs",
+    "weld-connect-openapi.json: declared missing tag: ELT Streams",
+    "weld-connect-openapi.json: declared missing tag: ELT Syncs",
+    "weld-connect-openapi.json: declared missing tag: Integrations",
+    "weld-connect-openapi.json: declared missing tag: Orchestration Runs",
+    "weld-connect-openapi.json: declared missing tag: Orchestrations",
+    "weld-connect-openapi.json: declared missing tag: Reverse ETL Failed Records",
+    "weld-connect-openapi.json: declared missing tag: Reverse ETL Sync Runs",
+    "weld-connect-openapi.json: declared missing tag: Reverse ETL Syncs",
+    "weld-connect-openapi.json: declared missing tag: Transforms",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "weld-connection-bridge-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "weld-connections-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "weld-custom-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "weld-elt-stream-runs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "weld-elt-streams-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "weld-elt-syncs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "weld-integrations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "weld-orchestration-runs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "weld-orchestrations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "weld-reverse-etl-failed-records-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "weld-reverse-etl-sync-runs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "weld-reverse-etl-syncs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "weld-transforms-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

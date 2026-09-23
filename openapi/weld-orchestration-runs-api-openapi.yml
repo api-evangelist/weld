@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Weld REST Connection Bridge Orchestration Runs API
+  title: Weld REST Orchestration Runs API
   description: With the Weld REST API you can programmatically control your syncs
   version: '0.1'
   contact: {}
@@ -75,6 +75,25 @@ paths:
       - Orchestration Runs
 components:
   schemas:
+    PagedOrchestrationRunDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of Orchestration Runs
+          type: array
+          items:
+            $ref: '#/components/schemas/OrchestrationRunDto'
+      required:
+      - has_more
+      - data
     OrchestrationRunDto:
       type: object
       properties:
@@ -116,25 +135,6 @@ components:
       - orchestration_id
       - status
       - due_at
-    PagedOrchestrationRunDto:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-          description: Indicates whether there are more items to be fetched in the subsequent pages.
-          example: true
-        next_cursor:
-          type: string
-          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
-          example: VeN1GjhVIq1D9h
-        data:
-          description: List of Orchestration Runs
-          type: array
-          items:
-            $ref: '#/components/schemas/OrchestrationRunDto'
-      required:
-      - has_more
-      - data
   securitySchemes:
     api_key:
       type: apiKey

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Weld REST Connection Bridge Reverse ETL Failed Records API
+  title: Weld REST Reverse ETL Failed Records API
   description: With the Weld REST API you can programmatically control your syncs
   version: '0.1'
   contact: {}
@@ -116,6 +116,16 @@ paths:
       - Reverse ETL Failed Records
 components:
   schemas:
+    ReverseEtlSyncFailedRecordErrorsDto:
+      type: object
+      properties:
+        data:
+          description: The record errors captured for the Reverse ETL Sync.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReverseEtlSyncRecordErrorDto'
+      required:
+      - data
     ReverseEtlSyncFailedRecordCountDto:
       type: object
       properties:
@@ -156,16 +166,6 @@ components:
       - sync_id
       - record_id
       - error
-    ReverseEtlSyncFailedRecordErrorsDto:
-      type: object
-      properties:
-        data:
-          description: The record errors captured for the Reverse ETL Sync.
-          type: array
-          items:
-            $ref: '#/components/schemas/ReverseEtlSyncRecordErrorDto'
-      required:
-      - data
   securitySchemes:
     api_key:
       type: apiKey

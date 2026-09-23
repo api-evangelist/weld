@@ -1,0 +1,1 @@
+{"resource":"https://connect.weld.app/mcp","authorization_servers":["https://connect.weld.app"],"scopes_supported":["openid","profile","email","offline_access"],"bearer_methods_supported":["header"],"resource_name":"Weld MCP Server"}
