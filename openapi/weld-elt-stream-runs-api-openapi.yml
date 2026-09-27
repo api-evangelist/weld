@@ -89,6 +89,25 @@ paths:
       - ELT Stream Runs
 components:
   schemas:
+    PagedEltStreamRunDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of ELT Stream Runs. Only runs from the last 3 months are returned.
+          type: array
+          items:
+            $ref: '#/components/schemas/EltStreamRunDto'
+      required:
+      - has_more
+      - data
     EltStreamRunDto:
       type: object
       properties:
@@ -129,25 +148,6 @@ components:
       - elt_sync_id
       - elt_stream_id
       - started_at
-    PagedEltStreamRunDto:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-          description: Indicates whether there are more items to be fetched in the subsequent pages.
-          example: true
-        next_cursor:
-          type: string
-          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
-          example: VeN1GjhVIq1D9h
-        data:
-          description: List of ELT Stream Runs. Only runs from the last 3 months are returned.
-          type: array
-          items:
-            $ref: '#/components/schemas/EltStreamRunDto'
-      required:
-      - has_more
-      - data
   securitySchemes:
     api_key:
       type: apiKey

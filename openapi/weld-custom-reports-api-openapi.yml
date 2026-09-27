@@ -34,25 +34,6 @@ paths:
       - Custom Reports
 components:
   schemas:
-    CustomReportCreateItemDto:
-      type: object
-      properties:
-        elt_sync_id:
-          type: string
-          description: The ID of the ELT Sync to attach the custom report to.
-          example: X4ughggABSd3UY
-        name:
-          type: string
-          description: The name of the custom report. Used to derive the resulting source stream name.
-          example: Weekly Spend by Campaign
-        query:
-          type: string
-          description: The query defining the report. GAQL for Google Ads connections, ShopifyQL for Shopify connections.
-          example: SELECT campaign.id, campaign.name, metrics.cost_micros FROM campaign
-      required:
-      - elt_sync_id
-      - name
-      - query
     CustomReportCreateResultDto:
       type: object
       properties:
@@ -72,16 +53,25 @@ components:
       required:
       - elt_sync_id
       - name
-    CreateCustomReportsResponseDto:
+    CustomReportCreateItemDto:
       type: object
       properties:
-        results:
-          description: One result per requested custom report.
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomReportCreateResultDto'
+        elt_sync_id:
+          type: string
+          description: The ID of the ELT Sync to attach the custom report to.
+          example: X4ughggABSd3UY
+        name:
+          type: string
+          description: The name of the custom report. Used to derive the resulting source stream name.
+          example: Weekly Spend by Campaign
+        query:
+          type: string
+          description: The query defining the report. GAQL for Google Ads connections, ShopifyQL for Shopify connections.
+          example: SELECT campaign.id, campaign.name, metrics.cost_micros FROM campaign
       required:
-      - results
+      - elt_sync_id
+      - name
+      - query
     CreateCustomReportsRequestDto:
       type: object
       properties:
@@ -115,6 +105,16 @@ components:
       required:
       - error_code
       - message
+    CreateCustomReportsResponseDto:
+      type: object
+      properties:
+        results:
+          description: One result per requested custom report.
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomReportCreateResultDto'
+      required:
+      - results
   securitySchemes:
     api_key:
       type: apiKey

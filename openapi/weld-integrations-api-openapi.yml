@@ -34,6 +34,25 @@ paths:
       - Integrations
 components:
   schemas:
+    PagedIntegrationDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of available integrations
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationDto'
+      required:
+      - has_more
+      - data
     IntegrationDto:
       type: object
       properties:
@@ -64,25 +83,6 @@ components:
       - name
       - supports_start_date
       - abilities
-    PagedIntegrationDto:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-          description: Indicates whether there are more items to be fetched in the subsequent pages.
-          example: true
-        next_cursor:
-          type: string
-          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
-          example: VeN1GjhVIq1D9h
-        data:
-          description: List of available integrations
-          type: array
-          items:
-            $ref: '#/components/schemas/IntegrationDto'
-      required:
-      - has_more
-      - data
     OpenApiIntegrationAbility:
       type: string
       enum:
