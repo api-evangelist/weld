@@ -307,21 +307,98 @@ paths:
       - ELT Syncs
 components:
   schemas:
-    EltSyncStatusDto:
+    EltSyncCreateRequestDto:
       type: object
       properties:
-        elt_sync_id:
+        connection_id:
           type: string
-          description: Sync ID
-          example: X4ughggABSd3UY
-        source_streams:
-          description: List of source stream states
+          description: The connection id.
+        destination_schema_name:
+          type: string
+          description: The name of the destination schema that will contain the synced tables.
+        elt_settings:
+          type: object
+          description: The ELT settings for a sync.
+        sync_interval:
+          type: string
+          description: Cron expression for the elt sync schedule.
+          example: 0 0 * * *
+        start_date:
+          type: string
+          description: The earliest date from which data will be synced. Defaults to a predefined date if not set. Support varies by integration; see the supports_start_date field in the Integrations endpoint.
+          format: YYYY-MM-DD
+          example: '2020-01-01'
+      required:
+      - connection_id
+      - destination_schema_name
+      - sync_interval
+    AvailableStreamDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the stream
+          example: users
+        is_selectable:
+          type: boolean
+          description: Whether it is possible to select it. It is false for not used source streams
+        preselect:
+          type: boolean
+          description: Whether the source stream should be pre-selected by default
+        sub_streams:
+          description: An array of the substreams
+          example:
+          - user_address
           type: array
           items:
-            $ref: '#/components/schemas/SourceStreamSnapshotStatesDto'
+            type: string
+        retired:
+          type: boolean
+          description: If the stream is retired and should not be used anymore
+          example: false
+        retirement_details:
+          description: Details for the retired stream
+          allOf:
+          - $ref: '#/components/schemas/RetirementDetails'
       required:
-      - elt_sync_id
-      - source_streams
+      - name
+      - retired
+    SourceStreamSnapshotStatesDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the source stream
+          example: users
+        active_sync:
+          description: Currently active sync if any
+          allOf:
+          - $ref: '#/components/schemas/SourceStreamSnapshotDto'
+        latest_sync:
+          description: Latest completed sync if any
+          allOf:
+          - $ref: '#/components/schemas/SourceStreamSnapshotDto'
+      required:
+      - name
+    PagedAvailableEltStreamDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of the available streams for the integration
+          type: array
+          items:
+            $ref: '#/components/schemas/AvailableStreamDto'
+      required:
+      - has_more
+      - data
     SourceStreamDto:
       type: object
       properties:
@@ -364,56 +441,77 @@ components:
           default: false
       required:
       - name
-    PagedEltSyncDto:
+    EltStreamDto:
       type: object
       properties:
-        has_more:
-          type: boolean
-          description: Indicates whether there are more items to be fetched in the subsequent pages.
-          example: true
-        next_cursor:
+        id:
           type: string
-          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
-          example: VeN1GjhVIq1D9h
-        data:
-          description: List of ELT Syncs
-          type: array
-          items:
-            $ref: '#/components/schemas/EltSyncDto'
-      required:
-      - has_more
-      - data
-    AvailableStreamDto:
-      type: object
-      properties:
+          description: The Id of the ELT Stream.
+          example: SCTVdLAcyDTgNx
+        elt_sync_id:
+          type: string
+          description: The Id of the ELT Sync that the ELT Stream belongs to.
+          example: 3LIw2FdxoByya9
         name:
           type: string
-          description: The name of the stream
+          description: The name of the ELT Stream
           example: users
-        is_selectable:
-          type: boolean
-          description: Whether it is possible to select it. It is false for not used source streams
-        preselect:
-          type: boolean
-          description: Whether the source stream should be pre-selected by default
-        sub_streams:
-          description: An array of the substreams
+        incremental_primary_key_name:
+          description: The name of the primary key field used for incremental sync. Most commonly used for database incremental syncs.
           example:
-          - user_address
+          - id
           type: array
           items:
             type: string
-        retired:
+        incremental_pointer_id:
+          type: string
+          description: The name of the field used for incremental sync cursor.
+          example: updated_at
+        full_sync_at_midnight:
           type: boolean
-          description: If the stream is retired and should not be used anymore
+          description: Indicates whether the full sync should be performed at midnight.
           example: false
-        retirement_details:
-          description: Details for the retired stream
-          allOf:
-          - $ref: '#/components/schemas/RetirementDetails'
+        full_sync_always:
+          type: boolean
+          description: Indicates whether the full sync should always be performed.
+          example: false
+        protected_from_full_sync:
+          type: boolean
+          description: Indicates whether the stream is protected from full sync.
+          example: false
+        created_at:
+          format: date-time
+          type: string
+          description: The datetime when the ELT Stream was created.
+          example: '2020-01-01T00:00:00.000Z'
+        updated_at:
+          format: date-time
+          type: string
+          description: The datetime when the ELT Stream was last updated.
+          example: '2020-01-01T00:00:00.000Z'
+        excluded_substreams:
+          description: Excluded substreams from syncing.
+          example:
+          - substream1
+          - substream2
+          type: array
+          items:
+            type: string
+        enabled_history_table:
+          type: boolean
+          description: Whether history table(s) are enabled for this stream
+          example: false
       required:
+      - id
+      - elt_sync_id
       - name
-      - retired
+      - full_sync_at_midnight
+      - full_sync_always
+      - protected_from_full_sync
+      - created_at
+      - updated_at
+      - excluded_substreams
+      - enabled_history_table
     SourceStreamSnapshotDto:
       type: object
       properties:
@@ -481,6 +579,93 @@ components:
           example: Processing chunk 1/5
       required:
       - bytes_synced
+    EltSyncAddSourceStreamsRequestDto:
+      type: object
+      properties:
+        source_streams:
+          description: The source streams for the elt sync.
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceStreamDto'
+    EltSyncUpdateRequestDto:
+      type: object
+      properties:
+        elt_settings:
+          type: object
+          description: The elt settings for a sync.
+        sync_interval:
+          type: string
+          description: Cron expression for the elt sync schedule.
+          example: 0 0 * * *
+    PagedEltSyncDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of ELT Syncs
+          type: array
+          items:
+            $ref: '#/components/schemas/EltSyncDto'
+      required:
+      - has_more
+      - data
+    RetirementDetails:
+      type: object
+      properties:
+        in_favor_of:
+          type: string
+          description: In favor of another stream that should be used instead
+        removal_date:
+          type: string
+          description: Due date when stream will stop syncing
+          format: ISO 8601 date string
+        details:
+          type: string
+          description: Optional details of the retirement
+        link:
+          type: string
+          description: Optional link to official documentation that describes the retirement and migration details
+    EltSyncStatusDto:
+      type: object
+      properties:
+        elt_sync_id:
+          type: string
+          description: Sync ID
+          example: X4ughggABSd3UY
+        source_streams:
+          description: List of source stream states
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceStreamSnapshotStatesDto'
+      required:
+      - elt_sync_id
+      - source_streams
+    EltSyncAddSourceStreamsResponseDto:
+      type: object
+      properties:
+        source_streams:
+          description: The updated list of source streams for the ELT sync.
+          type: array
+          items:
+            $ref: '#/components/schemas/EltStreamDto'
+      required:
+      - source_streams
+    EltSyncAttachOrchestrationRequestDto:
+      type: object
+      properties:
+        orchestration_workflow_id:
+          type: string
+          description: The ID of the Orchestration Workflow to attach this ELT sync to.
+          example: 3LIw2FdxoByya9
+      required:
+      - orchestration_workflow_id
     EltSyncDto:
       type: object
       properties:
@@ -570,191 +755,6 @@ components:
       - source_integration_id
       - status
       - updated_at
-    EltSyncCreateRequestDto:
-      type: object
-      properties:
-        connection_id:
-          type: string
-          description: The connection id.
-        destination_schema_name:
-          type: string
-          description: The name of the destination schema that will contain the synced tables.
-        elt_settings:
-          type: object
-          description: The ELT settings for a sync.
-        sync_interval:
-          type: string
-          description: Cron expression for the elt sync schedule.
-          example: 0 0 * * *
-        start_date:
-          type: string
-          description: The earliest date from which data will be synced. Defaults to a predefined date if not set. Support varies by integration; see the supports_start_date field in the Integrations endpoint.
-          format: YYYY-MM-DD
-          example: '2020-01-01'
-      required:
-      - connection_id
-      - destination_schema_name
-      - sync_interval
-    SourceStreamSnapshotStatesDto:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the source stream
-          example: users
-        active_sync:
-          description: Currently active sync if any
-          allOf:
-          - $ref: '#/components/schemas/SourceStreamSnapshotDto'
-        latest_sync:
-          description: Latest completed sync if any
-          allOf:
-          - $ref: '#/components/schemas/SourceStreamSnapshotDto'
-      required:
-      - name
-    PagedAvailableEltStreamDto:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-          description: Indicates whether there are more items to be fetched in the subsequent pages.
-          example: true
-        next_cursor:
-          type: string
-          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
-          example: VeN1GjhVIq1D9h
-        data:
-          description: List of the available streams for the integration
-          type: array
-          items:
-            $ref: '#/components/schemas/AvailableStreamDto'
-      required:
-      - has_more
-      - data
-    RetirementDetails:
-      type: object
-      properties:
-        in_favor_of:
-          type: string
-          description: In favor of another stream that should be used instead
-        removal_date:
-          type: string
-          description: Due date when stream will stop syncing
-          format: ISO 8601 date string
-        details:
-          type: string
-          description: Optional details of the retirement
-        link:
-          type: string
-          description: Optional link to official documentation that describes the retirement and migration details
-    EltSyncAddSourceStreamsRequestDto:
-      type: object
-      properties:
-        source_streams:
-          description: The source streams for the elt sync.
-          type: array
-          items:
-            $ref: '#/components/schemas/SourceStreamDto'
-    EltSyncUpdateRequestDto:
-      type: object
-      properties:
-        elt_settings:
-          type: object
-          description: The elt settings for a sync.
-        sync_interval:
-          type: string
-          description: Cron expression for the elt sync schedule.
-          example: 0 0 * * *
-    EltSyncAddSourceStreamsResponseDto:
-      type: object
-      properties:
-        source_streams:
-          description: The updated list of source streams for the ELT sync.
-          type: array
-          items:
-            $ref: '#/components/schemas/EltStreamDto'
-      required:
-      - source_streams
-    EltStreamDto:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The Id of the ELT Stream.
-          example: SCTVdLAcyDTgNx
-        elt_sync_id:
-          type: string
-          description: The Id of the ELT Sync that the ELT Stream belongs to.
-          example: 3LIw2FdxoByya9
-        name:
-          type: string
-          description: The name of the ELT Stream
-          example: users
-        incremental_primary_key_name:
-          description: The name of the primary key field used for incremental sync. Most commonly used for database incremental syncs.
-          example:
-          - id
-          type: array
-          items:
-            type: string
-        incremental_pointer_id:
-          type: string
-          description: The name of the field used for incremental sync cursor.
-          example: updated_at
-        full_sync_at_midnight:
-          type: boolean
-          description: Indicates whether the full sync should be performed at midnight.
-          example: false
-        full_sync_always:
-          type: boolean
-          description: Indicates whether the full sync should always be performed.
-          example: false
-        protected_from_full_sync:
-          type: boolean
-          description: Indicates whether the stream is protected from full sync.
-          example: false
-        created_at:
-          format: date-time
-          type: string
-          description: The datetime when the ELT Stream was created.
-          example: '2020-01-01T00:00:00.000Z'
-        updated_at:
-          format: date-time
-          type: string
-          description: The datetime when the ELT Stream was last updated.
-          example: '2020-01-01T00:00:00.000Z'
-        excluded_substreams:
-          description: Excluded substreams from syncing.
-          example:
-          - substream1
-          - substream2
-          type: array
-          items:
-            type: string
-        enabled_history_table:
-          type: boolean
-          description: Whether history table(s) are enabled for this stream
-          example: false
-      required:
-      - id
-      - elt_sync_id
-      - name
-      - full_sync_at_midnight
-      - full_sync_always
-      - protected_from_full_sync
-      - created_at
-      - updated_at
-      - excluded_substreams
-      - enabled_history_table
-    EltSyncAttachOrchestrationRequestDto:
-      type: object
-      properties:
-        orchestration_workflow_id:
-          type: string
-          description: The ID of the Orchestration Workflow to attach this ELT sync to.
-          example: 3LIw2FdxoByya9
-      required:
-      - orchestration_workflow_id
   securitySchemes:
     api_key:
       type: apiKey

@@ -34,44 +34,6 @@ paths:
       - Custom Reports
 components:
   schemas:
-    CustomReportCreateResultDto:
-      type: object
-      properties:
-        elt_sync_id:
-          type: string
-          description: The ID of the ELT Sync the report was requested for.
-        name:
-          type: string
-          description: The name of the custom report, as requested.
-        source_stream_name:
-          type: string
-          description: The resulting source stream name. Present when the report was created successfully.
-        error:
-          description: Present when creation failed. Absence of this field means the report was created successfully.
-          allOf:
-          - $ref: '#/components/schemas/CustomReportCreateErrorDto'
-      required:
-      - elt_sync_id
-      - name
-    CustomReportCreateItemDto:
-      type: object
-      properties:
-        elt_sync_id:
-          type: string
-          description: The ID of the ELT Sync to attach the custom report to.
-          example: X4ughggABSd3UY
-        name:
-          type: string
-          description: The name of the custom report. Used to derive the resulting source stream name.
-          example: Weekly Spend by Campaign
-        query:
-          type: string
-          description: The query defining the report. GAQL for Google Ads connections, ShopifyQL for Shopify connections.
-          example: SELECT campaign.id, campaign.name, metrics.cost_micros FROM campaign
-      required:
-      - elt_sync_id
-      - name
-      - query
     CreateCustomReportsRequestDto:
       type: object
       properties:
@@ -105,6 +67,25 @@ components:
       required:
       - error_code
       - message
+    CustomReportCreateItemDto:
+      type: object
+      properties:
+        elt_sync_id:
+          type: string
+          description: The ID of the ELT Sync to attach the custom report to.
+          example: X4ughggABSd3UY
+        name:
+          type: string
+          description: The name of the custom report. Used to derive the resulting source stream name.
+          example: Weekly Spend by Campaign
+        query:
+          type: string
+          description: The query defining the report. GAQL for Google Ads connections, ShopifyQL for Shopify connections.
+          example: SELECT campaign.id, campaign.name, metrics.cost_micros FROM campaign
+      required:
+      - elt_sync_id
+      - name
+      - query
     CreateCustomReportsResponseDto:
       type: object
       properties:
@@ -115,6 +96,25 @@ components:
             $ref: '#/components/schemas/CustomReportCreateResultDto'
       required:
       - results
+    CustomReportCreateResultDto:
+      type: object
+      properties:
+        elt_sync_id:
+          type: string
+          description: The ID of the ELT Sync the report was requested for.
+        name:
+          type: string
+          description: The name of the custom report, as requested.
+        source_stream_name:
+          type: string
+          description: The resulting source stream name. Present when the report was created successfully.
+        error:
+          description: Present when creation failed. Absence of this field means the report was created successfully.
+          allOf:
+          - $ref: '#/components/schemas/CustomReportCreateErrorDto'
+      required:
+      - elt_sync_id
+      - name
   securitySchemes:
     api_key:
       type: apiKey
