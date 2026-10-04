@@ -403,99 +403,6 @@ paths:
       - Transforms
 components:
   schemas:
-    PagedTransformDto:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-          description: Indicates whether there are more items to be fetched in the subsequent pages.
-          example: true
-        next_cursor:
-          type: string
-          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
-          example: VeN1GjhVIq1D9h
-        data:
-          description: List of transforms
-          type: array
-          items:
-            $ref: '#/components/schemas/TransformDto'
-      required:
-      - has_more
-      - data
-    TransformVersionDto:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of this SQL query version.
-          example: sqlq_abc123
-        sql_template:
-          type: string
-          description: The SQL template with {{weldTag}} parameter references.
-          example: SELECT * FROM {{raw.stripe.payments}}
-        parameters:
-          description: The parameters (dependencies) referenced in this version.
-          type: array
-          items:
-            $ref: '#/components/schemas/TransformParameterDto'
-        is_published:
-          type: boolean
-          description: Whether this version is the currently published version.
-          example: true
-        user_id:
-          type: string
-          description: The user ID who created this version.
-          example: user_123
-        created_at:
-          format: date-time
-          type: string
-          description: The datetime when this version was created.
-          example: '2020-01-01T00:00:00.000Z'
-      required:
-      - id
-      - sql_template
-      - parameters
-      - is_published
-      - created_at
-    TransformCreateRequestDto:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the transform.
-          example: marketing_attribution
-        folder_path:
-          type: string
-          description: The folder path for the transform. Intermediate folders will be auto-created if they do not exist.
-          example: analytics/marketing
-        sql_template:
-          type: string
-          description: The SQL template with {{weldTag}} parameter references.
-          example: SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30
-        materialization:
-          type: string
-          description: The materialization type. Defaults to "view".
-          enum:
-          - view
-          - table
-          example: view
-        documentation:
-          type: string
-          description: Documentation for the transform.
-          example: Calculates marketing attribution from ad spend and conversions.
-        publish:
-          type: boolean
-          description: If true, the transform will be published (materialized to DWH) immediately after creation.
-          example: false
-          default: false
-        wait_for_completion:
-          type: boolean
-          description: If true, the API will wait for table materialization to complete before returning, up to a configured timeout (default ~45 seconds; may differ per environment). Only relevant when publishing with materialization set to "table". If the materialization does not complete within the timeout, the response will still succeed with materialization_status "running".
-          example: false
-          default: false
-      required:
-      - name
-      - sql_template
     AvailableReferencesResponseDto:
       type: object
       properties:
@@ -506,6 +413,39 @@ components:
             $ref: '#/components/schemas/AvailableReferenceDto'
       required:
       - data
+    TransformAttachOrchestrationRequestDto:
+      type: object
+      properties:
+        orchestration_workflow_id:
+          type: string
+          description: The ID of the Orchestration Workflow to attach this transform to.
+          example: 3LIw2FdxoByya9
+      required:
+      - orchestration_workflow_id
+    QueryPreviewCreateResponseDto:
+      type: object
+      properties:
+        query_execution_id:
+          type: string
+          description: The unique identifier for the query execution. Use this to poll for status and results.
+          example: qe_abc123def456
+        dw_sql:
+          type: string
+          description: The translated data warehouse SQL that was executed.
+          example: SELECT * FROM stripe_schema.payments WHERE created_at > CURRENT_DATE - 30
+      required:
+      - query_execution_id
+      - dw_sql
+    TransformBulkCreateRequestDto:
+      type: object
+      properties:
+        transforms:
+          description: Array of transforms to create. Maximum 50 transforms per request.
+          type: array
+          items:
+            $ref: '#/components/schemas/TransformCreateRequestDto'
+      required:
+      - transforms
     TransformBulkResultItemDto:
       type: object
       properties:
@@ -542,15 +482,6 @@ components:
             $ref: '#/components/schemas/TransformBulkResultItemDto'
       required:
       - results
-    TransformAttachOrchestrationRequestDto:
-      type: object
-      properties:
-        orchestration_workflow_id:
-          type: string
-          description: The ID of the Orchestration Workflow to attach this transform to.
-          example: 3LIw2FdxoByya9
-      required:
-      - orchestration_workflow_id
     TransformPublishRequestDto:
       type: object
       properties:
@@ -578,121 +509,6 @@ components:
           description: If true, the API will wait for table materialization to complete before returning, up to a configured timeout (default ~45 seconds; may differ per environment). Only relevant when materialization is set to "table". If the materialization does not complete within the timeout, the response will still succeed with materialization_status "running".
           example: false
           default: false
-    QueryPreviewStatusResponseDto:
-      type: object
-      properties:
-        status:
-          type: string
-          description: The current status of the query execution.
-          enum:
-          - RUNNING
-          - DONE
-          - FAILED
-          example: DONE
-        error:
-          type: string
-          description: Error message when the query execution has failed. Only present when status is FAILED.
-          example: 'SQL compilation error: Object does not exist'
-      required:
-      - status
-    QueryPreviewCreateRequestDto:
-      type: object
-      properties:
-        sql_template:
-          type: string
-          description: The SQL template with {{weldTag}} parameter references to preview.
-          example: SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30
-      required:
-      - sql_template
-    TransformParameterDto:
-      type: object
-      properties:
-        weld_tag:
-          type: string
-          description: The weld tag reference used in the SQL template.
-          example: raw.stripe.payments
-        type:
-          type: string
-          description: The type of dependency.
-          enum:
-          - raw_view
-          - model_view
-          - materialized_table
-          example: raw_view
-        dw_item_id:
-          type: string
-          description: The fully-qualified data warehouse item identifier.
-          example: stripe_schema.payments
-      required:
-      - weld_tag
-      - type
-      - dw_item_id
-    AvailableReferenceDto:
-      type: object
-      properties:
-        weld_tag:
-          type: string
-          description: The weld tag to use in {{}} syntax in sql_template.
-          example: raw.stripe.payments
-        type:
-          type: string
-          description: The type of the reference.
-          enum:
-          - raw_view
-          - model_view
-          - materialized_table
-          example: raw_view
-        dw_item_id:
-          type: string
-          description: The fully-qualified data warehouse item identifier.
-          example: stripe_schema.payments
-      required:
-      - weld_tag
-      - type
-      - dw_item_id
-    TransformSchemaFieldDto:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the column.
-          example: email
-        type:
-          type: string
-          description: The data type of the column.
-          example: STRING
-        nullable:
-          type: boolean
-          description: Whether the column is nullable.
-          example: true
-      required:
-      - name
-      - type
-      - nullable
-    QueryPreviewCreateResponseDto:
-      type: object
-      properties:
-        query_execution_id:
-          type: string
-          description: The unique identifier for the query execution. Use this to poll for status and results.
-          example: qe_abc123def456
-        dw_sql:
-          type: string
-          description: The translated data warehouse SQL that was executed.
-          example: SELECT * FROM stripe_schema.payments WHERE created_at > CURRENT_DATE - 30
-      required:
-      - query_execution_id
-      - dw_sql
-    TransformSchemaDto:
-      type: object
-      properties:
-        data:
-          description: The columns of the transform. These can be used as the source (left-hand side) of a Reverse ETL mapping.
-          type: array
-          items:
-            $ref: '#/components/schemas/TransformSchemaFieldDto'
-      required:
-      - data
     PagedTransformVersionDto:
       type: object
       properties:
@@ -712,16 +528,15 @@ components:
       required:
       - has_more
       - data
-    TransformBulkCreateRequestDto:
+    QueryPreviewCreateRequestDto:
       type: object
       properties:
-        transforms:
-          description: Array of transforms to create. Maximum 50 transforms per request.
-          type: array
-          items:
-            $ref: '#/components/schemas/TransformCreateRequestDto'
+        sql_template:
+          type: string
+          description: The SQL template with {{weldTag}} parameter references to preview.
+          example: SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30
       required:
-      - transforms
+      - sql_template
     TransformDto:
       type: object
       properties:
@@ -802,6 +617,39 @@ components:
       - parameters
       - created_at
       - updated_at
+    TransformParameterDto:
+      type: object
+      properties:
+        weld_tag:
+          type: string
+          description: The weld tag reference used in the SQL template.
+          example: raw.stripe.payments
+        type:
+          type: string
+          description: The type of dependency.
+          enum:
+          - raw_view
+          - model_view
+          - materialized_table
+          example: raw_view
+        dw_item_id:
+          type: string
+          description: The fully-qualified data warehouse item identifier.
+          example: stripe_schema.payments
+      required:
+      - weld_tag
+      - type
+      - dw_item_id
+    TransformSchemaDto:
+      type: object
+      properties:
+        data:
+          description: The columns of the transform. These can be used as the source (left-hand side) of a Reverse ETL mapping.
+          type: array
+          items:
+            $ref: '#/components/schemas/TransformSchemaFieldDto'
+      required:
+      - data
     QueryPreviewResultResponseDto:
       type: object
       properties:
@@ -822,6 +670,139 @@ components:
       required:
       - rows
       - num_rows_total
+    QueryPreviewStatusResponseDto:
+      type: object
+      properties:
+        status:
+          type: string
+          description: The current status of the query execution.
+          enum:
+          - RUNNING
+          - DONE
+          - FAILED
+          example: DONE
+        error:
+          type: string
+          description: Error message when the query execution has failed. Only present when status is FAILED.
+          example: 'SQL compilation error: Object does not exist'
+      required:
+      - status
+    PagedTransformDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of transforms
+          type: array
+          items:
+            $ref: '#/components/schemas/TransformDto'
+      required:
+      - has_more
+      - data
+    TransformCreateRequestDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the transform.
+          example: marketing_attribution
+        folder_path:
+          type: string
+          description: The folder path for the transform. Intermediate folders will be auto-created if they do not exist.
+          example: analytics/marketing
+        sql_template:
+          type: string
+          description: The SQL template with {{weldTag}} parameter references.
+          example: SELECT * FROM {{raw.stripe.payments}} WHERE created_at > CURRENT_DATE - 30
+        materialization:
+          type: string
+          description: The materialization type. Defaults to "view".
+          enum:
+          - view
+          - table
+          example: view
+        documentation:
+          type: string
+          description: Documentation for the transform.
+          example: Calculates marketing attribution from ad spend and conversions.
+        publish:
+          type: boolean
+          description: If true, the transform will be published (materialized to DWH) immediately after creation.
+          example: false
+          default: false
+        wait_for_completion:
+          type: boolean
+          description: If true, the API will wait for table materialization to complete before returning, up to a configured timeout (default ~45 seconds; may differ per environment). Only relevant when publishing with materialization set to "table". If the materialization does not complete within the timeout, the response will still succeed with materialization_status "running".
+          example: false
+          default: false
+      required:
+      - name
+      - sql_template
+    TransformVersionDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of this SQL query version.
+          example: sqlq_abc123
+        sql_template:
+          type: string
+          description: The SQL template with {{weldTag}} parameter references.
+          example: SELECT * FROM {{raw.stripe.payments}}
+        parameters:
+          description: The parameters (dependencies) referenced in this version.
+          type: array
+          items:
+            $ref: '#/components/schemas/TransformParameterDto'
+        is_published:
+          type: boolean
+          description: Whether this version is the currently published version.
+          example: true
+        user_id:
+          type: string
+          description: The user ID who created this version.
+          example: user_123
+        created_at:
+          format: date-time
+          type: string
+          description: The datetime when this version was created.
+          example: '2020-01-01T00:00:00.000Z'
+      required:
+      - id
+      - sql_template
+      - parameters
+      - is_published
+      - created_at
+    AvailableReferenceDto:
+      type: object
+      properties:
+        weld_tag:
+          type: string
+          description: The weld tag to use in {{}} syntax in sql_template.
+          example: raw.stripe.payments
+        type:
+          type: string
+          description: The type of the reference.
+          enum:
+          - raw_view
+          - model_view
+          - materialized_table
+          example: raw_view
+        dw_item_id:
+          type: string
+          description: The fully-qualified data warehouse item identifier.
+          example: stripe_schema.payments
+      required:
+      - weld_tag
+      - type
+      - dw_item_id
     TransformUpdateRequestDto:
       type: object
       properties:
@@ -858,6 +839,25 @@ components:
           description: If true, the API will wait for table materialization to complete before returning, up to a configured timeout (default ~45 seconds; may differ per environment). Only relevant when publishing with materialization set to "table". If the materialization does not complete within the timeout, the response will still succeed with materialization_status "running".
           example: false
           default: false
+    TransformSchemaFieldDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the column.
+          example: email
+        type:
+          type: string
+          description: The data type of the column.
+          example: STRING
+        nullable:
+          type: boolean
+          description: Whether the column is nullable.
+          example: true
+      required:
+      - name
+      - type
+      - nullable
   securitySchemes:
     api_key:
       type: apiKey

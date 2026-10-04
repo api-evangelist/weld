@@ -48,6 +48,25 @@ components:
           default: true
       required:
       - reports
+    CustomReportCreateResultDto:
+      type: object
+      properties:
+        elt_sync_id:
+          type: string
+          description: The ID of the ELT Sync the report was requested for.
+        name:
+          type: string
+          description: The name of the custom report, as requested.
+        source_stream_name:
+          type: string
+          description: The resulting source stream name. Present when the report was created successfully.
+        error:
+          description: Present when creation failed. Absence of this field means the report was created successfully.
+          allOf:
+          - $ref: '#/components/schemas/CustomReportCreateErrorDto'
+      required:
+      - elt_sync_id
+      - name
     CustomReportCreateErrorDto:
       type: object
       properties:
@@ -96,25 +115,6 @@ components:
             $ref: '#/components/schemas/CustomReportCreateResultDto'
       required:
       - results
-    CustomReportCreateResultDto:
-      type: object
-      properties:
-        elt_sync_id:
-          type: string
-          description: The ID of the ELT Sync the report was requested for.
-        name:
-          type: string
-          description: The name of the custom report, as requested.
-        source_stream_name:
-          type: string
-          description: The resulting source stream name. Present when the report was created successfully.
-        error:
-          description: Present when creation failed. Absence of this field means the report was created successfully.
-          allOf:
-          - $ref: '#/components/schemas/CustomReportCreateErrorDto'
-      required:
-      - elt_sync_id
-      - name
   securitySchemes:
     api_key:
       type: apiKey

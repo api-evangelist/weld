@@ -92,6 +92,25 @@ paths:
       - Orchestrations
 components:
   schemas:
+    PagedOrchestrationDto:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+          description: Indicates whether there are more items to be fetched in the subsequent pages.
+          example: true
+        next_cursor:
+          type: string
+          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
+          example: VeN1GjhVIq1D9h
+        data:
+          description: List of Orchestrations
+          type: array
+          items:
+            $ref: '#/components/schemas/OrchestrationDto'
+      required:
+      - has_more
+      - data
     OrchestrationDto:
       type: object
       properties:
@@ -147,25 +166,6 @@ components:
       - orchestration_id
       - status
       - due_at
-    PagedOrchestrationDto:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-          description: Indicates whether there are more items to be fetched in the subsequent pages.
-          example: true
-        next_cursor:
-          type: string
-          description: The cursor to use in pagination. Use this value as `starting_after` to get the next page.
-          example: VeN1GjhVIq1D9h
-        data:
-          description: List of Orchestrations
-          type: array
-          items:
-            $ref: '#/components/schemas/OrchestrationDto'
-      required:
-      - has_more
-      - data
   securitySchemes:
     api_key:
       type: apiKey

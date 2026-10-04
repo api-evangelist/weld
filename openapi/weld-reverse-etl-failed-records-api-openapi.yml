@@ -126,28 +126,6 @@ components:
             $ref: '#/components/schemas/ReverseEtlSyncRecordErrorDto'
       required:
       - data
-    ReverseEtlSyncFailedRecordCountDto:
-      type: object
-      properties:
-        count:
-          type: number
-          description: The number of unresolved failed records captured for the Reverse ETL Sync.
-          example: 3
-      required:
-      - count
-    RetryReverseEtlSyncRecordErrorsRequestDto:
-      type: object
-      properties:
-        record_ids:
-          description: The IDs of the records whose errors should be reset so they are retried.
-          example:
-          - rec_123
-          - rec_456
-          type: array
-          items:
-            type: string
-      required:
-      - record_ids
     ReverseEtlSyncRecordErrorDto:
       type: object
       properties:
@@ -166,6 +144,28 @@ components:
       - sync_id
       - record_id
       - error
+    RetryReverseEtlSyncRecordErrorsRequestDto:
+      type: object
+      properties:
+        record_ids:
+          description: The IDs of the records whose errors should be reset so they are retried.
+          example:
+          - rec_123
+          - rec_456
+          type: array
+          items:
+            type: string
+      required:
+      - record_ids
+    ReverseEtlSyncFailedRecordCountDto:
+      type: object
+      properties:
+        count:
+          type: number
+          description: The number of unresolved failed records captured for the Reverse ETL Sync.
+          example: 3
+      required:
+      - count
   securitySchemes:
     api_key:
       type: apiKey
