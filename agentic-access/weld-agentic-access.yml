@@ -1,18 +1,23 @@
-generated: '2026-07-21'
+generated: '2026-09-23'
 method: generated
-source: openapi/weld-connect-openapi.json
+source: openapi/weld-connection-bridge-api-openapi.yml, openapi/weld-connections-api-openapi.yml,
+  openapi/weld-custom-reports-api-openapi.yml, openapi/weld-elt-stream-runs-api-openapi.yml,
+  openapi/weld-elt-streams-api-openapi.yml, openapi/weld-elt-syncs-api-openapi.yml, openapi/weld-integrations-api-openapi.yml,
+  openapi/weld-orchestration-runs-api-openapi.yml, openapi/weld-orchestrations-api-openapi.yml,
+  openapi/weld-reverse-etl-failed-records-api-openapi.yml, openapi/weld-reverse-etl-sync-runs-api-openapi.yml,
+  openapi/weld-reverse-etl-syncs-api-openapi.yml, openapi/weld-transforms-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 65
   by_action_class:
-    connected: 32
-    acting: 33
+    connected: 33
+    acting: 32
   by_consequence:
-    read: 32
-    safety-critical: 33
-  human_in_the_loop_required: 33
+    read: 33
+    safety-critical: 32
+  human_in_the_loop_required: 32
 operations:
 - path: /connection_bridges
   method: get
@@ -92,6 +97,26 @@ operations:
     escalation:
       human-in-the-loop: required
     audit: required
+- path: /elt_stream_runs/{id}
+  method: get
+  operationId: EltStreamRunsOpenApiController_getEltStreamRun
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /elt_stream_runs
+  method: get
+  operationId: EltStreamRunsOpenApiController_getEltStreamRuns
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /elt_streams
   method: get
   operationId: EltStreamsOpenApiController_getEltStreams
@@ -176,26 +201,6 @@ operations:
     escalation:
       human-in-the-loop: required
     audit: required
-- path: /elt_stream_runs/{id}
-  method: get
-  operationId: EltStreamRunsOpenApiController_getEltStreamRun
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /elt_stream_runs
-  method: get
-  operationId: EltStreamRunsOpenApiController_getEltStreamRuns
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /elt_syncs/{id}/enable
   method: post
   operationId: EltSyncsOpenApiController_enableEltSync
@@ -562,18 +567,12 @@ operations:
   method: post
   operationId: ReverseEtlSyncsOpenApiController_getReverseEtlSettingsSchema
   x-agentic-access:
-    action-class: acting
-    consequence: safety-critical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 120
-      exchange: true
-      purpose-required: true
-      proof-of-possession: true
-    escalation:
-      human-in-the-loop: required
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /reverse_etl_syncs/{id}
   method: get
   operationId: ReverseEtlSyncsOpenApiController_getReverseEtlSync
