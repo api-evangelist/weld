@@ -116,34 +116,6 @@ paths:
       - Reverse ETL Failed Records
 components:
   schemas:
-    ReverseEtlSyncFailedRecordErrorsDto:
-      type: object
-      properties:
-        data:
-          description: The record errors captured for the Reverse ETL Sync.
-          type: array
-          items:
-            $ref: '#/components/schemas/ReverseEtlSyncRecordErrorDto'
-      required:
-      - data
-    ReverseEtlSyncRecordErrorDto:
-      type: object
-      properties:
-        sync_id:
-          type: string
-          description: The ID of the Reverse ETL Sync the record belongs to.
-          example: OoORhGXUVjsqFG
-        record_id:
-          type: string
-          description: The ID of the record that failed to sync.
-          example: rec_123
-        error:
-          type: string
-          description: The error message describing why the record failed to sync.
-      required:
-      - sync_id
-      - record_id
-      - error
     RetryReverseEtlSyncRecordErrorsRequestDto:
       type: object
       properties:
@@ -166,6 +138,34 @@ components:
           example: 3
       required:
       - count
+    ReverseEtlSyncRecordErrorDto:
+      type: object
+      properties:
+        sync_id:
+          type: string
+          description: The ID of the Reverse ETL Sync the record belongs to.
+          example: OoORhGXUVjsqFG
+        record_id:
+          type: string
+          description: The ID of the record that failed to sync.
+          example: rec_123
+        error:
+          type: string
+          description: The error message describing why the record failed to sync.
+      required:
+      - sync_id
+      - record_id
+      - error
+    ReverseEtlSyncFailedRecordErrorsDto:
+      type: object
+      properties:
+        data:
+          description: The record errors captured for the Reverse ETL Sync.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReverseEtlSyncRecordErrorDto'
+      required:
+      - data
   securitySchemes:
     api_key:
       type: apiKey
