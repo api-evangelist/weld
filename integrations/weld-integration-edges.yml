@@ -1,9 +1,19 @@
-generated: '2026-10-15'
+generated: '2026-10-20'
 method: searched
-checked:
-- shopify/integrations/shopify-integration-edges.yml
 source:
 - shopify/integrations/shopify-integration-edges.yml
+- https://zapier.com/apps/weld/integrations
+- https://n8n.io/integrations/weld/
+- https://composio.dev/toolkits/weld
+- https://monid.ai/tools/weld
+checked:
+- shopify/integrations/shopify-integration-edges.yml
+- https://composio.dev/toolkits/weld
+- https://monid.ai/tools/weld
+- https://n8n.io/integrations/weld/
+- https://zapier.com/apps/weld/integrations
+summary: null
+marketplace_apps: []
 edges:
 - partner_name: Shopify (own)
   partner: shopify
@@ -23,3 +33,4 @@ edges:
   detected_by: mirror-platform-listings.py
   publisher_verified:
   - Built for Shopify
+templates: []
